@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "443824017410",
+    "project_id": "momys-bddc8",
+    "storage_bucket": "momys-bddc8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443824017410:android:70c91506692b699691571b",
+        "android_client_info": {
+          "package_name": "com.hoskadev.momyz_seller_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443824017410-5ca5n9fj955gth3s5b90voc9li8uctem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7sgtUSmCnRCJzoKxjVtE_22fvUmYVbV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443824017410-5ca5n9fj955gth3s5b90voc9li8uctem.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "443824017410-b84rkm0ej03m78vd4dndp4jdgi6qkgr4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hoskadev.momyzSellerApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443824017410:android:ef3a24b88d1e785c91571b",
+        "android_client_info": {
+          "package_name": "com.hoskadev.momyzdelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443824017410-5ca5n9fj955gth3s5b90voc9li8uctem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7sgtUSmCnRCJzoKxjVtE_22fvUmYVbV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443824017410-5ca5n9fj955gth3s5b90voc9li8uctem.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "443824017410-b84rkm0ej03m78vd4dndp4jdgi6qkgr4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hoskadev.momyzSellerApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
