@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
+import '../stats/view_stat_profile.dart';
 import '../wait_view.dart';
 
 class ConfirmOrder3 extends StatelessWidget {
@@ -46,11 +47,9 @@ class ConfirmOrder3 extends StatelessWidget {
                     SizedBox(
                       height: 40.h,
                     ),
-                    ButtonComponent('open_map'.tr, () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ConfirmOrder2()));
+                    ButtonComponent('open_map'.tr,(){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => StateUser()));
                     }),
                     SizedBox(
                       height: 48.h,
