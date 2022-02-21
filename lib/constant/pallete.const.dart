@@ -6,4 +6,5 @@ class Pallete {
   static Color pinkColorPrinciple = Color.fromRGBO(249, 72, 146, 1);
   static Color greyColorPrinciple = Color.fromRGBO(130, 130, 130, 1);
   static Color greyText = Color.fromRGBO(79, 79, 79, 1);
+  static Color backPinColor = Color.fromRGBO(251, 229, 229, 1);
 }

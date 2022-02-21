@@ -4,6 +4,14 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "open_map": "open principal map ",
+          "no_pic": "There is no pic",
+          "code_activation": "Verification code",
+          "code_activation_desc":
+              "You will receive a confirmation code in the number you entered, please make sure and enter the correct number",
+          "code_activation_confirmation": "Confirm the arrival of the order",
+          "product_picture": "Product delivery picture",
+          "order_received": "The order has been received",
           'welcome': 'welcome again !',
           'welcome_desc2': "Create your account and start experimenting",
           'welcome_desc': 'Log in to your account and let the fun begin',
@@ -29,6 +37,14 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "open_map": "فتح الخريطة الرئيسية ",
+          "no_pic": "لا توجد أي صورة",
+          "code_activation": "كود التأكيد ",
+          "code_activation_desc":
+              "سيصلك كود التأكيد في الرقم الذي أدخلته ، رجاء تأكد و إدخال الرقم صحيح ",
+          "code_activation_confirmation": "تأكيد وصول الطلب  ",
+          "product_picture": "صورة توصيل المنتج",
+          "order_received": "تم وصول الطلب ",
           'welcome': 'مرحباً بك مجدداً !',
           'welcome_desc2': "انشئ حسابك وأبدأ التجربة",
           'welcome_desc': 'سجل دخولك إلى حسابك ودع المتعة تبدأ ',
