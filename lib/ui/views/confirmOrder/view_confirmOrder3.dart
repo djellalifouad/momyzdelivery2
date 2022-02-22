@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 
+import '../../../bottom/view_bottom.dart';
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
+import '../profile/view_profile.dart';
 import '../stats/view_stat_profile.dart';
 import '../wait_view.dart';
 
@@ -47,9 +49,9 @@ class ConfirmOrder3 extends StatelessWidget {
                     SizedBox(
                       height: 40.h,
                     ),
-                    ButtonComponent('open_map'.tr,(){
+                    ButtonComponent('open_map'.tr, () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => StateUser()));
+                          MaterialPageRoute(builder: (context) => ProvidedStylesExample()));
                     }),
                     SizedBox(
                       height: 48.h,
