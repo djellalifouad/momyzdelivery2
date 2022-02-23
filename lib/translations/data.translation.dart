@@ -4,6 +4,12 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "market": 'Market',
+          'delivery_price2': "Delivery price",
+          "orders": "Orders",
+          "read_all_notif": "read all notifications",
+          "notifcations": "Notifications",
+          "today": 'Today',
           "delete_file": "delete file",
           "card_grey": "Gray card",
           "vehicule_pic": "Vehicle Pictures",
@@ -66,6 +72,12 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "market": 'المتجر',
+          'delivery_price2': "سعر التوصيل",
+          "orders": "الطلبات",
+          "read_all_notif": "قرائ ة كل الإشعارات",
+          "notifications": "الإشعارات",
+          'today': "اليوم",
           "delete_file": "حذف الملف ",
           "card_grey": "البطاقة الرمادية ",
           "vehicule_pic": "صور المركبة ",

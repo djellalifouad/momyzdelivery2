@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
-import '../constant/pallete.const.dart';
-import '../ui/views/profile/view_profile.dart';
+import '../../../constant/pallete.const.dart';
+import '../notifications/view_notification.dart';
+import '../orders/view_orders.dart';
+import '../profile/view_profile.dart';
 
 class ProvidedStylesExample extends StatefulWidget {
   @override
@@ -23,8 +25,8 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
   List<Widget> _buildScreens() {
     return [
       Profile(),
-      Profile(),
-      Profile(),
+      Notifications(),
+      Orders(),
       Profile(),
     ];
   }
@@ -38,14 +40,14 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         title: "j",
       ),
       PersistentBottomNavBarItem(
-        icon: SvgPicture.asset('assets/icons/BagActive.svg'),
-        inactiveIcon: SvgPicture.asset('assets/icons/orders.svg'),
+        icon: SvgPicture.asset('assets/icons/NotificationActive.svg'),
+        inactiveIcon: SvgPicture.asset('assets/icons/Notification.svg'),
         activeColorPrimary: Pallete.pinkColorPrinciple,
         title: "Home",
       ),
       PersistentBottomNavBarItem(
-        icon: SvgPicture.asset('assets/icons/NotificationActive.svg'),
-        inactiveIcon: SvgPicture.asset('assets/icons/Notification.svg'),
+        icon: SvgPicture.asset('assets/icons/BagActive.svg'),
+        inactiveIcon: SvgPicture.asset('assets/icons/orders.svg'),
         activeColorPrimary: Pallete.pinkColorPrinciple,
         title: "Home",
       ),

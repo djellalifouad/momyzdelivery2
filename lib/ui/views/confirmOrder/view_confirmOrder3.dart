@@ -3,12 +3,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 
-import '../../../bottom/view_bottom.dart';
+
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../bottom/view_bottom.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../profile/view_profile.dart';
