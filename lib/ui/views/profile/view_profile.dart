@@ -6,14 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder3.dart';
+import 'package:momyzdelivery/ui/views/profile/view_edit_delivery.dart';
 
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../complaints/view_choose_type_complaint.dart';
+import '../complaints/view_list_complaint.dart';
+import '../complaints/view_list_complaint2.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
+import '../stats/view_stat_profile.dart';
 import '../wait_view.dart';
 import 'components/component.profile.dart';
 
@@ -142,13 +147,27 @@ class _ProfileState extends State<Profile> {
                       title: 'edit_profile'.tr,
                       pic: 'assets/icons/Profile 2.svg',
                     ),
-                    ProfileCompoenent(
-                      title: 'deliver_vehicule'.tr,
-                      pic: 'assets/icons/truck.svg',
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) => new EditDelivery()));
+                      },
+                      child: ProfileCompoenent(
+                        title: 'deliver_vehicule'.tr,
+                        pic: 'assets/icons/truck.svg',
+                      ),
                     ),
-                    ProfileCompoenent(
-                      title: 'my_benifit'.tr,
-                      pic: 'assets/icons/Wallet.svg',
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) => new StateUser()));
+                      },
+                      child: ProfileCompoenent(
+                        title: 'my_benifit'.tr,
+                        pic: 'assets/icons/Wallet.svg',
+                      ),
                     ),
                     ProfileCompoenent(
                       title: 'stats'.tr,
@@ -182,13 +201,28 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Column(
                       children: [
-                        ProfileCompoenent(
-                          title: 'signals'.tr,
-                          pic: 'assets/icons/dangerTriangle.svg',
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                    builder: (context) => new ListComplaint()));
+                          },
+                          child: ProfileCompoenent(
+                            title: 'signals'.tr,
+                            pic: 'assets/icons/dangerTriangle.svg',
+                          ),
                         ),
-                        ProfileCompoenent(
-                          title: 'make_complaint'.tr,
-                          pic: 'assets/icons/Square.svg',
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context, rootNavigator: true).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        new ListComplaint2()));
+                          },
+                          child: ProfileCompoenent(
+                            title: 'make_complaint'.tr,
+                            pic: 'assets/icons/Square.svg',
+                          ),
                         ),
                         ProfileCompoenent(
                           title: 'politics'.tr,
@@ -202,6 +236,9 @@ class _ProfileState extends State<Profile> {
                           title: 'delete_account'.tr,
                           pic: 'assets/icons/Shield Fail.svg',
                         ),
+                        SizedBox(
+                          height: 70.h,
+                        )
                       ],
                     ),
                   ],
