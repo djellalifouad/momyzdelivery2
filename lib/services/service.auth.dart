@@ -48,13 +48,16 @@ class AuthService {
         }),
       );
     } on DioError catch (e) {
+      print(e.response!.statusCode);
+
       if (e.response!.statusCode == 404) {
         return false;
-      } else {
+      }
+      if (e.response!.statusCode == 422) {
         return true;
       }
     }
-    return true;
+    return false;
   }
 
   static Future<dynamic> register({
@@ -69,19 +72,41 @@ class AuthService {
     Dio dio = Dio();
     String token = await FirebaseMessaging.instance.getToken().toString();
     try {
-      result = await dio.post(baseUrl + "login",
+      print({
+        'phone': phone,
+        'country_code': country_code,
+        'fcm_token': token,
+        'lon': lon,
+        'lat': lat,
+        'name': name,
+      });
+      print(
+        {
+          'phone': phone,
+          'country_code': country_code,
+          'fcm_token': "testesthvjkfdjskkljflds",
+          'lon': lon,
+          'lat': lat,
+          'express_delivery': express_delivery,
+          'name': name,
+        },
+      );
+      result = await dio.post(baseUrl + "register",
           data: {
             'phone': phone,
             'country_code': country_code,
-            'fcm_token': token,
+            'fcm_token': "testesthvjkfdjskkljflds",
             'lon': lon,
             'lat': lat,
+            'express_delivery': express_delivery,
             'name': name,
           },
           options: Options(headers: {
             HttpHeaders.acceptHeader: "application/json",
           }));
     } on DioError catch (e) {
+      print("/register");
+      print(e.response);
       return null;
     }
     print("/register");

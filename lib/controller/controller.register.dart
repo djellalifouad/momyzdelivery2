@@ -62,16 +62,14 @@ class RegisterController extends GetxController {
               smsCode: codePinController.text))
           .then((value) async {
         if (value.user != null) {
-          showMessage("wrong sms2");
           var splashController = Get.find<SplashController>();
-
           AuthService.register(
               name: nameController.text,
               express_delivery:
-                  deliveryTypeController.text == "normaDelivery".tr ? 0 : 1,
+                  deliveryTypeController.text == "normaDelivery".tr ? 2 : 1,
               lat: splashController.position.latitude,
               lon: splashController.position.longitude,
-              country_code: "+" + countryCode,
+              country_code: countryCode,
               phone: phoneController.text);
         } else {
           showMessage("error sms");

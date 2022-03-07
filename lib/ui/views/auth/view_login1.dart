@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login2.dart';
@@ -8,6 +9,7 @@ import 'package:momyzdelivery/ui/views/auth/view_login2.dart';
 import '../../../constant/pallete.const.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
+import '../toast/toast.message.dart';
 
 class Login1View extends StatelessWidget {
   const Login1View({Key? key}) : super(key: key);
@@ -67,7 +69,7 @@ class Login1View extends StatelessWidget {
                     ),
                     TextFormFieldComponent(
                       textEditingController: TextEditingController(),
-                      validator: (valu){},
+                      validator: (valu) {},
                       title: 'enter_phone_number'.tr,
                       icon: 'assets/icons/phone.svg',
                       icon2: '',
@@ -86,6 +88,7 @@ class Login1View extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
+                      
                         Get.to(Login2View());
                       },
                       child: Row(
