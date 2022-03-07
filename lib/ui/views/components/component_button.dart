@@ -1,5 +1,6 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
+          // ignore: prefer_const_constructors
 
 import '../../../constant/pallete.const.dart';
 import 'package:get/get.dart';

@@ -4,6 +4,12 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "user_already_exist": "User already exists",
+          "please_enter_delivery_type": "Please enter delivery type",
+          "please_enter_phone_number": "Please enter phone number",
+          "please_enter_fullName": "Please enter fullName ",
+          "normaDelivery": "Normal delivery",
+          "fastDelivery": "express delivery",
           "write_your_message": "Write your message here ",
           'complaint2': "complaints",
           "complaint2_open": "closed complaints",
@@ -113,6 +119,12 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "user_already_exist": "هذا المستخذم موجود من قبل ",
+          "please_enter_delivery_type": "الرجاء إدخال نوع التوصيل",
+          "please_enter_phone_number": "الرجاء إدخال رقم الهاتف",
+          "please_enter_fullName": "الرجاء إدخال الاسم الكامل",
+          "normaDelivery": "توصيل عادي",
+          "fastDelivery": "توصيل سريع",
           "vehicule_type2": "ملفات المركبة ",
           "write_your_message": "اكتب رسالتك هنا ",
           'complaint2': "الشكاوى",

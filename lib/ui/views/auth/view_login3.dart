@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:momyzdelivery/ui/views/view_login3.dart';
+import 'package:momyzdelivery/ui/views/wait_view.dart';
 
-import '../../constant/pallete.const.dart';
-import 'components/component_button.dart';
-import 'components/component_textField.dart';
+import '../../../constant/pallete.const.dart';
+import '../components/component_button.dart';
+import '../components/component_textField.dart';
 
-class Login2View extends StatelessWidget {
-  const Login2View({Key? key}) : super(key: key);
+class Login3View extends StatelessWidget {
+  const Login3View({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class Login2View extends StatelessWidget {
                       height: 71.h,
                     ),
                     Text(
-                      'fullName'.tr,
+                      'delivery_type'.tr,
                       style: TextStyle(
                         color: Pallete.greyColorPrinciple,
                         fontSize: 16.sp,
@@ -66,16 +66,20 @@ class Login2View extends StatelessWidget {
                       height: 10.h,
                     ),
                     TextFormFieldComponent(
-                      
-                      title: 'enter_fullName'.tr,
-                      icon: 'assets/icons/profile.svg',
-                      icon2: '',
+                      textEditingController: TextEditingController(),
+
+                      validator: (vali) {
+                        
+                      },
+                      icon: '',
+                      title: 'enter_delivery_type'.tr,
+                      icon2: 'assets/icons/down.svg',
                     ),
                     SizedBox(
                       height: 17.h,
                     ),
                     Text(
-                      'phone_number'.tr,
+                      'name_vehicule'.tr,
                       style: TextStyle(
                         color: Pallete.greyColorPrinciple,
                         fontSize: 16.sp,
@@ -86,15 +90,17 @@ class Login2View extends StatelessWidget {
                       height: 10.h,
                     ),
                     TextFormFieldComponent(
-                      title: 'enter_phone_number'.tr,
-                      icon: 'assets/icons/phone.svg',
+                      textEditingController:TextEditingController(),
+                      validator: (val) {},
                       icon2: '',
+                      title: 'enter_name_vehicule'.tr,
+                      icon: '',
                     ),
                     SizedBox(
                       height: 17.h,
                     ),
                     Text(
-                      'address'.tr,
+                      'vehicule_type'.tr,
                       style: TextStyle(
                         color: Pallete.greyColorPrinciple,
                         fontSize: 16.sp,
@@ -105,42 +111,23 @@ class Login2View extends StatelessWidget {
                       height: 10.h,
                     ),
                     TextFormFieldComponent(
+                      textEditingController: TextEditingController(),
+                      validator: (val) {
+
+                      },
                       icon2: '',
-                      title: 'enter_address'.tr,
-                      icon: 'assets/icons/location.svg',
+                      title: 'enter_vehicule_type'.tr,
+                      icon: '',
                     ),
                     SizedBox(
                       height: 40.h,
                     ),
                     ButtonComponent('next_step'.tr, () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Login3View()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => WaitView()));
                     }),
                     SizedBox(
                       height: 48.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'not_have_account'.tr,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        Text(
-                          'create_account'.tr,
-                          style: TextStyle(
-                            color: Pallete.pinkColorPrinciple,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
-                      ],
                     ),
                   ]),
             ),

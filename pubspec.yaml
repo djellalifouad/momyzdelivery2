@@ -46,10 +46,14 @@ dependencies:
   email_validator: ^2.0.1
   firebase_messaging: ^11.2.6
   firebase_auth: ^3.3.7
+  intl_phone_number_input: ^0.7.0+2
   stacked: ^2.2.8
   pin_code_fields: ^7.3.0
   fluttertoast: ^8.0.8
-  intl_phone_field: ^2.0.1
+  form_field_validator: ^1.1.0
+  intl_phone_field: ^3.0.1
+  geolocator: ^8.2.0
+  get_storage:
 
 dev_dependencies:
   flutter_test:

@@ -66,6 +66,8 @@ class MakeComplaint extends StatelessWidget {
                 height: 6.h,
               ),
               TextFormFieldComponent(
+                textEditingController: TextEditingController(),
+                validator: (val) {},
                 icon: '',
                 title: 'choose_reason'.tr,
                 icon2: 'assets/icons/down.svg',

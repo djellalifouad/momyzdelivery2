@@ -323,7 +323,7 @@ class EditDelivery extends StatelessWidget {
                       fontSize: 10.sp,
                       decoration: TextDecoration.underline,
                       color: Color.fromRGBO(235, 87, 87, 1)),
-                )
+                ),
               ]),
             ),
             SizedBox(
