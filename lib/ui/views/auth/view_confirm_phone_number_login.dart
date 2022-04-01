@@ -10,16 +10,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../../../controller/controller.phoneConfirmationLogin.dart';
 import '../../../controller/phoneConfirmationRegister.controller.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
 
-class ConfirmPhoneNumberRegister extends StatelessWidget {
+class ConfirmPhoneNumberLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final phoneConfirmationRegisterController =
-        Get.put(PhoneConfirmationRegisterController());
+    final phoneConfirmationLoginController =
+        Get.put(PhoneConfirmationLoginController());
     return SafeArea(
       child: Scaffold(
         backgroundColor: Pallete.backGroundColor,
@@ -98,12 +99,11 @@ class ConfirmPhoneNumberRegister extends StatelessWidget {
                               fieldHeight: 39.sp,
                               fieldWidth: 47.sp,
                             ),
-                            controller: phoneConfirmationRegisterController
+                            controller: phoneConfirmationLoginController
                                 .codePinController,
                             onCompleted: (v) async {
                               print(v);
-                              phoneConfirmationRegisterController
-                                  .verifyPhoneAndRegister();
+                              phoneConfirmationLoginController.verifyPhoneAndLogin();
                             },
                             onChanged: (value) {},
                             beforeTextPaste: (text) {
@@ -115,36 +115,20 @@ class ConfirmPhoneNumberRegister extends StatelessWidget {
                     SizedBox(
                       height: 41.h,
                     ),
-                    GetBuilder<PhoneConfirmationRegisterController>(
+                    GetBuilder<PhoneConfirmationLoginController>(
                       builder: (_) =>
-                          phoneConfirmationRegisterController.isRegistring
+                          phoneConfirmationLoginController.isRegistring
                               ? Center(child: CircularProgressIndicator())
                               : ButtonComponent('verify_phone'.tr, () {
-                                  phoneConfirmationRegisterController
-                                      .verifyPhoneAndRegister();
+                                  phoneConfirmationLoginController
+                                      .verifyPhoneAndLogin();
                                 }),
                     ),
                     SizedBox(
                       height: 48.h,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/Active.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                      ],
-                    ),
+                   
+                 
                   ]),
             ),
           ),

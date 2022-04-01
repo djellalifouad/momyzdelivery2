@@ -10,14 +10,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
   final splashController = Get.put(SplashController());
   @override
+  void initState() {
+    splashController.check();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+
     print('wow');
     return Scaffold(
-      body: Center(
-        child: Text('center'),
-      ),
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

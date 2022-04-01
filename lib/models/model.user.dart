@@ -10,26 +10,39 @@ class Driver {
   String country_code;
   String full_phone_number;
   int state;
+  String personal_id;
   int express_delivery;
-  Car car;
-  
-  Driver(
-      {required this.access_token,
-      required this.car,
-      required this.country_code,
-      required this.express_delivery,
-      required this.id,
-      required this.image_url,
-      required this.full_phone_number,
-      required this.phone,
-      required this.token_type,
-      required this.name,
-      required this.state});
+  Car? car;
+  String driving_licence_image_url;
+  String car_registration_certificate_image_url;
+
+  Driver({
+    required this.personal_id,
+    required this.access_token,
+    required this.state,
+    required this.car_registration_certificate_image_url,
+    required this.driving_licence_image_url,
+    required this.car,
+    required this.country_code,
+    required this.express_delivery,
+    required this.id,
+    required this.image_url,
+    required this.full_phone_number,
+    required this.phone,
+    required this.token_type,
+    required this.name,
+  });
   factory Driver.fromMap(Map<String, dynamic> map) {
+    print("the map");
+    print(map);
     return Driver(
+      personal_id: map['personal_id'].toString(),
+      car_registration_certificate_image_url:
+          map['car_registration_certificate_image_url'].toString(),
+      driving_licence_image_url: map['driving_licence_image_url'].toString(),
       express_delivery: map['express_delivery'],
-      access_token: map['access_token'],
-      token_type: map['token_type'],
+      access_token: map['access_token'].toString(),
+      token_type: map['token_type'].toString(),
       id: map['id'],
       name: map['name'],
       image_url: map['image_url'],
@@ -37,7 +50,7 @@ class Driver {
       country_code: map['country_code'],
       full_phone_number: map['full_phone_number'],
       state: map['state'],
-      car: Car.fromMap(map['car']),
+      car: map['car'] == null ? null : Car.fromMap(map['car']),
     );
   }
 }

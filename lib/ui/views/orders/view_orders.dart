@@ -93,7 +93,7 @@ class _OrdersState extends State<Orders> {
                                           width: 42.sp,
                                         ),
                                         SizedBox(
-                                          width: 12.w,
+                                          width: 6.w,
                                         ),
                                         Column(
                                           crossAxisAlignment:

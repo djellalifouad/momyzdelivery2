@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:momyzdelivery/controller/controller.register.dart';
+import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login3.dart';
 
 import '../../../constant/pallete.const.dart';
@@ -177,9 +178,13 @@ class Login2View extends StatelessWidget {
                       SizedBox(
                         height: 40.h,
                       ),
-                      ButtonComponent('next_step'.tr, () {
-                        registerController.checkPhone();
-                      }),
+                      GetBuilder<RegisterController>(
+                        builder: (_) => !registerController.isCheckingPhone
+                            ? ButtonComponent('next_step'.tr, () {
+                                registerController.checkPhone();
+                              })
+                            : Center(child: CircularProgressIndicator()),
+                      ),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -204,26 +209,31 @@ class Login2View extends StatelessWidget {
                       SizedBox(
                         height: 48.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'have_account'.tr,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
+                      InkWell(
+                        onTap: () {
+                          Get.to(Login1View());
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'already_have_account'.tr,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                          Text(
-                            'create_account'.tr,
-                            style: TextStyle(
-                              color: Pallete.pinkColorPrinciple,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
+                            Text(
+                              'login'.tr,
+                              style: TextStyle(
+                                color: Pallete.pinkColorPrinciple,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ]),
               ),

@@ -1,49 +1,41 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:momyzdelivery/controller/controller.splash.dart';
-import 'package:momyzdelivery/controller/controller.splash.dart';
 
-import 'package:momyzdelivery/services/service.auth.dart';
-
-import '../ui/views/auth/view_confirm_phone_number.dart';
+import '../services/service.auth.dart';
+import '../ui/views/auth/view_confirm_phone_number_login.dart';
 import '../ui/views/toast/toast.message.dart';
 
-class RegisterController extends GetxController {
+class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController deliveryTypeController = TextEditingController();
-  String countryCode = "+213";
   String verficationIdCode = "";
+  final TextEditingController phoneController = TextEditingController();
+  String countryCode = "+213";
   bool isCheckingPhone = false;
-
   updateCountryCode(String value) {
     countryCode = value;
     update();
   }
+
   changeIsCheckingPhone() {
     isCheckingPhone = !isCheckingPhone;
     update();
   }
+
   checkPhone() async {
-    if (formKey.currentState!.validate()) {
-      if (phoneController.text.length < 9) {
-        print("hh");
-        showMessage('pleaser_enter_a_correct_number'.tr);
-        return;
-      }
+    if (phoneController.text.length < 9) {
+      print("hh");
+      showMessage('pleaser_enter_a_correct_number'.tr);
+    } else {
       changeIsCheckingPhone();
-      print(countryCode);
-      print(phoneController.text);
       bool exist = await AuthService.phoneCheck(
           country_code: countryCode, phone: phoneController.text);
-      print(exist);
       if (!exist) {
-        sendSmsToPhone();
-      } else {
         changeIsCheckingPhone();
-        showMessage("user_already_exist".tr);
+        showMessage("pleaser_enter_a_correct_number".tr);
+      } else {
+        print('exist');
+        sendSmsToPhone();
         // show error message
       }
     }
@@ -56,7 +48,7 @@ class RegisterController extends GetxController {
       codeSent: (String verificationId, int? resendToken) async {
         print(verificationId);
         verficationIdCode = verificationId;
-        Get.to(ConfirmPhoneNumberRegister());
+        Get.to(ConfirmPhoneNumberLogin());
         update();
         changeIsCheckingPhone();
       },

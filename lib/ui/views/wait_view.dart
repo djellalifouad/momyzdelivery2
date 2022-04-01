@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:momyzdelivery/ui/views/splashScreen/widget.splash.dart';
 
 import '../../constant/pallete.const.dart';
+import 'bottom/view_bottom.dart';
 import 'components/component_button.dart';
 import 'components/component_textField.dart';
 import 'confirmOrder/view_confirmOrder1.dart';
@@ -21,10 +23,7 @@ class WaitView extends StatelessWidget {
           ),
           child: SingleChildScrollView(
             child: InkWell(
-              onTap: () {
-                    Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ConfirmOrder()));
-              },
+              onTap: () {},
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -54,6 +53,12 @@ class WaitView extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color: Pallete.greyText),
                     )),
+                    SizedBox(
+                      height: 28.h,
+                    ),
+                    ButtonComponent('to_home'.tr, () {
+                      Get.to(SplashScreen());
+                    })
                   ]),
             ),
           ),

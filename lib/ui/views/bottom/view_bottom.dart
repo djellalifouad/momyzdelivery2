@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:momyzdelivery/ui/views/home/widget.home.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../../../constant/pallete.const.dart';
@@ -14,7 +15,7 @@ class ProvidedStylesExample extends StatefulWidget {
 
 class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+      PersistentTabController(initialIndex: 3);
   bool _hideNavBar = false;
 
   @override
@@ -27,7 +28,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
       Profile(),
       Notifications(),
       Orders(),
-      Profile(),
+      Home(),
     ];
   }
 

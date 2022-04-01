@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../complaints/view_choose_type_complaint.dart';
+import '../complaints/view_list_complaint2.dart';
 import '../complaints/view_make_complaint.dart';
 import '../complaints/view_make_complaint2.dart';
 
@@ -496,10 +497,9 @@ class OrderDetails extends StatelessWidget {
                 children: [
                   InkWell(
                     onTap: () {
-                      Navigator.push(
-                          context,
+                      Navigator.of(context, rootNavigator: true).push(
                           MaterialPageRoute(
-                              builder: (context) => ChooseComplaintType()));
+                              builder: (context) => new ListComplaint2()));
                     },
                     child: Row(
                       children: [
