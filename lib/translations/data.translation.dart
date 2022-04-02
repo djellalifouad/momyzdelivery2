@@ -1,9 +1,14 @@
 import 'package:get/get.dart';
-
 class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "ammount": "the amount",
+          "withdtawal_detail": "Draw details",
+          "number": "number",
+          "please_enter_ammount": "Please enter the amount",
+          "please_enter_withdtawal_detail": "Please enter withdrawal details",
+          "please_enter_iban": "Please enter IBAN",
           "my_trans": "Transactions",
           "enter_message": "Enter message",
           "please_enter_title": "Please enter a title",
@@ -164,6 +169,12 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "ammount": "المبلغ",
+          "withdtawal_detail": "تفاصيل السحب ",
+          "number": "رقم",
+          "please_enter_ammount": "يرجى إدخال المبلغ",
+          "please_enter_withdtawal_detail": "يرجى إدخال تفاصيل السحب ",
+          "please_enter_iban": "يرجى إدخال IBAN ",
           "my_trans": "المعاملات",
           "enter_message": "يرجى ارسال رسالة ",
           "please_enter_title": "يرجى إدخال عنوان للشكوى",

@@ -43,7 +43,7 @@ class ProfileService {
   }
 
   static Future<Comment?> makeComment(
-      String message, File? image, String id,String token) async {
+      String message, File? image, String id, String token) async {
     Map<String, String> headers = {
       'Accept': 'application/json',
       "X-Requested-With": "XMLHttpRequest",
@@ -76,7 +76,7 @@ class ProfileService {
     print(responsed.body);
     if (responsed.statusCode == 201) {
       Map<String, dynamic> map = json.decode(responsed.body);
-      return Comment.fromMap(map['data']); 
+      return Comment.fromMap(map['data']);
     } else {
       return null;
     }
@@ -256,6 +256,27 @@ class ProfileService {
     }
   }
 
+  static Future<bool> makeWithdrawal(
+      String token, String iban, String amount, String description) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Authorization': "Bearer ${token}",
+    };
+    http.Response response = await http
+        .post(Uri.parse(baseUrl + "withdrawal"), headers: headers, body: {
+      'amount': amount,
+      'iban': iban,
+      'description': description,
+    });
+    print(response.body);
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static Future<String?> updateProfilePicture(File image, String token) async {
     var request = http.MultipartRequest(
       'POST',
@@ -282,6 +303,26 @@ class ProfileService {
     if (responsed.statusCode == 202) {
       Map<String, dynamic> map = json.decode(responsed.body);
       return map['data']['profile']['image_url'];
+    } else {
+      return null;
+    }
+  }
+
+  static Future<Driver?> updateOnlineState(String token) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      "X-Requested-With": "XMLHttpRequest",
+      'Authorization': "Bearer ${token}",
+    };
+    http.Response response = await http.get(
+      Uri.parse(baseUrl + "profile/online-state"),
+      headers: headers,
+    );
+    Map<String, dynamic> map = json.decode(response.body);
+    print('response map');
+    print(map);
+    if (response.statusCode == 200) {
+      return Driver.fromMap(map['data']['driver']);
     } else {
       return null;
     }

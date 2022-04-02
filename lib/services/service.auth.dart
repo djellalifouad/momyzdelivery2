@@ -8,9 +8,31 @@ import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/constant/server.const.dart';
 import 'package:http/http.dart' as http;
 import '../models/model.car.dart';
+import '../models/model.settings.dart';
 import '../models/model.user.dart';
+import '../ui/views/profile/view_settings.dart';
 
 class AuthService {
+  static Future<SettigsModel?> getSettings(String token) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      "X-Requested-With": "XMLHttpRequest",
+      'Authorization': "Bearer ${token}",
+    };
+    http.Response response = await http.get(
+      Uri.parse(baseUrl + "settings"),
+      headers: headers,
+    );
+    Map<String, dynamic> map = json.decode(response.body);
+    print('response settigs');
+    print(map);
+    if (response.statusCode == 200) {
+      return SettigsModel.fromMap(map['settings']);
+    } else {
+      return null;
+    }
+  }
+
   static Future<bool> Login({
     required String country_code,
     required String phone,

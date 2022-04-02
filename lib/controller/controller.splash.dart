@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:momyzdelivery/models/model.settings.dart';
 import 'package:momyzdelivery/models/model.user.dart';
+import 'package:momyzdelivery/services/service.auth.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:geolocator/geolocator.dart';
@@ -14,6 +16,7 @@ import '../ui/views/bottom/view_bottom.dart';
 class SplashController extends GetxController {
   late Position position;
   Driver? v;
+  SettigsModel? s;
   updateDriver(Driver driver) {
     v = driver;
     update();
@@ -27,11 +30,14 @@ class SplashController extends GetxController {
     if (getStorage.hasData('token')) {
       String token = getStorage.read('token');
       v = await ProfileService.getProfile(token);
+
       if (v == null) {
+
         Get.off(Login1View());
         getStorage.remove('token');
         return;
       }
+              s = await AuthService.getSettings(token);
       if (v!.driving_licence_image_url == "null") {
         Get.to(PersonalInfoView());
         return;
@@ -48,22 +54,12 @@ class SplashController extends GetxController {
 }
 
 Future<Position> _determinePosition() async {
-  bool serviceEnabled;
   LocationPermission permission;
-
-  // Test if location services are enabled.
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
-    return Future.error('Location services are disabled.');
-  }
-
   permission = await Geolocator.checkPermission();
   if (permission == LocationPermission.denied) {
     permission = await Geolocator.requestPermission();
     if (permission == LocationPermission.denied) {
+      permission = await Geolocator.checkPermission();
       // Permissions are denied, next time you could try
       // requesting permissions again (this is also where
       // Android's shouldShowRequestPermissionRationale
@@ -72,8 +68,8 @@ Future<Position> _determinePosition() async {
       return Future.error('Location permissions are denied');
     }
   }
-
   if (permission == LocationPermission.deniedForever) {
+    permission = await Geolocator.checkPermission();
     // Permissions are denied forever, handle appropriately.
     return Future.error(
         'Location permissions are permanently denied, we cannot request permissions.');
@@ -82,6 +78,8 @@ Future<Position> _determinePosition() async {
   // When we reach here, permissions are granted and we can
   // continue accessing the position of the device.
   var position2 = await Geolocator.getCurrentPosition();
+  print('position2');
+  print(position2);
 
   return position2;
 }

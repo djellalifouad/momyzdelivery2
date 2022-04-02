@@ -11,7 +11,6 @@ class TicketController extends GetxController {
   bool isMore1 = true;
   bool isMore2 = true;
   _scrollListener1() {
-    print("scrolling");
     if (scrollController1.offset >=
             scrollController1.position.maxScrollExtent &&
         !scrollController1.position.outOfRange) {

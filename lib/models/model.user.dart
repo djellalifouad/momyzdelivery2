@@ -15,8 +15,11 @@ class Driver {
   Car? car;
   String driving_licence_image_url;
   String car_registration_certificate_image_url;
+  int online;
+  String wallet;
 
   Driver({
+    required this.wallet,
     required this.personal_id,
     required this.access_token,
     required this.state,
@@ -31,11 +34,14 @@ class Driver {
     required this.phone,
     required this.token_type,
     required this.name,
+    required this.online,
   });
   factory Driver.fromMap(Map<String, dynamic> map) {
     print("the map");
-    print(map);
+    print(map['online']);
     return Driver(
+      wallet: map['wallet'].toString(),
+      online: map['online'],
       personal_id: map['personal_id'].toString(),
       car_registration_certificate_image_url:
           map['car_registration_certificate_image_url'].toString(),

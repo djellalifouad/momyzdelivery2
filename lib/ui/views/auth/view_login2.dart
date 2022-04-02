@@ -15,7 +15,6 @@ import '../components/component_textField.dart';
 
 class Login2View extends StatelessWidget {
   const Login2View({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final registerController = Get.put(RegisterController());

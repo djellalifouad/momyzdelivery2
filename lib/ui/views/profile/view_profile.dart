@@ -98,11 +98,16 @@ class _ProfileState extends State<Profile> {
                                                 splashController.v!.image_url,
                                           ),
                                         ),
-                                        Positioned(
-                                            top: 9.sp,
-                                            right: 9.sp,
-                                            child: SvgPicture.asset(
-                                                'assets/icons/t.svg')),
+                                        splashController.v!.online == 2
+                                            ? Positioned(
+                                                top: 9.sp,
+                                                right: 9.sp,
+                                                child: SvgPicture.asset(
+                                                    'assets/icons/t.svg'))
+                                            : Container(
+                                                height: 0,
+                                                width: 0,
+                                              ),
                                         Positioned(
                                             bottom: 9.sp,
                                             left: 9.sp,
