@@ -5,7 +5,21 @@ import 'package:flutter_svg/svg.dart';
 import '../../../constant/pallete.const.dart';
 import 'package:get/get.dart';
 
-class Notifications extends StatelessWidget {
+import '../../../controller/controller.getNotification.dart';
+
+class Notifications extends StatefulWidget {
+  @override
+  State<Notifications> createState() => _NotificationsState();
+}
+
+class _NotificationsState extends State<Notifications> {
+  final controller = Get.put(NotificationController());
+  @override
+  void initState() {
+    controller.getNotifcations();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,424 +38,96 @@ class Notifications extends StatelessWidget {
               ),
             ),
             backgroundColor: Pallete.backGroundColor,
-            body: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 24.w,
-                ),
-                child: Align(
-                    alignment: Alignment.topRight,
-                    child: SingleChildScrollView(
-                        child: Column(
-                      children: [
-                        SizedBox(
-                          height: 21.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'today'.tr,
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
+            body: GetBuilder<NotificationController>(builder: (context) {
+              return Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                  ),
+                  child: Align(
+                      alignment: Alignment.topRight,
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 21.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'today'.tr,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            Text(
-                              'read_all_notif'.tr,
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: Pallete.greyText,
+                              Text(
+                                'read_all_notif'.tr,
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Pallete.greyText,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 24.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                            ],
+                          ),
+                          SizedBox(
+                            height: 24.h,
+                          ),
+                          ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: controller.notifications.length,
+                              itemBuilder: (context, index) {
+                                return Row(
                                   children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
+                                    Image.asset('assets/images/test.png'),
+                                    SizedBox(width: 10.w),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'لديك طلب جديد',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14.sp,
+                                              ),
+                                            ),
+                                            SizedBox(width: 0.37.sw),
+                                            Text(
+                                              'منذ ساعة ',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 11.sp,
+                                                color:
+                                                    Pallete.pinkColorPrinciple,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 4.h,
+                                        ),
+                                        Text(
+                                          "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11.sp,
+                                            color: Pallete.greyText,
+                                          ),
+                                        ),
+                                      ],
+                                    )
                                   ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 32.h,
-                        ),
-                        Row(
-                          children: [
-                            Image.asset('assets/images/test.png'),
-                            SizedBox(width: 10.w),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'لديك طلب جديد',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                      ),
-                                    ),
-                                    SizedBox(width: 0.37.sw),
-                                    Text(
-                                      'منذ ساعة ',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11.sp,
-                                        color: Pallete.pinkColorPrinciple,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 4.h,
-                                ),
-                                Text(
-                                  "لوريم ايبسوم دولاريبسوم دولار سيبسوم دولار س سا م من",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 11.sp,
-                                    color: Pallete.greyText,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
-                    ))))));
+                                );
+                              })
+                        ],
+                      )));
+            })));
   }
 }

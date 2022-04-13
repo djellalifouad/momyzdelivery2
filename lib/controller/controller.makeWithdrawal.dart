@@ -27,10 +27,11 @@ class WithdrawalController extends GetxController {
   makeWithdrawal() async {
     print('test');
     token = box.read('token').toString();
+    print(splashController.s!.min_wthdrawal_ammount.toString());
     if (formKey.currentState!.validate()) {
       print(double.parse(splashController.s!.min_wthdrawal_ammount.toString()) >
           double.parse(amountController.text));
-      if (double.parse(splashController.s!.min_wthdrawal_ammount.toString()) >
+      if (double.parse(splashController.s!.min_wthdrawal_ammount.toString()) <
           double.parse(amountController.text)) {
         updateIsRequest();
         bool result = await ProfileService.makeWithdrawal(token,

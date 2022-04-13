@@ -24,8 +24,7 @@ class _ListComplaint2State extends State<ListComplaint2> {
       bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 10.h),
           child: ButtonComponent('open_new_complaint2'.tr, () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MakeComplaint()));
+            Get.to(MakeComplaint());
           })),
       appBar: AppBar(
         backgroundColor: Pallete.backGroundColor2,

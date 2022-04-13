@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:momyzdelivery/models/model.order.dart';
 
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,6 +10,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../components/component_button.dart';
 
 class Invoice extends StatelessWidget {
+  Order order;
+  Invoice(this.order);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

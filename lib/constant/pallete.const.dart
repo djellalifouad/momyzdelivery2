@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 class Pallete {
   static Color backGroundColor = Color.fromRGBO(255, 255, 255, 1);
   static Color backGroundColor2 = Color.fromRGBO(245, 246, 250, 1);

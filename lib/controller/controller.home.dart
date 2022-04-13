@@ -17,6 +17,7 @@ class HomeController extends GetxController {
     box = GetStorage();
     token = box.read('token').toString();
   }
+
   updateLocation() async {
     if (isProcessing) {
       return;

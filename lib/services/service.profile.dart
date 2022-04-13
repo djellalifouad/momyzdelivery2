@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:momyzdelivery/models/model.comment.dart';
+import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import '../constant/server.const.dart';
 import 'dart:convert';
 
@@ -269,11 +270,15 @@ class ProfileService {
       'iban': iban,
       'description': description,
     });
+    print('response make withdrawal');
     print(response.body);
-    if (response.statusCode == 201) {
-      return true;
-    } else {
+    print(response.statusCode);
+    Map<String, dynamic> map = json.decode(response.body);
+    if (response.statusCode == 422) {
+      showMessage(map['message']);
       return false;
+    } else {
+      return true;
     }
   }
 
@@ -314,7 +319,7 @@ class ProfileService {
       "X-Requested-With": "XMLHttpRequest",
       'Authorization': "Bearer ${token}",
     };
-    http.Response response = await http.get(
+    http.Response response = await http.put(
       Uri.parse(baseUrl + "profile/online-state"),
       headers: headers,
     );

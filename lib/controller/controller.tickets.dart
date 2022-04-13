@@ -45,12 +45,10 @@ class TicketController extends GetxController {
     getTicket2();
     super.onInit();
   }
-
   updateIsGetting1() {
     isGetting1 = !isGetting1;
     update();
   }
-
   updateIsGetting2() {
     isGetting2 = !isGetting2;
     update();

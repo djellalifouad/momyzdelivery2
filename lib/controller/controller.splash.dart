@@ -29,15 +29,13 @@ class SplashController extends GetxController {
     GetStorage getStorage = GetStorage();
     if (getStorage.hasData('token')) {
       String token = getStorage.read('token');
+      s = await AuthService.getSettings(token);
       v = await ProfileService.getProfile(token);
-
       if (v == null) {
-
         Get.off(Login1View());
         getStorage.remove('token');
         return;
       }
-              s = await AuthService.getSettings(token);
       if (v!.driving_licence_image_url == "null") {
         Get.to(PersonalInfoView());
         return;
