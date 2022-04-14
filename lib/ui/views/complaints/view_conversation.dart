@@ -27,126 +27,143 @@ class _ConversationState extends State<Conversation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: GetBuilder<CommentController>(builder: (context2) {
-        if (controller.isMakingComment) {
-          return SizedBox(
-            height: 25.sp,
-            width: 25.sp,
-            child: Center(
-              child: SizedBox(
-                height: 25.sp,
-                width: 25.sp,
-                child: CircularProgressIndicator(),
+      bottomNavigationBar: widget.ticket.status == 2
+          ? Padding(
+              padding: EdgeInsets.only(bottom: 30.h),
+              child: Text(
+                "cant_send_message".tr,
+                style: TextStyle(
+                  color: Pallete.greyText,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14.sp,
+                ),
+                textAlign: TextAlign.center,
               ),
-            ),
-          );
-        }
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
-          child: Padding(
-            padding: MediaQuery.of(context).viewInsets,
-            child: Container(
-              height: controller.image != null ? 145.h : 97.h,
-              child: Column(
-                children: [
-                  controller.image != null
-                      ? Container(
-                          height: 50.h,
-                          child: Row(children: [
-                            if (controller.image != null)
-                              Padding(
-                                padding: EdgeInsets.only(right: 10.w),
-                                child: Stack(
-                                  children: [
-                                    Image.file(
-                                      controller.image,
-                                      height: 30.sp,
-                                      width: 30.sp,
-                                    ),
-                                    Positioned(
-                                      top: 4.sp,
-                                      right: 4.sp,
-                                      child: InkWell(
-                                        onTap: () {
-                                          controller.deleteImage();
-                                        },
-                                        child: Icon(
-                                          Icons.clear,
-                                          size: 8.sp,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            else
-                              Container()
-                          ]),
-                          decoration: BoxDecoration(color: Colors.white),
-                        )
-                      : Container(),
-                  SizedBox(
-                    height: 5.h,
+            )
+          : GetBuilder<CommentController>(builder: (context2) {
+              if (controller.isMakingComment) {
+                return SizedBox(
+                  height: 25.sp,
+                  width: 25.sp,
+                  child: Center(
+                    child: SizedBox(
+                      height: 25.sp,
+                      width: 25.sp,
+                      child: CircularProgressIndicator(),
+                    ),
                   ),
-                  Container(
-                    height: 90.h,
-                    child: TextFormField(
-                      controller: controller.textEditingController,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      decoration: InputDecoration(
-                        prefixIconConstraints: BoxConstraints(
-                          maxHeight: 15.sp,
-                          maxWidth: 60.sp,
+                );
+              }
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 0.h),
+                child: Padding(
+                  padding: MediaQuery.of(context).viewInsets,
+                  child: Container(
+                    height: controller.image != null ? 145.h : 97.h,
+                    child: Column(
+                      children: [
+                        controller.image != null
+                            ? Container(
+                                height: 50.h,
+                                child: Row(children: [
+                                  if (controller.image != null)
+                                    Padding(
+                                      padding: EdgeInsets.only(right: 10.w),
+                                      child: Stack(
+                                        children: [
+                                          Image.file(
+                                            controller.image,
+                                            height: 30.sp,
+                                            width: 30.sp,
+                                          ),
+                                          Positioned(
+                                            top: 4.sp,
+                                            right: 4.sp,
+                                            child: InkWell(
+                                              onTap: () {
+                                                controller.deleteImage();
+                                              },
+                                              child: Icon(
+                                                Icons.clear,
+                                                size: 8.sp,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  else
+                                    Container()
+                                ]),
+                                decoration: BoxDecoration(color: Colors.white),
+                              )
+                            : Container(),
+                        SizedBox(
+                          height: 5.h,
                         ),
-                        suffixIconConstraints: BoxConstraints(
-                          maxHeight: 15.sp,
-                          maxWidth: 60.sp,
-                        ),
-                        prefixIcon: InkWell(
-                          onTap: () {
-                            controller.getImage();
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(right: 25.w, left: 10.w),
-                            child: SvgPicture.asset('assets/icons/pined.svg'),
-                          ),
-                        ),
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            controller.sendComment(widget.ticket.id.toString());
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 20.w, right: 10.w),
-                            child: SvgPicture.asset(
-                              'assets/icons/Send.svg',
+                        Container(
+                          height: 90.h,
+                          child: TextFormField(
+                            controller: controller.textEditingController,
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            decoration: InputDecoration(
+                              prefixIconConstraints: BoxConstraints(
+                                maxHeight: 15.sp,
+                                maxWidth: 60.sp,
+                              ),
+                              suffixIconConstraints: BoxConstraints(
+                                maxHeight: 15.sp,
+                                maxWidth: 60.sp,
+                              ),
+                              prefixIcon: InkWell(
+                                onTap: () {
+                                  controller.getImage();
+                                },
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(right: 25.w, left: 10.w),
+                                  child: SvgPicture.asset(
+                                      'assets/icons/pined.svg'),
+                                ),
+                              ),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  controller
+                                      .sendComment(widget.ticket.id.toString());
+                                },
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.only(left: 20.w, right: 10.w),
+                                  child: SvgPicture.asset(
+                                    'assets/icons/Send.svg',
+                                  ),
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: Color.fromRGBO(252, 250, 250, 1),
+                              hintText: 'write_your_message'.tr,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Pallete.pinkColorPrinciple),
+                                borderRadius: BorderRadius.circular(8.sp),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                                borderRadius: BorderRadius.circular(8.sp),
+                              ),
                             ),
                           ),
                         ),
-                        filled: true,
-                        fillColor: Color.fromRGBO(252, 250, 250, 1),
-                        hintText: 'write_your_message'.tr,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Pallete.pinkColorPrinciple),
-                          borderRadius: BorderRadius.circular(8.sp),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(8.sp),
-                        ),
-                      ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }),
+                ),
+              );
+            }),
       backgroundColor: Pallete.backGroundColor2,
       appBar: AppBar(
         backgroundColor: Pallete.backGroundColor2,

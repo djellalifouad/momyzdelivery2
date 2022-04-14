@@ -181,19 +181,18 @@ class _ProfileState extends State<Profile> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (context) => new StateUser()));
+                          Get.to(StateUser());
                         },
                         child: ProfileCompoenent(
                           title: 'my_benifit'.tr,
                           pic: 'assets/icons/Wallet.svg',
                         ),
                       ),
-                      ProfileCompoenent(
+                      /*   ProfileCompoenent(
                         title: 'stats'.tr,
                         pic: 'assets/icons/Chart2.svg',
                       ),
+                      */
                     ],
                   ),
                   SizedBox(
@@ -238,10 +237,7 @@ class _ProfileState extends State<Profile> {
                           splashController.v!.state == 2
                               ? InkWell(
                                   onTap: () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                new ListComplaint2()));
+                                    Get.to(ListComplaint2());
                                   },
                                   child: ProfileCompoenent(
                                     title: 'make_complaint'.tr,

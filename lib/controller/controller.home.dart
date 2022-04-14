@@ -6,7 +6,6 @@ import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:momyzdelivery/models/model.user.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
-
 class HomeController extends GetxController {
   final splashController = Get.find<SplashController>();
   bool isProcessing = false;
@@ -17,7 +16,6 @@ class HomeController extends GetxController {
     box = GetStorage();
     token = box.read('token').toString();
   }
-
   updateLocation() async {
     if (isProcessing) {
       return;
@@ -29,7 +27,7 @@ class HomeController extends GetxController {
     if (v == null) {
       showMessage('error'.tr);
       return;
-    } else {
+    }else {
       v!.car = splashController.v!.car;
       splashController.updateDriver(v);
       showMessage('success'.tr);

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../constant/pallete.const.dart';
 import '../../../models/model.order.dart';
+import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ViewOrderLocation extends StatefulWidget {
   Order order;
@@ -39,15 +42,39 @@ class _ViewOrderLocationState extends State<ViewOrderLocation> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: GoogleMap(
-          zoomGesturesEnabled: false,
-          zoomControlsEnabled: false,
-          mapType: MapType.normal,
-          markers: Set<Marker>.of(markers.values),
-          initialCameraPosition: _kLake,
-          onMapCreated: (GoogleMapController controller) {},
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+            ),
+            backgroundColor: Pallete.backGroundColor2,
+            elevation: 0,
+            title: Text(
+              'order_location'.tr,
+              style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 12.sp,
+                  color: Pallete.greyColorPrinciple),
+            ),
+          ),
+          body: GoogleMap(
+            zoomGesturesEnabled: false,
+            zoomControlsEnabled: false,
+            mapType: MapType.normal,
+            markers: Set<Marker>.of(markers.values),
+            initialCameraPosition: _kLake,
+            onMapCreated: (GoogleMapController controller) {},
+          ),
         ),
       ),
     );

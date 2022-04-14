@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,19 +12,100 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../../../controller/controller.login.dart';
 import '../../../controller/controller.phoneConfirmationLogin.dart';
 import '../../../controller/phoneConfirmationRegister.controller.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
 
-class ConfirmPhoneNumberLogin extends StatelessWidget {
+class ConfirmPhoneNumberLogin extends StatefulWidget {
+  @override
+  State<ConfirmPhoneNumberLogin> createState() =>
+      _ConfirmPhoneNumberLoginState();
+}
+
+class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin> {
+  late Timer _timer;
+  int _start = 20;
+
+  void startTimer() {
+    _start = 20;
+    setState(() {});
+    const oneSec = const Duration(seconds: 1);
+    _timer = new Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          timer.cancel();
+          setState(() {});
+        } else {
+          _start--;
+          setState(() {});
+        }
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    if (mounted) {
+      startTimer();
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final phoneConfirmationLoginController =
         Get.put(PhoneConfirmationLoginController());
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: Padding(
+          padding: EdgeInsets.only(bottom: 25.h),
+          child: Builder(
+            builder: (context) {
+              if (_start > 0) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'you_can_retry_after'.tr,
+                      style: TextStyle(),
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      _start.toString(),
+                      style: TextStyle(color: Pallete.pinkColorPrinciple),
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      'second'.tr,
+                      style: TextStyle(color: Pallete.pinkColorPrinciple),
+                    )
+                  ],
+                );
+              } else {
+                return InkWell(
+                  onTap: () {
+                    final loginController = Get.find<LoginController>();
+                    loginController.resendSmsToPhone();
+                    startTimer();
+                  },
+                  child: Text(
+                    'resend'.tr,
+                    style: TextStyle(color: Pallete.pinkColorPrinciple),
+                    textAlign: TextAlign.center,
+                  ),
+                );
+              }
+            },
+          ),
+        ),
         backgroundColor: Pallete.backGroundColor,
         body: Padding(
           padding: EdgeInsets.symmetric(
@@ -103,7 +186,8 @@ class ConfirmPhoneNumberLogin extends StatelessWidget {
                                 .codePinController,
                             onCompleted: (v) async {
                               print(v);
-                              phoneConfirmationLoginController.verifyPhoneAndLogin();
+                              phoneConfirmationLoginController
+                                  .verifyPhoneAndLogin();
                             },
                             onChanged: (value) {},
                             beforeTextPaste: (text) {
@@ -127,8 +211,6 @@ class ConfirmPhoneNumberLogin extends StatelessWidget {
                     SizedBox(
                       height: 48.h,
                     ),
-                   
-                 
                   ]),
             ),
           ),

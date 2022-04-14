@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:momyzdelivery/constant/pallete.const.dart';
 import 'package:momyzdelivery/translations/data.translation.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:momyzdelivery/ui/views/splashScreen/widget.splash.dart';
@@ -14,6 +15,7 @@ void main() async {
   await GetStorage.init();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
               translations: LocalString(),
               locale: Locale('ar', 'AR'),
               theme: ThemeData(
+                primaryColor: Pallete.pinkColorPrinciple,
                 textTheme: GoogleFonts.ibmPlexSansArabicTextTheme(
                   Theme.of(context).textTheme,
                 ),
@@ -51,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

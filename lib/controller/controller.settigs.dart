@@ -4,10 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
+import 'package:stacked/stacked.dart';
 
 import '../constant/pallete.const.dart';
 import '../services/service.profile.dart';
 import '../ui/views/toast/toast.message.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsController extends GetxController {
   bool isSending = true;
@@ -98,6 +100,54 @@ class SettingsController extends GetxController {
               )),
         ),
       ],
+    ));
+  }
+
+  changeLanguage() {
+    Get.dialog(AlertDialog(
+      content: Column(mainAxisSize: MainAxisSize.min, children: [
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 32.w,
+            ),
+            SvgPicture.asset('assets/icons/en.svg'),
+            SizedBox(
+              width: 31.w,
+            ),
+            Text(
+              'English'.tr,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+            )
+          ],
+        ),
+        SizedBox(
+          height: 14,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 32.w,
+            ),
+            SvgPicture.asset('assets/icons/ar.svg'),
+            SizedBox(
+              width: 31.w,
+            ),
+            Text(
+              'English'.tr,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+            )
+          ],
+        ),
+        SizedBox(
+          height: 15,
+        ),
+      ]),
     ));
   }
 }

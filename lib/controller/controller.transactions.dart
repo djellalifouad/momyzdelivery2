@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:momyzdelivery/models/model.notification.dart';
 import 'package:momyzdelivery/models/model.order.dart';
 import 'package:get/get.dart';
-import 'package:momyzdelivery/services/service.notification.dart';
+import 'package:momyzdelivery/models/model.withdrawal.dart';
 import 'package:momyzdelivery/services/service.orders.dart';
+import 'package:momyzdelivery/services/service.profile.dart';
 
-class NotificationController extends GetxController {
+class TransactionController extends GetxController {
   ScrollController scrollController1 = ScrollController();
   _scrollListener1() {
     if (scrollController1.offset >=
             scrollController1.position.maxScrollExtent &&
         !scrollController1.position.outOfRange) {
-      getNotifcations();
+      getOrders();
     }
   }
 
-  List<NotificationModel> notifications = [];
-  bool isGettingOrders = false;
+  List<Transaction> transactions = [];
+  bool isGettingTransactions = false;
   var box;
   String token = "";
   int page = 1;
@@ -29,9 +30,9 @@ class NotificationController extends GetxController {
   }
 
   bool isMore = false;
-  bool isGettingNotification = false;
+
   updateIsGettingOrder() {
-    isGettingNotification = !isGettingNotification;
+    isGettingTransactions = !isGettingTransactions;
     update();
   }
 
@@ -39,50 +40,50 @@ class NotificationController extends GetxController {
   updateIsGettingNextPage() {
     isGettingNextPage = !isGettingNextPage;
   }
-
-  getNotifcations() async {
-    if (notifications.isNotEmpty && !isMore) {
+  getOrders() async {
+    if (transactions.isNotEmpty && !isMore) {
       return;
     }
-    if (notifications.isNotEmpty) {
+    if (transactions.isNotEmpty) {
       updateIsGettingNextPage();
     }
     token = box.read('token').toString();
-    if (notifications.isEmpty) {
+    if (transactions.isEmpty) {
       updateIsGettingOrder();
     }
     Map<String, dynamic> map =
-        await NotificationService.getNotification(token, page.toString());
+        await ProfileService.getTransaction(token, page.toString());
     isGettingNextPage = false;
-    isGettingNotification = false;
-    print(map['notifications']);
+    isGettingTransactions = false;
     if (map['success']) {
-      notifications.addAll(map['notifications']);
+      transactions.addAll(map['transactions']);
       isMore = map['isMore'];
       page++;
     }
     update();
   }
 
-  getNotifcationsFirst() async {
-    notifications.clear();
-    isGettingNotification = true;
+  getTransactionsFirst() async {
+    transactions.clear();
     page = 1;
+    isMore = false;
     update();
-    if (notifications.isNotEmpty && !isMore) {
+    if (transactions.isNotEmpty && !isMore) {
       return;
     }
-    if (notifications.isNotEmpty) {
+    if (transactions.isNotEmpty) {
       updateIsGettingNextPage();
     }
     token = box.read('token').toString();
+    if (transactions.isEmpty) {
+      updateIsGettingOrder();
+    }
     Map<String, dynamic> map =
-        await NotificationService.getNotification(token, page.toString());
+        await ProfileService.getTransaction(token, page.toString());
     isGettingNextPage = false;
-    isGettingNotification = false;
-    print(map['notifications']);
+    isGettingTransactions = false;
     if (map['success']) {
-      notifications.addAll(map['notifications']);
+      transactions.addAll(map['transactions']);
       isMore = map['isMore'];
       page++;
     }

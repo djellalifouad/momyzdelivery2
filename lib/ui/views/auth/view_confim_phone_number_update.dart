@@ -1,33 +1,31 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.register.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
-
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../../../controller/controller.confimationPhoneNumber.dart';
+import '../../../controller/controller.login.dart';
+import '../../../controller/controller.phoneConfirmationLogin.dart';
+import '../../../controller/controller.updatePhone.dart';
 import '../../../controller/phoneConfirmationRegister.controller.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
-
-class ConfirmPhoneNumberRegister extends StatefulWidget {
+class ConfirmPhoneNumberUpdate extends StatefulWidget {
   @override
-  State<ConfirmPhoneNumberRegister> createState() =>
-      _ConfirmPhoneNumberRegisterState();
+  State<ConfirmPhoneNumberUpdate> createState() =>
+      _ConfirmPhoneNumberUpdateState();
 }
-
-class _ConfirmPhoneNumberRegisterState
-    extends State<ConfirmPhoneNumberRegister> {
+class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
   late Timer _timer;
   int _start = 20;
-
   void startTimer() {
     _start = 20;
     setState(() {});
@@ -53,11 +51,10 @@ class _ConfirmPhoneNumberRegisterState
     }
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
-    final phoneConfirmationRegisterController =
-        Get.put(PhoneConfirmationRegisterController());
+    final phoneConfirmationLoginController =
+        Get.put(PhoneConfirmationUpdateController());
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Padding(
@@ -91,8 +88,8 @@ class _ConfirmPhoneNumberRegisterState
               } else {
                 return InkWell(
                   onTap: () {
-                    final registerController = Get.find<RegisterController>();
-                    registerController.resendSmsToPhone();
+                    final loginController = Get.find<LoginController>();
+                    loginController.resendSmsToPhone();
                     startTimer();
                   },
                   child: Text(
@@ -181,12 +178,12 @@ class _ConfirmPhoneNumberRegisterState
                               fieldHeight: 39.sp,
                               fieldWidth: 47.sp,
                             ),
-                            controller: phoneConfirmationRegisterController
+                            controller: phoneConfirmationLoginController
                                 .codePinController,
                             onCompleted: (v) async {
                               print(v);
-                              phoneConfirmationRegisterController
-                                  .verifyPhoneAndRegister();
+                           //   phoneConfirmationLoginController
+                           //       .verifyPhoneAndLogin();
                             },
                             onChanged: (value) {},
                             beforeTextPaste: (text) {
@@ -198,35 +195,17 @@ class _ConfirmPhoneNumberRegisterState
                     SizedBox(
                       height: 41.h,
                     ),
-                    GetBuilder<PhoneConfirmationRegisterController>(
+                    GetBuilder<PhoneConfirmationUpdateController>(
                       builder: (_) =>
-                          phoneConfirmationRegisterController.isRegistring
+                          phoneConfirmationLoginController.isRegistring
                               ? Center(child: CircularProgressIndicator())
                               : ButtonComponent('verify_phone'.tr, () {
-                                  phoneConfirmationRegisterController
-                                      .verifyPhoneAndRegister();
+                                 // phoneConfirmationLoginController
+                                 //     .verifyPhoneAndLogin();
                                 }),
                     ),
                     SizedBox(
                       height: 48.h,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/Active.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                      ],
                     ),
                   ]),
             ),

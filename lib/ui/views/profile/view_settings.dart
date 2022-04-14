@@ -83,10 +83,15 @@ class Settings extends StatelessWidget {
             title: 'delivery3'.tr,
           ),
         ),
-        ProfileCompoenent2(
-          isRed: false,
-          isIcon: false,
-          title: 'app_language'.tr,
+        InkWell(
+          onTap: () {
+            controller.changeLanguage();
+          },
+          child: ProfileCompoenent2(
+            isRed: false,
+            isIcon: false,
+            title: 'app_language'.tr,
+          ),
         ),
         InkWell(
           onTap: () {

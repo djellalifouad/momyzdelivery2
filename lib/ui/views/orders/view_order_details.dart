@@ -8,7 +8,6 @@ import 'package:momyzdelivery/ui/views/orders/view_order_locationPreview.dart';
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../complaints/view_choose_type_complaint.dart';
 import '../complaints/view_list_complaint2.dart';
 import '../complaints/view_make_complaint.dart';
@@ -112,7 +111,7 @@ class OrderDetails extends StatelessWidget {
                                       height: 5.h,
                                     ),
                                     Container(
-                                      width: 205.w,
+                                      width: 120.w,
                                       height: 10.h,
                                       child: Text(
                                         order.items[index].description
@@ -122,7 +121,7 @@ class OrderDetails extends StatelessWidget {
                                           fontSize: 8.sp,
                                           color: Colors.black,
                                         ),
-                                        textAlign: TextAlign.right,
+                                        textDirection: TextDirection.rtl,
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     )
@@ -132,12 +131,24 @@ class OrderDetails extends StatelessWidget {
                               SizedBox(
                                 width: 8.w,
                               ),
-                              CachedNetworkImage(
-                                  errorWidget: (context, string, val) =>
-                                      Image.asset('assets/images/cover.png'),
-                                  placeholder: (context, string) =>
-                                      Image.asset('assets/images/cover.png'),
-                                  imageUrl: order.items[index].image_url)
+                              Container(
+                                height: 60.sp,
+                                width: 60.sp,
+                                child: CachedNetworkImage(
+                                    errorWidget: (context, string, val) =>
+                                        Image.asset(
+                                          'assets/images/cover.png',
+                                          height: 25.sp,
+                                          width: 25.sp,
+                                        ),
+                                    placeholder: (context, string) =>
+                                        Image.asset(
+                                          'assets/images/cover.png',
+                                          height: 25.sp,
+                                          width: 25.sp,
+                                        ),
+                                    imageUrl: order.items[index].image_url),
+                              )
                             ],
                           ),
                           SizedBox(

@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:momyzdelivery/models/model.comment.dart';
+import 'package:momyzdelivery/models/model.withdrawal.dart';
+import 'package:momyzdelivery/ui/views/stats/view_withdrawal.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import '../constant/server.const.dart';
 import 'dart:convert';
@@ -257,7 +259,7 @@ class ProfileService {
     }
   }
 
-  static Future<bool> makeWithdrawal(
+  static Future<Transaction?> makeWithdrawal(
       String token, String iban, String amount, String description) async {
     Map<String, String> headers = {
       'Accept': 'application/json',
@@ -276,9 +278,9 @@ class ProfileService {
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 422) {
       showMessage(map['message']);
-      return false;
+      return null;
     } else {
-      return true;
+      return Transaction.fromMap(map['data']['withdrawal']);
     }
   }
 
@@ -331,5 +333,36 @@ class ProfileService {
     } else {
       return null;
     }
+  }
+
+  static Future<Map<String, dynamic>> getTransaction(
+      String token, String page) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      "X-Requested-With": "XMLHttpRequest",
+      'Authorization': "Bearer ${token}",
+    };
+    http.Response response = await http.get(
+      Uri.parse(baseUrl + "transactions?page=${page}"),
+      headers: headers,
+    );
+    print("response: transactions");
+    print(response.body);
+    Map<String, dynamic> map = json.decode(response.body);
+    List<Transaction> transationList = [];
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      for (int i = 0; i < responseData['data'].length; i++) {
+        transationList.add(Transaction.fromMap(responseData['data'][i]));
+      }
+      return {
+        'success': true,
+        'transactions': transationList,
+        'isMore': responseData['links']['next'] == null ? false : true,
+      };
+    }
+    return {
+      'success': false,
+    };
   }
 }

@@ -8,6 +8,7 @@ import '../../../constant/pallete.const.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/controller.order.dart';
+import '../empty/empty.widget.dart';
 
 class Orders extends StatefulWidget {
   @override
@@ -52,368 +53,442 @@ class _OrdersState extends State<Orders> {
                     ),
                   )),
             ),
-            body: GetBuilder<OrderController>(builder: (context) {
-              return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24.w,
-                  ),
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: controller.isGettingOrder
-                          ? CircularProgressIndicator()
-                          : ListView.builder(
-                              controller: controller.scrollController1,
-                              itemCount: controller.orders.length,
-                              itemBuilder: (context, index) {
-                                return Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(MaterialPageRoute(
-                                                builder: (context) =>
-                                                    new OrderDetails(controller
-                                                        .orders[index])));
-                                      },
-                                      child: Container(
-                                        width: 327.w,
-                                        height: 188.h,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(12.sp),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 7.w,
-                                            vertical: 15.h,
-                                          ),
-                                          child: Column(children: [
-                                            Row(
-                                              children: [
-                                                CachedNetworkImage(
-                                                  imageUrl: controller
-                                                      .orders[index]
-                                                      .store
-                                                      .image_url,
-                                                  height: 42.sp,
-                                                  width: 42.sp,
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GetBuilder<OrderController>(builder: (context) {
+                  if (controller.isGettingOrder) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Expanded(
+                    child: Stack(
+                      children: [
+                        RefreshIndicator(
+                          color: Pallete.pinkColorPrinciple,
+                          onRefresh: () async {
+                            controller.getOrdersFirst();
+                          },
+                          child: controller.orders.isEmpty
+                              ? Empty("no_order".tr)
+                              : Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 24.w,
+                                  ),
+                                  child: ListView.builder(
+                                    controller: controller.scrollController1,
+                                    itemCount: controller.orders.length,
+                                    itemBuilder: (context, index) {
+                                      String deliveryType = "";
+                                      if (controller
+                                              .orders[index].delivery_type ==
+                                          1) {
+                                        deliveryType = "normal_delivery".tr;
+                                      } else if (controller
+                                              .orders[index].delivery_type ==
+                                          2) {
+                                        deliveryType = "express_delivery".tr;
+                                      } else {
+                                        deliveryType = "booked_delivery".tr;
+                                      }
+                                      return Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Get.to(OrderDetails(
+                                                  controller.orders[index]));
+                                            },
+                                            child: Container(
+                                              width: 327.w,
+                                              height: 188.h,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        12.sp),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal: 7.w,
+                                                  vertical: 15.h,
                                                 ),
-                                                SizedBox(
-                                                  width: 6.w,
-                                                ),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      width: 260.w,
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            controller
-                                                                .orders[index]
-                                                                .store
-                                                                .username,
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 14.sp,
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            width: 79.w,
-                                                            height: 24.h,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Pallete
-                                                                  .pinkColorPrinciple,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10.r),
-                                                            ),
-                                                            child: Center(
-                                                                child: Text(
-                                                              controller
-                                                                  .orders[index]
-                                                                  .date,
-                                                              style: TextStyle(
-                                                                fontSize: 10.sp,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            )),
-                                                          ),
-                                                        ],
+                                                child: Column(children: [
+                                                  Row(
+                                                    children: [
+                                                      CachedNetworkImage(
+                                                        imageUrl: controller
+                                                            .orders[index]
+                                                            .store
+                                                            .image_url,
+                                                        height: 42.sp,
+                                                        width: 42.sp,
                                                       ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 4.h,
-                                                    ),
-                                                    Text(
-                                                      controller.orders.length
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 11.sp,
-                                                        color: Pallete.greyText,
+                                                      SizedBox(
+                                                        width: 6.w,
                                                       ),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 19.h,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    Container(
-                                                      width: 200.w,
-                                                      child: Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                              right: 5.w,
-                                                            ),
-                                                            child: Container(
-                                                              height: 20.sp,
-                                                              width: 20.sp,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.r),
-                                                                color: Pallete
-                                                                    .pinkColorPrinciple,
-                                                              ),
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(3.5
-                                                                            .sp),
-                                                                child: SvgPicture
-                                                                    .asset(
-                                                                        'assets/icons/Group.svg'),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 16.w,
-                                                          ),
-                                                          Text(
-                                                            'market'.tr + " :",
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 6.w,
-                                                          ),
-                                                          Text(
-                                                            controller
-                                                                .orders[index]
-                                                                .name
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 12.h,
-                                                    ),
-                                                    Container(
-                                                      width: 200.w,
-                                                      child: Row(
+                                                      Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                              right: 5.w,
-                                                            ),
-                                                            child: Container(
-                                                              height: 20.sp,
-                                                              width: 20.sp,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
+                                                          Container(
+                                                            width: 260.w,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  controller
+                                                                      .orders[
+                                                                          index]
+                                                                      .store
+                                                                      .username,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        14.sp,
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 79.w,
+                                                                  height: 24.h,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: Pallete
+                                                                        .pinkColorPrinciple,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
                                                                             10.r),
-                                                                color: Pallete
-                                                                    .pinkColorPrinciple,
-                                                              ),
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(3.5
-                                                                            .sp),
-                                                                child: SvgPicture
-                                                                    .asset(
-                                                                        'assets/icons/Money.svg'),
-                                                              ),
+                                                                  ),
+                                                                  child: Center(
+                                                                      child:
+                                                                          Text(
+                                                                    controller
+                                                                        .orders[
+                                                                            index]
+                                                                        .date,
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          10.sp,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  )),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                           SizedBox(
-                                                            width: 16.w,
-                                                          ),
-                                                          Text(
-                                                            'delivery_price2'
-                                                                    .tr +
-                                                                " :",
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            width: 6.w,
+                                                            height: 4.h,
                                                           ),
                                                           Text(
                                                             controller
                                                                 .orders[index]
-                                                                .shipping
+                                                                .store
+                                                                .bio
                                                                 .toString(),
                                                             style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w600,
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.black,
+                                                                      .w400,
+                                                              fontSize: 11.sp,
+                                                              color: Pallete
+                                                                  .greyText,
                                                             ),
                                                           ),
                                                         ],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 12.h,
-                                                    ),
-                                                    Container(
-                                                      width: 200.w,
-                                                      child: Row(
+                                                      )
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 19.h,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Column(
                                                         children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                              right: 5.w,
-                                                            ),
-                                                            child: Container(
-                                                              height: 20.sp,
-                                                              width: 20.sp,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.r),
-                                                                color: Pallete
-                                                                    .pinkColorPrinciple,
-                                                              ),
-                                                              child: Padding(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .all(3.5
-                                                                            .sp),
-                                                                child: SvgPicture
-                                                                    .asset(
-                                                                        'assets/icons/Delivery Truck.svg'),
-                                                              ),
+                                                          Container(
+                                                            width: 200.w,
+                                                            child: Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .only(
+                                                                    right: 5.w,
+                                                                  ),
+                                                                  child:
+                                                                      Container(
+                                                                    height:
+                                                                        20.sp,
+                                                                    width:
+                                                                        20.sp,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.r),
+                                                                      color: Pallete
+                                                                          .pinkColorPrinciple,
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsets
+                                                                          .all(3.5
+                                                                              .sp),
+                                                                      child: SvgPicture
+                                                                          .asset(
+                                                                              'assets/icons/Group.svg'),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 16.w,
+                                                                ),
+                                                                Text(
+                                                                  'market'.tr +
+                                                                      " :",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 6.w,
+                                                                ),
+                                                                Text(
+                                                                  controller
+                                                                      .orders[
+                                                                          index]
+                                                                      .name
+                                                                      .toString(),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                           SizedBox(
-                                                            width: 16.w,
+                                                            height: 12.h,
                                                           ),
-                                                          Text(
-                                                            'delivery_type'.tr +
-                                                                " :",
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.black,
+                                                          Container(
+                                                            width: 200.w,
+                                                            child: Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .only(
+                                                                    right: 5.w,
+                                                                  ),
+                                                                  child:
+                                                                      Container(
+                                                                    height:
+                                                                        20.sp,
+                                                                    width:
+                                                                        20.sp,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.r),
+                                                                      color: Pallete
+                                                                          .pinkColorPrinciple,
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsets
+                                                                          .all(3.5
+                                                                              .sp),
+                                                                      child: SvgPicture
+                                                                          .asset(
+                                                                              'assets/icons/Money.svg'),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 16.w,
+                                                                ),
+                                                                Text(
+                                                                  'delivery_price2'
+                                                                          .tr +
+                                                                      " :",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 6.w,
+                                                                ),
+                                                                Text(
+                                                                  controller
+                                                                      .orders[
+                                                                          index]
+                                                                      .shipping
+                                                                      .toString(),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
                                                           SizedBox(
-                                                            width: 6.w,
+                                                            height: 12.h,
                                                           ),
-                                                          Text(
-                                                            controller
-                                                                .orders[index]
-                                                                .delivery_type
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              fontSize: 10.sp,
-                                                              color:
-                                                                  Colors.black,
+                                                          Container(
+                                                            width: 200.w,
+                                                            child: Row(
+                                                              children: [
+                                                                Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .only(
+                                                                    right: 5.w,
+                                                                  ),
+                                                                  child:
+                                                                      Container(
+                                                                    height:
+                                                                        20.sp,
+                                                                    width:
+                                                                        20.sp,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10.r),
+                                                                      color: Pallete
+                                                                          .pinkColorPrinciple,
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsets
+                                                                          .all(3.5
+                                                                              .sp),
+                                                                      child: SvgPicture
+                                                                          .asset(
+                                                                              'assets/icons/Delivery Truck.svg'),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 16.w,
+                                                                ),
+                                                                Text(
+                                                                  'delivery_type'
+                                                                          .tr +
+                                                                      " :",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w400,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 6.w,
+                                                                ),
+                                                                Text(
+                                                                  deliveryType,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        10.sp,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ),
+                                                          )
                                                         ],
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
-                                                SvgPicture.asset(
-                                                    'assets/icons/Frame.svg'),
-                                              ],
-                                            )
-                                          ]),
-                                        ),
-                                      ),
+                                                      SvgPicture.asset(
+                                                          'assets/icons/Frame.svg'),
+                                                    ],
+                                                  )
+                                                ]),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10.h),
+                                          index == controller.orders.length - 1
+                                              ? SizedBox(
+                                                  height: 60.h,
+                                                )
+                                              : Container(),
+                                          controller.isGettingNextPage
+                                              ? Center(
+                                                  child:
+                                                      CircularProgressIndicator())
+                                              : Container()
+                                        ],
+                                      );
+                                    },
+                                  )),
+                        ),
+                        controller.isGettingNextPage
+                            ? Align(
+                                child: Padding(
+                                    padding: EdgeInsets.only(
+                                      top: 100.h,
                                     ),
-                                    SizedBox(height: 10.h),
-                                    index == controller.orders.length - 1
-                                        ? SizedBox(
-                                            height: 60.h,
-                                          )
-                                        : Container(),
-                                    controller.isGettingNextPage
-                                        ? Center(
-                                            child: CircularProgressIndicator())
-                                        : Container()
-                                  ],
-                                );
-                              },
-                            )));
-            })));
+                                    child: CircularProgressIndicator()),
+                                alignment: Alignment.bottomCenter,
+                              )
+                            : Container(),
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            )));
   }
 }

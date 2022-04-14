@@ -16,22 +16,22 @@ class NotificationService {
       'X-Requested-With': 'XMLHttpRequest',
       'Authorization': "Bearer ${token}",
     };
-
     http.Response response = await http.get(
       Uri.parse(baseUrl + "notifications?per_page=10&page=${page}"),
       headers: headers,
     );
-    print("response get notifications ");
-    print(response.body);
-    List<Notification> notificationList = [];
+    List<NotificationModel> notificationList = [];
     final Map<String, dynamic> responseData = json.decode(response.body);
+    print("response get notification");
+    print(response.body);
     if (response.statusCode == 200) {
       for (int i = 0; i < responseData['data'].length; i++) {
-        notificationList.add(Notification.fromMap(responseData['data'][i]));
+        notificationList
+            .add(NotificationModel.fromMap(responseData['data'][i]));
       }
       return {
         'success': true,
-        'notifications': notificationList.toList(),
+        'notifications': notificationList,
         'isMore': responseData['links']['next'] == null ? false : true,
       };
     }

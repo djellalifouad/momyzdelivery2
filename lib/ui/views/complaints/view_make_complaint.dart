@@ -16,6 +16,7 @@ class MakeComplaint extends StatelessWidget {
     return Scaffold(
       backgroundColor: Pallete.backGroundColor2,
       appBar: AppBar(
+        leading: Container(),
         actions: [
           InkWell(
             onTap: () {

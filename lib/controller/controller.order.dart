@@ -63,4 +63,31 @@ class OrderController extends GetxController {
     }
     update();
   }
+
+  getOrdersFirst() async {
+    orders.clear();
+    page = 1;
+    isMore = false;
+    update();
+    if (orders.isNotEmpty && !isMore) {
+      return;
+    }
+    if (orders.isNotEmpty) {
+      updateIsGettingNextPage();
+    }
+    token = box.read('token').toString();
+    if (orders.isEmpty) {
+      updateIsGettingOrder();
+    }
+    Map<String, dynamic> map =
+        await OrderService.getOrders(token, page.toString());
+    isGettingNextPage = false;
+    isGettingOrder = false;
+    if (map['success']) {
+      orders.addAll(map['orders']);
+      isMore = map['isMore'];
+      page++;
+    }
+    update();
+  }
 }

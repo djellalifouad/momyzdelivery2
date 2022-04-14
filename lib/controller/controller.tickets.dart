@@ -41,14 +41,14 @@ class TicketController extends GetxController {
     token = box.read('token').toString();
     scrollController1.addListener(_scrollListener1);
     scrollController2.addListener(_scrollListener2);
-    getTicket1();
-    getTicket2();
     super.onInit();
   }
+
   updateIsGetting1() {
     isGetting1 = !isGetting1;
     update();
   }
+
   updateIsGetting2() {
     isGetting2 = !isGetting2;
     update();
@@ -60,6 +60,21 @@ class TicketController extends GetxController {
     update();
   }
 
+  getFirst() {
+    print("wow");
+    isMore1 = true;
+    isMore2 = true;
+    tickets1.clear();
+    tickets2.clear();
+    page1 = 1;
+    page2 = 1;
+    isGetting1 = false;
+    isGetting2 = false;
+    getTicket1();
+    getTicket2();
+    update();
+  }
+
   getTicket1() async {
     if (!isMore1) {
       return;
@@ -68,12 +83,10 @@ class TicketController extends GetxController {
     if (page1 == 1) {
       updateIsGetting1();
     }
-
-    Map<String, dynamic> map = await ProfileService.getTicets(page1, token, 0);
+    Map<String, dynamic> map = await ProfileService.getTicets(page1, token, 1);
     if (page1 == 1) {
       updateIsGetting1();
     }
-    print(map['success']);
     if (map['success']) {
       tickets1.addAll(map['tickets']);
       if (map['isMore']) {

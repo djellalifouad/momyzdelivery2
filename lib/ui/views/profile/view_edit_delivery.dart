@@ -93,7 +93,7 @@ class EditDelivery extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  'دراجة نارية',
+                  splashController.v!.name,
                   style: TextStyle(
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w400,
@@ -250,7 +250,8 @@ class EditDelivery extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => InkWell(
                     onLongPress: () {
-                      editProfileController.deleteCarImage(splashController.v!.car!.images[index].id.toString()); 
+                      editProfileController.deleteCarImage(
+                          splashController.v!.car!.images[index].id.toString());
                     },
                     child: Padding(
                       padding: EdgeInsets.all(8.0.sp),

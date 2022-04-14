@@ -68,4 +68,21 @@ class RegisterController extends GetxController {
       verificationCompleted: (phoneAuthCredential) async {},
     );
   }
+  resendSmsToPhone() async  {
+     FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.verifyPhoneNumber(
+      phoneNumber: countryCode + phoneController.text,
+      codeSent: (String verificationId, int? resendToken) async {
+        print(verificationId);
+        verficationIdCode = verificationId;
+        update();
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+      verificationFailed: (FirebaseAuthException error) {
+        showMessage("error".tr);
+      },
+      verificationCompleted: (phoneAuthCredential) async {},
+    );
+
+  }
 }
