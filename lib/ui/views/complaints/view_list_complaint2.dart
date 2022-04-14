@@ -265,7 +265,7 @@ class _ListComplaint2State extends State<ListComplaint2> {
                                         )
                                       ],
                                     ),
-                                    SizedBox(
+                                     SizedBox(
                                       width: 64.w,
                                     ),
                                     Padding(

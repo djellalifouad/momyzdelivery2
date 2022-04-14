@@ -77,10 +77,10 @@ class _NotificationsState extends State<Notifications> {
                   SizedBox(
                     height: 24.h,
                   ),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        RefreshIndicator(
+                  Stack(
+                    children: [
+                      Expanded(
+                        child: RefreshIndicator(
                           color: Pallete.pinkColorPrinciple,
                           onRefresh: () async {
                             controller.getNotifcationsFirst();
@@ -173,8 +173,8 @@ class _NotificationsState extends State<Notifications> {
                                         );
                                       })),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               );

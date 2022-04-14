@@ -37,14 +37,14 @@ class SplashController extends GetxController {
         return;
       }
       if (v!.driving_licence_image_url == "null") {
-        Get.to(PersonalInfoView());
+        Get.off(PersonalInfoView());
         return;
       }
       if (v!.car == null) {
-        Get.to(CarInformationRegister());
+        Get.off(CarInformationRegister());
         return;
       }
-      Get.to(ProvidedStylesExample());
+      Get.off(ProvidedStylesExample());
     } else {
       Get.off(Login1View());
     }
