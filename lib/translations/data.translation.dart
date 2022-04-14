@@ -53,7 +53,7 @@ class LocalString extends Translations {
           "confirm_delete": "confirm delete",
           "delete_account_desc":
               "Are you sure you want to request deletion of your account on the application ?",
-          "ondelivery": "Ready to deliver",
+          "ondelivery": "Available",
           "to_home": "To home",
           "car_success": "Vehicle info added successfully",
           "please_enter_name_car": "Please enter the name car",

@@ -42,8 +42,8 @@ class _WithdrawalState extends State<Withdrawal> {
           leading: Container(),
           actions: [
             Padding(
-              padding: EdgeInsets.only(
-                left: 15.w,
+              padding: EdgeInsets.symmetric(
+                horizontal: 15.w,
               ),
               child: InkWell(
                   onTap: () {

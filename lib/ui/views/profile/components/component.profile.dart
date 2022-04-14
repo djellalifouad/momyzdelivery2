@@ -42,9 +42,7 @@ class ProfileCompoenent extends StatelessWidget {
         ),
         title != "delete_account".tr
             ? Padding(
-                padding: EdgeInsets.only(
-                  left: 10.w,
-                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
                 child: Icon(
                   Icons.arrow_forward_ios,
                   size: 17.sp,

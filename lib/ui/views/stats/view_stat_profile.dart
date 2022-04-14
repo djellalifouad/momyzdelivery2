@@ -53,9 +53,13 @@ class _StateUserState extends State<StateUser> {
               leading: Container(),
               actions: [
                 Padding(
-                  padding: EdgeInsets.only(
-                    left: 15.w,
-                  ),
+                  padding: Get.locale!.countryCode == "US"
+                      ? EdgeInsets.only(
+                          right: 15.w,
+                        )
+                      : EdgeInsets.only(
+                          left: 15.w,
+                        ),
                   child: InkWell(
                       onTap: () {
                         Navigator.pop(context);
@@ -272,8 +276,8 @@ class _StateUserState extends State<StateUser> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(right: 14.w),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 14.w),
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
@@ -315,8 +319,8 @@ class _StateUserState extends State<StateUser> {
                                               ),
                                             ),
                                             Padding(
-                                              padding:
-                                                  EdgeInsets.only(left: 14.w),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 14.w),
                                               child: Text(
                                                   transactionController
                                                               .transactions[

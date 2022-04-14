@@ -266,7 +266,7 @@ class _ListComplaint2State extends State<ListComplaint2> {
                                       ],
                                     ),
                                     SizedBox(
-                                      width: 28.w,
+                                      width: 64.w,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 15.h),
@@ -420,7 +420,7 @@ class _ListComplaint2State extends State<ListComplaint2> {
                                       ],
                                     ),
                                     SizedBox(
-                                      width: 28.w,
+                                      width: 64.w,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 15.h),

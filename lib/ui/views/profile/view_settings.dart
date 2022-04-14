@@ -85,7 +85,7 @@ class Settings extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            controller.changeLanguage();
+            controller.changeLanguage(context);
           },
           child: ProfileCompoenent2(
             isRed: false,

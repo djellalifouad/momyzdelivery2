@@ -27,7 +27,9 @@ class EditDelivery extends StatelessWidget {
               Get.to(CarInformationRegisterUpdate());
             },
             child: Padding(
-              padding: EdgeInsets.only(right: 20.w),
+              padding: Get.locale!.countryCode == "US"
+                  ? EdgeInsets.only(left: 20.w)
+                  : EdgeInsets.only(right: 20.w),
               child: Container(
                 height: 10.sp,
                 width: 10.sp,

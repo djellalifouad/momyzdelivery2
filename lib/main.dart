@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         builder: () => GetMaterialApp(
               translations: LocalString(),
-              locale: Locale('ar', 'AR'),
+              locale: GetStorage().read("lang").toString() == "en"
+                  ? Locale('en', "US")
+                  : Locale('ar', 'AR'),
               theme: ThemeData(
                 primaryColor: Pallete.pinkColorPrinciple,
                 textTheme: GoogleFonts.ibmPlexSansArabicTextTheme(

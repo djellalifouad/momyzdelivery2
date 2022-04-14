@@ -103,51 +103,111 @@ class SettingsController extends GetxController {
     ));
   }
 
-  changeLanguage() {
-    Get.dialog(AlertDialog(
-      content: Column(mainAxisSize: MainAxisSize.min, children: [
-        SizedBox(
-          height: 10,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 32.w,
-            ),
-            SvgPicture.asset('assets/icons/en.svg'),
-            SizedBox(
-              width: 31.w,
-            ),
-            Text(
-              'English'.tr,
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
-            )
-          ],
-        ),
-        SizedBox(
-          height: 14,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 32.w,
-            ),
-            SvgPicture.asset('assets/icons/ar.svg'),
-            SizedBox(
-              width: 31.w,
-            ),
-            Text(
-              'English'.tr,
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
-            )
-          ],
-        ),
-        SizedBox(
-          height: 15,
-        ),
-      ]),
-    ));
+  changeLanguage(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+              contentPadding: EdgeInsets.symmetric(vertical: 15.h),
+              content: Directionality(
+                textDirection: TextDirection.ltr,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.updateLocale(Locale('en', 'US'));
+                          GetStorage().write("lang", "en");
+
+                          Get.back();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 12.w,
+                                ),
+                                Image.asset(
+                                  'assets/images/en.png',
+                                ),
+                                SizedBox(
+                                  width: 31.w,
+                                ),
+                                Text(
+                                  'english'.tr,
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                            GetStorage().read('lang') == "en"
+                                ? Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15.w),
+                                    child: SvgPicture.asset(
+                                      'assets/icons/checkmark.svg',
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: 0.5.h,
+                        color: Pallete.greyText,
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.updateLocale(Locale('ar', 'AR'));
+                          GetStorage().write("lang", "ar");
+                          Get.back();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: 12.w,
+                                ),
+                                SvgPicture.asset('assets/icons/ar.svg'),
+                                SizedBox(
+                                  width: 31.w,
+                                ),
+                                Text(
+                                  'arabic'.tr,
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                            GetStorage().read('lang') == "ar"
+                                ? Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 15.w),
+                                    child: SvgPicture.asset(
+                                      'assets/icons/checkmark.svg',
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      ),
+                    ]),
+              ),
+            ));
   }
 }

@@ -58,7 +58,9 @@ class _ProfileState extends State<Profile> {
                 Get.to(Settings());
               },
               child: Padding(
-                padding: EdgeInsets.only(right: 14.w),
+                padding: Get.locale!.countryCode == "US"
+                    ? EdgeInsets.only(left: 14.w)
+                    : EdgeInsets.only(right: 14.w),
                 child: SvgPicture.asset(
                   'assets/icons/Setting.svg',
                   height: 10.sp,
@@ -169,6 +171,7 @@ class _ProfileState extends State<Profile> {
                         ]),
                   ),
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       InkWell(
                         onTap: () {
@@ -198,30 +201,30 @@ class _ProfileState extends State<Profile> {
                   SizedBox(
                     height: 20.h,
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24.w,
-                    ),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: Text(
-                        'general'.tr,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w700,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 24.w,
+                        ),
+                        child: Text(
+                          'general'.tr,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  Column(
-                    children: [
+                      SizedBox(
+                        height: 20.h,
+                      ),
                       Column(
                         children: [
-                          /*  InkWell(
+                          Column(
+                            children: [
+                              /*  InkWell(
                             onTap: () {
                               Navigator.of(context, rootNavigator: true).push(
                                   MaterialPageRoute(
@@ -234,41 +237,43 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                           */
-                          splashController.v!.state == 2
-                              ? InkWell(
-                                  onTap: () {
-                                    Get.to(ListComplaint2());
-                                  },
-                                  child: ProfileCompoenent(
-                                    title: 'make_complaint'.tr,
-                                    pic: 'assets/icons/Square.svg',
-                                  ),
-                                )
-                              : Container(),
-                          ProfileCompoenent(
-                            title: 'politics'.tr,
-                            pic: 'assets/icons/Shield.svg',
+                              splashController.v!.state == 2
+                                  ? InkWell(
+                                      onTap: () {
+                                        Get.to(ListComplaint2());
+                                      },
+                                      child: ProfileCompoenent(
+                                        title: 'make_complaint'.tr,
+                                        pic: 'assets/icons/Square.svg',
+                                      ),
+                                    )
+                                  : Container(),
+                              ProfileCompoenent(
+                                title: 'politics'.tr,
+                                pic: 'assets/icons/Shield.svg',
+                              ),
+                              ProfileCompoenent(
+                                title: 'conditions'.tr,
+                                pic: 'assets/icons/Document.svg',
+                              ),
+                              splashController.v!.state == 2
+                                  ? InkWell(
+                                      onTap: () {
+                                        controller.deleteAccount();
+                                      },
+                                      child: ProfileCompoenent(
+                                        title: 'delete_account'.tr,
+                                        pic: 'assets/icons/Shield Fail.svg',
+                                      ),
+                                    )
+                                  : Container(),
+                              SizedBox(
+                                height: 70.h,
+                              )
+                            ],
                           ),
-                          ProfileCompoenent(
-                            title: 'conditions'.tr,
-                            pic: 'assets/icons/Document.svg',
-                          ),
-                          splashController.v!.state == 2
-                              ? InkWell(
-                                  onTap: () {
-                                    controller.deleteAccount();
-                                  },
-                                  child: ProfileCompoenent(
-                                    title: 'delete_account'.tr,
-                                    pic: 'assets/icons/Shield Fail.svg',
-                                  ),
-                                )
-                              : Container(),
-                          SizedBox(
-                            height: 70.h,
-                          )
                         ],
-                      ),
+                      )
                     ],
                   )
                 ],
