@@ -48,32 +48,34 @@ class _NotificationsState extends State<Notifications> {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 24.w,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'today'.tr,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                  controller.notifications.isEmpty
+                      ? Container()
+                      : Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 24.w,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'today'.tr,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                'read_all_notif'.tr,
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: Pallete.greyText,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Text(
-                          'read_all_notif'.tr,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w400,
-                            color: Pallete.greyText,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   SizedBox(
                     height: 24.h,
                   ),

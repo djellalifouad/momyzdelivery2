@@ -37,16 +37,21 @@ class AuthService {
     required String country_code,
     required String phone,
   }) async {
-    String token = await FirebaseMessaging.instance.getToken().toString();
+    String? token = await FirebaseMessaging.instance.getToken();
     Dio dio = Dio();
     Map<String, String> headers = {
       'Accept': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
     };
-
+    print('/login');
+    print({
+      'fcm_token': token,
+      'phone': phone,
+      'country_code': country_code,
+    });
     http.Response response =
         await http.post(Uri.parse(baseUrl + "login"), headers: headers, body: {
-      'fcm_token': token,
+      'fcm_token': token.toString(),
       'phone': phone,
       'country_code': country_code,
     });
@@ -262,7 +267,7 @@ class AuthService {
   }) async {
     Response<dynamic> result;
     Dio dio = Dio();
-    String token = await FirebaseMessaging.instance.getToken().toString();
+    String? token = await FirebaseMessaging.instance.getToken();
     try {
       print({
         'phone': phone,
@@ -276,7 +281,7 @@ class AuthService {
         {
           'phone': phone,
           'country_code': country_code,
-          'fcm_token': "testesthvjkfdjskkljflds",
+          'fcm_token': token,
           'lon': lon,
           'lat': lat,
           'express_delivery': express_delivery,

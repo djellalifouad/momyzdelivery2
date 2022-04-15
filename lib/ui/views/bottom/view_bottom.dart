@@ -66,7 +66,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
     return Scaffold(
       body: PersistentTabView(
         context,
-
         controller: _controller,
         screens: _buildScreens(),
         items: _navBarsItems(),

@@ -24,9 +24,14 @@ class HomeState extends State<Home> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
   bool deliveryValue = true;
+  final homeController = Get.put(HomeController());
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final homeController = Get.put(HomeController());
     return GetBuilder<SplashController>(builder: (splashController) {
       return SafeArea(
         child: new Scaffold(
@@ -56,7 +61,8 @@ class HomeState extends State<Home> {
                                   ? true
                                   : false,
                               onChanged: (val) {
-                                homeController.updateLocation();
+                                homeController.showBottomOrder();
+                                //  homeController.updateLocation();
                               }),
                           Text(
                             'ondelivery'.tr,
