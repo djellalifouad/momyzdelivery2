@@ -18,7 +18,6 @@ import '../constant/pallete.const.dart';
 class ProfileController extends GetxController {
   var box = GetStorage();
   bool isSending = false;
-
   String token = "";
   @override
   void onInit() {
@@ -26,7 +25,6 @@ class ProfileController extends GetxController {
     token = box.read('token').toString();
     super.onInit();
   }
-
   changeStateIsSending() {
     isSending = !isSending;
     update();

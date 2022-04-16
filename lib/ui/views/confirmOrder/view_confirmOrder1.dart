@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:momyzdelivery/services/service.orders.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
+import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder3.dart';
 
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import '../../../models/model.order.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
 
 class ConfirmOrder extends StatelessWidget {
-  const ConfirmOrder({Key? key}) : super(key: key);
+  String id;
+  ConfirmOrder(this.id);
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +100,12 @@ class ConfirmOrder extends StatelessWidget {
                               fieldHeight: 39.sp,
                               fieldWidth: 47.sp,
                             ),
-                            onCompleted: (v) async {},
+                            onCompleted: (v) async {
+                              var box = GetStorage();
+                              String token = box.read('token').toString();
+                              OrderService.arrive(id, token, v);
+                              Get.to(ConfirmOrder3());
+                            },
                             onChanged: (value) {},
                             beforeTextPaste: (text) {
                               print("Allowing to paste $text");
@@ -106,12 +116,7 @@ class ConfirmOrder extends StatelessWidget {
                     SizedBox(
                       height: 41.h,
                     ),
-                    ButtonComponent('code_activation_confirmation'.tr, () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ConfirmOrder2()));
-                    }),
+                    ButtonComponent('code_activation_confirmation'.tr, () {}),
                     SizedBox(
                       height: 48.h,
                     ),

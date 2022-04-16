@@ -57,12 +57,11 @@ class HomeState extends State<Home> {
                           Switch(
                               focusColor: Pallete.pinkColorPrinciple,
                               activeColor: Pallete.pinkColorPrinciple,
-                              value: splashController.v!.online == 2
+                              value: splashController.v!.online == 1
                                   ? true
                                   : false,
                               onChanged: (val) {
-                                homeController.showBottomOrder();
-                                //  homeController.updateLocation();
+                                homeController.updateLocation();
                               }),
                           Text(
                             'ondelivery'.tr,

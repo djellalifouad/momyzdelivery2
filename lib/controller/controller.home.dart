@@ -6,12 +6,16 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
+import 'package:momyzdelivery/models/model.order.dart';
 import 'package:momyzdelivery/models/model.user.dart';
+import 'package:momyzdelivery/services/service.orders.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../ui/views/components/component_button.dart';
+import '../ui/views/confirmOrder/view_confirmOrder1.dart';
+import '../ui/views/confirmOrder/view_confirmOrder2.dart';
 
 class HomeController extends GetxController {
   final splashController = Get.find<SplashController>();
@@ -43,7 +47,8 @@ class HomeController extends GetxController {
     }
   }
 
-  showBottomOrder() {
+  showBottomOrder(String id) async {
+    Order? order = await OrderService.previewOrder(id, token);
     Get.bottomSheet(
         Container(
           decoration: BoxDecoration(
@@ -83,7 +88,7 @@ class HomeController extends GetxController {
                       width: 10.w,
                     ),
                     Text(
-                      '12 ﻢﻗر ﺔﻳﺎﻨﺑ ﻦﻜﺴﻣ 70 ﻲﺣ ،ﺔﻗﺎﻧﺄﻟا ﻞﺤﻣ',
+                      order!.store.address,
                       style: TextStyle(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
@@ -119,7 +124,7 @@ class HomeController extends GetxController {
                 Padding(
                   padding: EdgeInsets.only(right: 10.w),
                   child: Text(
-                    '12 ﻢﻗر ،30 ةرﺎﻤﻋ ،ﺮﻴﻤﻌﺘﻟا ﻦﻜﺴﻣ 493 ﻲﺣ',
+                    order.address,
                     style:
                         TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
@@ -139,7 +144,7 @@ class HomeController extends GetxController {
                           height: 4.h,
                         ),
                         Text(
-                          'ﺔﻗﺎﻧﺄﻟا ﻞﺤﻣ',
+                          order.store.name.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.sp,
@@ -164,7 +169,7 @@ class HomeController extends GetxController {
                           height: 4.h,
                         ),
                         Text(
-                          'ﺔﻗﺎﻧﺄﻟا ﻞﺤﻣ',
+                          order.items.length.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.sp,
@@ -189,7 +194,7 @@ class HomeController extends GetxController {
                       height: 4.h,
                     ),
                     Text(
-                      'ﺔﻗﺎﻧﺄﻟا ﻞﺤﻣ',
+                      order.delivery_type.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 16.sp,
@@ -205,7 +210,7 @@ class HomeController extends GetxController {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '12.35',
+                        order.shipping.toString(),
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 24.sp,
@@ -221,16 +226,22 @@ class HomeController extends GetxController {
                 SizedBox(
                   height: 16.h,
                 ),
-                ButtonComponent("accept_order".tr, () {
-                  Get.back();
-                  showBottomOrder2();
+                ButtonComponent("accept_order".tr, () async {
+                  bool val = await OrderService.acceptOrder(id, token);
+                  if (val) {
+                    Get.back();
+                    showBottomOrder2(order);
+                  }
                 }),
                 SizedBox(
                   height: 22.h,
                 ),
                 InkWell(
-                  onTap: () {
-                    Get.back();
+                  onTap: () async {
+                    bool val = await OrderService.declineOrder(id, token);
+                    if (val) {
+                      Get.back();
+                    } else {}
                   },
                   child: Center(
                     child: Text(
@@ -253,7 +264,7 @@ class HomeController extends GetxController {
 
   bool hide = false;
 
-  showBottomOrder2() {
+  showBottomOrder2(Order? order) {
     Get.bottomSheet(
       Container(
         decoration: BoxDecoration(
@@ -280,7 +291,7 @@ class HomeController extends GetxController {
                   InkWell(
                     onTap: () {
                       Get.back();
-                      showBottomOrder3();
+                      showBottomOrder3(order);
                     },
                     child: Icon(
                       Icons.clear,
@@ -340,7 +351,7 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    'order_place'.tr,
+                    order!.store.address.toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -367,7 +378,7 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    '...ﺔﻳﺎﻨﺑ ﻦﻜﺴﻣ 70 ﻲﺣ ،ﺔﻗﺎﻧﺄﻟا ﻞﺤﻣ',
+                    order.store.address,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -408,18 +419,20 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    '...ﺔﻳﺎﻨﺑ ﻦﻜﺴﻣ 70 ﻲﺣ ،ﺔﻗﺎﻧﺄﻟا ﻞﺤﻣ',
+                    order.user.address,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
                         color: Pallete.greyText),
-                  )
+                  ),
                 ],
               ),
               SizedBox(
                 height: 32.h,
               ),
-              ButtonComponent("order_delivered".tr, () {}),
+              ButtonComponent("order_delivered".tr, () {
+                Get.to(ConfirmOrder2(order));
+              }),
               SizedBox(
                 height: 22.h,
               ),
@@ -437,7 +450,7 @@ class HomeController extends GetxController {
     );
   }
 
-  showBottomOrder3() {
+  showBottomOrder3(Order? order) {
     Get.bottomSheet(Container(
       height: 60.h,
       width: 1.sw,
@@ -450,7 +463,7 @@ class HomeController extends GetxController {
         child: InkWell(
             onTap: () {
               Get.back();
-              showBottomOrder2();
+              showBottomOrder2(order);
             },
             child: SvgPicture.asset('assets/icons/hide.svg')),
       ),

@@ -75,7 +75,6 @@ class CarService {
     http.StreamedResponse streamedResponse = await request.send();
     var responsed = await http.Response.fromStream(streamedResponse);
     print('response update profilePicture');
-
     print(responsed.body);
     print(responsed.statusCode);
     if (responsed.statusCode == 201) {

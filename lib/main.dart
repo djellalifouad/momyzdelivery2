@@ -1,14 +1,17 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
 import 'package:momyzdelivery/translations/data.translation.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:momyzdelivery/ui/views/splashScreen/widget.splash.dart';
+import 'package:get/get.dart';
+import 'controller/controller.home.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +39,18 @@ class _MyAppState extends State<MyApp> {
     if (initialMessage != null) {
       _handleMessage(initialMessage);
     }
+    AwesomeNotifications().initialize(null, // icon for your app notification
+        [
+          NotificationChannel(
+            channelKey: 'FISHTENDER_NOTIFICATION',
+            channelName: 'Proto Coders Point',
+            channelDescription: "Notification example",
+            defaultColor: Color(0XFF9050DD),
+            playSound: true,
+            enableLights: true,
+            enableVibration: true,
+          )
+        ]);
 
     // Also handle any interaction when the app is in the background via a
     // Stream listener
@@ -65,9 +80,63 @@ class _MyAppState extends State<MyApp> {
     } else {
       print('User declined or has not accepted permission');
     }
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('wiwiwiwiwiwiw');
+      RemoteNotification? notification = message.notification;
+      if (notification != null) {
+        final homeController = Get.find<HomeController>();
+        homeController.showBottomOrder(message.data['order_id']);
+      }
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      if (notification != null) {
+        AwesomeNotifications().createNotification(
+            content: NotificationContent(
+                id: DateTime.now().microsecond,
+                color: Colors.transparent,
+                displayOnBackground: true,
+                displayOnForeground: true,
+                channelKey: 'FISHTENDER_NOTIFICATION',
+                notificationLayout: NotificationLayout.Inbox,
+                hideLargeIconOnExpand: true,
+                title: message.notification!.title,
+                body: message.notification!.body,
+                payload: {
+                  'order_id': message.data['order_id'],
+                }),
+            actionButtons: [
+              NotificationActionButton(label: 'Accept', key: 's')
+            ]);
+      }
+    });
+    AwesomeNotifications()
+        .actionStream
+        .listen((ReceivedNotification receivedNotification) {
+      print('wiwiwiwiwiwiw');
+
+      final homeController = Get.find<HomeController>();
+      homeController.showBottomOrder(
+          receivedNotification.payload!['order_id'].toString());
+    });
   }
 
-  void _handleMessage(RemoteMessage message) {}
+  void _handleMessage(RemoteMessage message) {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+      id: DateTime.now().microsecond,
+      color: Colors.transparent,
+      displayOnBackground: true,
+      displayOnForeground: true,
+      channelKey: 'FISHTENDER_NOTIFICATION',
+      notificationLayout: NotificationLayout.Inbox,
+      hideLargeIconOnExpand: true,
+      largeIcon: 'asset://assets/images/appicon.png',
+      title: message.notification!.title,
+      body: message.notification!.body,
+    ));
+  }
 
   @override
   void initState() {

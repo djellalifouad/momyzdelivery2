@@ -13,12 +13,10 @@ import 'controller.splash.dart';
 
 class UpdatePhoneController extends GetxController {
   bool isSending = false;
-
   updateIsSending() {
     isSending = !isSending;
     update();
   }
-
   final TextEditingController phoneController = TextEditingController();
   String countryCode = "+213";
   final splashController = Get.find<SplashController>();

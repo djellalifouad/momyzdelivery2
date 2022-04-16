@@ -15,7 +15,6 @@ import '../components/component_textField.dart';
 import '../profile/view_profile.dart';
 import '../stats/view_stat_profile.dart';
 import '../wait_view.dart';
-
 class ConfirmOrder3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -51,8 +50,7 @@ class ConfirmOrder3 extends StatelessWidget {
                       height: 40.h,
                     ),
                     ButtonComponent('open_map'.tr, () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ProvidedStylesExample()));
+  
                     }),
                     SizedBox(
                       height: 48.h,
