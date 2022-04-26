@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -36,7 +37,7 @@ class PersonalInfoView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 81.h,
+                        height: 51.h,
                       ),
                       Text(
                         "welcome2".tr,
@@ -119,10 +120,15 @@ class PersonalInfoView extends StatelessWidget {
                                     height: 120.h,
                                     child: Stack(
                                       children: [
-                                        Image.file(controller.fileIdPic),
+                                        Image.file(
+                                          controller.fileIdPic,
+                                          height: 100.sp,
+                                          width: 100.sp,
+                                          fit: BoxFit.cover,
+                                        ),
                                         Positioned(
-                                            top: 10.sp,
-                                            left: 8.sp,
+                                            top: 4.sp,
+                                            left: 4.sp,
                                             child: Container(
                                               height: 20.sp,
                                               width: 20.sp,
@@ -135,7 +141,7 @@ class PersonalInfoView extends StatelessWidget {
                                                     controller.deletePic(0);
                                                   },
                                                   child: Icon(Icons.clear,
-                                                      size: 15.sp,
+                                                      size: 12.sp,
                                                       color: Pallete
                                                           .pinkColorPrinciple),
                                                 ),
@@ -183,10 +189,14 @@ class PersonalInfoView extends StatelessWidget {
                                     child: Stack(
                                       children: [
                                         Image.file(
-                                            controller.fileDriverLiscencePic),
+                                          controller.fileDriverLiscencePic,
+                                          height: 100.sp,
+                                          width: 100.sp,
+                                          fit: BoxFit.cover,
+                                        ),
                                         Positioned(
-                                            top: 10.sp,
-                                            left: 8.sp,
+                                            top: 4.sp,
+                                            left: 4.sp,
                                             child: Container(
                                               height: 20.sp,
                                               width: 20.sp,
@@ -199,7 +209,7 @@ class PersonalInfoView extends StatelessWidget {
                                                     controller.deletePic(1);
                                                   },
                                                   child: Icon(Icons.clear,
-                                                      size: 15.sp,
+                                                      size: 12.sp,
                                                       color: Pallete
                                                           .pinkColorPrinciple),
                                                 ),
@@ -213,7 +223,7 @@ class PersonalInfoView extends StatelessWidget {
                             : Container(),
                       ),
                       SizedBox(
-                        height: 10.h,
+                        height: 20.h,
                       ),
                       GetBuilder<PersonalInformationController>(
                         builder: (_) => controller.isSendingRegister
@@ -225,26 +235,32 @@ class PersonalInfoView extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/Active.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                        ],
+                      Directionality(
+                        textDirection:
+                            GetStorage().read("lang").toString() == "en"
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/Active.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 48.h,

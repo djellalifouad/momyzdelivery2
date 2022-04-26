@@ -157,10 +157,15 @@ class MakeComplaint extends StatelessWidget {
                                   height: 120.h,
                                   child: Stack(
                                     children: [
-                                      Image.file(controller.file),
+                                      Image.file(
+                                        controller.file,
+                                        height: 120.sp,
+                                        width: 120.sp,
+                                        fit: BoxFit.cover,
+                                      ),
                                       Positioned(
-                                          top: 10.sp,
-                                          left: 8.sp,
+                                          top: 4.sp,
+                                          left: 4.sp,
                                           child: Container(
                                             height: 20.sp,
                                             width: 20.sp,
@@ -169,9 +174,11 @@ class MakeComplaint extends StatelessWidget {
                                                 shape: BoxShape.circle),
                                             child: Center(
                                               child: InkWell(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  controller.deleteFile();
+                                                },
                                                 child: Icon(Icons.clear,
-                                                    size: 15.sp,
+                                                    size: 12.sp,
                                                     color: Pallete
                                                         .pinkColorPrinciple),
                                               ),

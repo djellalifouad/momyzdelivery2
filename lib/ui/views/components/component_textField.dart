@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../constant/pallete.const.dart';
+
 class TextFormFieldComponent extends StatelessWidget {
   String title;
   String icon;
@@ -30,7 +31,7 @@ class TextFormFieldComponent extends StatelessWidget {
         ),
         suffixIconConstraints: BoxConstraints(
           maxHeight: 35.sp,
-          maxWidth: title.isNotEmpty ? 45.sp : 30.sp,
+          maxWidth: title.isNotEmpty ? 65.sp : 30.sp,
         ),
         prefixIcon: icon.isNotEmpty
             ? Padding(
@@ -47,6 +48,7 @@ class TextFormFieldComponent extends StatelessWidget {
             ? Padding(
                 padding: EdgeInsets.only(
                   left: 10.w,
+                  right: 15.w,
                 ),
                 child: PopupMenuButton<String>(
                   icon: SvgPicture.asset(

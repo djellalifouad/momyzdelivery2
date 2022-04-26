@@ -137,13 +137,12 @@ class _MyAppState extends State<MyApp> {
       body: message.notification!.body,
     ));
   }
-
+  
   @override
   void initState() {
     setupInteractedMessage();
     super.initState();
   }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -167,14 +166,12 @@ class _MyAppState extends State<MyApp> {
             ));
   }
 }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
-
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   void _incrementCounter() {

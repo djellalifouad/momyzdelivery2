@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -98,7 +99,10 @@ class Login2View extends StatelessWidget {
                         height: 10.h,
                       ),
                       Directionality(
-                        textDirection: TextDirection.rtl,
+                        textDirection:
+                            GetStorage().read("lang").toString() == "en"
+                                ? TextDirection.ltr
+                                : TextDirection.rtl,
                         child: IntlPhoneField(
                           keyboardType: TextInputType.phone,
                           autofocus: true,
@@ -187,23 +191,29 @@ class Login2View extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/Active.svg'),
-                        ],
+                      Directionality(
+                        textDirection:
+                            GetStorage().read("lang").toString() == "en"
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/Active.svg'),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 48.h,

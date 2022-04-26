@@ -12,8 +12,8 @@ showMessage(String text) {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.grey[200],
-      textColor: Colors.black,
+      backgroundColor: Pallete.pinkColorPrinciple,
+      textColor: Colors.white,
       fontSize: 12.0);
   return;
   Get.snackbar(

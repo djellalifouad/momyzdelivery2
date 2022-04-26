@@ -17,7 +17,7 @@ class makeComplaint2 extends StatelessWidget {
         actions: [
           InkWell(
             onTap: () {
-              Navigator.pop(context);
+              Get.back();
             },
             child: Padding(
                 padding: EdgeInsets.symmetric(

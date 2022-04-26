@@ -59,22 +59,27 @@ class _ConversationState extends State<Conversation> {
                 child: Padding(
                   padding: MediaQuery.of(context).viewInsets,
                   child: Container(
-                    height: controller.image != null ? 145.h : 97.h,
+                    height: controller.image != null ? 195.h : 97.h,
                     child: Column(
                       children: [
                         controller.image != null
                             ? Container(
-                                height: 50.h,
+                                height: 90.h,
                                 child: Row(children: [
                                   if (controller.image != null)
                                     Padding(
-                                      padding: EdgeInsets.only(right: 10.w),
+                                      padding: EdgeInsets.only(
+                                          bottom: 5.h,
+                                          top: 5.h,
+                                          right: 10.w,
+                                          left: 10.w),
                                       child: Stack(
                                         children: [
                                           Image.file(
                                             controller.image,
-                                            height: 30.sp,
-                                            width: 30.sp,
+                                            height: 90.sp,
+                                            width: 90.sp,
+                                            fit: BoxFit.cover,
                                           ),
                                           Positioned(
                                             top: 4.sp,
@@ -177,23 +182,15 @@ class _ConversationState extends State<Conversation> {
             color: Colors.black,
           ),
         ),
-        actions: [
-          InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                ),
-                child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ))),
-          )
-        ],
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:momyzdelivery/controller/controller.transactions.dart';
@@ -228,8 +229,6 @@ class _StateUserState extends State<StateUser> {
                         )
                       ]),
                 ),
-                
-                
                 */
                 SizedBox(
                   height: 15.h,
@@ -239,7 +238,9 @@ class _StateUserState extends State<StateUser> {
                     horizontal: 24.w,
                   ),
                   child: Align(
-                    alignment: Alignment.topRight,
+                    alignment: GetStorage().read("lang").toString() != "en"
+                        ? Alignment.topRight
+                        : Alignment.topLeft,
                     child: Text(
                       'my_trans'.tr,
                       style: TextStyle(

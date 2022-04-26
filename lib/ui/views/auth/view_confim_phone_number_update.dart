@@ -18,11 +18,13 @@ import '../../../controller/phoneConfirmationRegister.controller.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
+
 class ConfirmPhoneNumberUpdate extends StatefulWidget {
   @override
   State<ConfirmPhoneNumberUpdate> createState() =>
       _ConfirmPhoneNumberUpdateState();
 }
+
 class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
   late Timer _timer;
   int _start = 20;
@@ -45,12 +47,19 @@ class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
   }
 
   @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     if (mounted) {
       startTimer();
     }
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final phoneConfirmationLoginController =
@@ -182,8 +191,8 @@ class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
                                 .codePinController,
                             onCompleted: (v) async {
                               print(v);
-                           //   phoneConfirmationLoginController
-                           //       .verifyPhoneAndLogin();
+                              //   phoneConfirmationLoginController
+                              //       .verifyPhoneAndLogin();
                             },
                             onChanged: (value) {},
                             beforeTextPaste: (text) {
@@ -200,8 +209,8 @@ class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
                           phoneConfirmationLoginController.isRegistring
                               ? Center(child: CircularProgressIndicator())
                               : ButtonComponent('verify_phone'.tr, () {
-                                 // phoneConfirmationLoginController
-                                 //     .verifyPhoneAndLogin();
+                                  phoneConfirmationLoginController
+                                      .verifyPhoneAndRegister();
                                 }),
                     ),
                     SizedBox(

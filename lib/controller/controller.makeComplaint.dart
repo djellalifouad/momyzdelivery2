@@ -43,6 +43,12 @@ class makeComplaintController extends GetxController {
     file = files[0];
     update();
   }
+
+  deleteFile() {
+    file = null;
+    update();
+  }
+
   submit() async {
     token = box.read('token').toString();
     if (formKey.currentState!.validate()) {

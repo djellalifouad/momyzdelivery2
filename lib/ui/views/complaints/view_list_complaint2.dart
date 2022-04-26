@@ -265,14 +265,14 @@ class _ListComplaint2State extends State<ListComplaint2> {
                                         )
                                       ],
                                     ),
-                                     SizedBox(
+                                    SizedBox(
                                       width: 64.w,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 15.h),
                                       child: Container(
                                         height: 25.5.h,
-                                        width: 85.w,
+                                        width: 75.w,
                                         child: Center(
                                           child: Text(
                                             controller.tickets1[index]
@@ -426,7 +426,7 @@ class _ListComplaint2State extends State<ListComplaint2> {
                                       padding: EdgeInsets.only(bottom: 15.h),
                                       child: Container(
                                         height: 25.5.h,
-                                        width: 85.w,
+                                        width: 75.w,
                                         child: Center(
                                           child: Text(
                                             controller.tickets2[index]

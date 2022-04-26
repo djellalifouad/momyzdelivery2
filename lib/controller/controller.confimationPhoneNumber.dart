@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/controller/controller.updatePhone.dart';
 import '../models/model.user.dart';
 import '../services/service.auth.dart';
@@ -13,14 +14,14 @@ import '../ui/views/toast/toast.message.dart';
 import 'controller.register.dart';
 import 'controller.splash.dart';
 
-
-
 class PhoneConfirmationUpdateController extends GetxController {
   bool isRegistring = false;
   changeStateIsRegistring() {
     isRegistring = !isRegistring;
     update();
   }
+
+  var box = GetStorage();
 
   late UpdatePhoneController registerController;
   final TextEditingController codePinController = TextEditingController();
@@ -29,7 +30,9 @@ class PhoneConfirmationUpdateController extends GetxController {
     registerController = Get.find<UpdatePhoneController>();
     super.onInit();
   }
+
   verifyPhoneAndRegister() async {
+    String token = box.read('token').toString();
     try {
       changeStateIsRegistring();
       await FirebaseAuth.instance
@@ -37,23 +40,37 @@ class PhoneConfirmationUpdateController extends GetxController {
               verificationId: registerController.verficationIdCode,
               smsCode: codePinController.text))
           .then((value) async {
+        print('wow');
         if (value.user != null) {
-       //   changeStateIsRegistring();
-         //  Driver? v = await ProfileService.updateProfilePhone(
-          //  token, countryCode, phoneController.text);
-         //  updateIsSending();
+          final PhoneAuthCredential credential = PhoneAuthProvider.credential(
+              verificationId: registerController.verficationIdCode,
+              smsCode: codePinController.text);
 
-     // if (v == null) {
-     //   showMessage('error'.tr);
-      //} else {
-       // showMessage('success'.tr);
-       // splashController.updateDriver(v);
-      }
-         // Get.to(PersonalInfoView());
-     //   } else {
-       //   changeStateIsRegistring();
-         // showMessage("error".tr);
-     //   }
+          FirebaseAuth.instance!.currentUser!.updatePhoneNumber(credential);
+
+          Driver? v = await ProfileService.updateProfilePhone(
+              token,
+              registerController.countryCode,
+              registerController.phoneController.text);
+          SplashController splashController = Get.find<SplashController>();
+          if (v != null) {
+            splashController.updateDriver(v);
+          }
+
+          changeStateIsRegistring();
+          Get.back();
+          Get.back();
+          // if (v == null) {
+          //   showMessage('error'.tr);
+          //} else {
+          // showMessage('success'.tr);
+          // splashController.updateDriver(v);
+        }
+        // Get.to(PersonalInfoView());
+        //   } else {
+        //   changeStateIsRegistring();
+        // showMessage("error".tr);
+        //   }
       });
     } catch (e) {
       changeStateIsRegistring();

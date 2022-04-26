@@ -1,11 +1,8 @@
-import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:momyzdelivery/controller/controller.updatePhone.dart';
 
 import '../services/service.auth.dart';
 import '../ui/views/auth/view_personal_info.dart';
@@ -20,11 +17,11 @@ class PhoneConfirmationRegisterController extends GetxController {
     update();
   }
 
-  late UpdatePhoneController registerController;
+  late RegisterController registerController;
   final TextEditingController codePinController = TextEditingController();
   @override
   void onInit() {
-    registerController = Get.find<UpdatePhoneController>();
+    registerController = Get.find<RegisterController>();
     super.onInit();
   }
 
@@ -37,13 +34,28 @@ class PhoneConfirmationRegisterController extends GetxController {
               smsCode: codePinController.text))
           .then((value) async {
         if (value.user != null) {
-          Get.back();
+          var splashController = Get.find<SplashController>();
+          AuthService.register(
+              name: registerController.nameController.text,
+              express_delivery:
+                  registerController.deliveryTypeController.text ==
+                          "normaDelivery".tr
+                      ? 2
+                      : 1,
+              lat: splashController.position.latitude,
+              lon: splashController.position.longitude,
+              country_code: registerController.countryCode,
+              phone: registerController.phoneController.text);
+          changeStateIsRegistring();
+          Get.to(PersonalInfoView());
         } else {
           changeStateIsRegistring();
+          showMessage("error".tr);
         }
       });
     } catch (e) {
       changeStateIsRegistring();
+      print(e.toString());
       showMessage("wrongSms".tr);
     }
   }

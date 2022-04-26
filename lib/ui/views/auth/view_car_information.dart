@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -37,7 +38,7 @@ class CarInformationRegister extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 81.h,
+                        height: 51.h,
                       ),
                       Text(
                         "welcome2".tr,
@@ -172,34 +173,41 @@ class CarInformationRegister extends StatelessWidget {
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: controller.filePicCar.length,
-                                      itemBuilder: (context, index) => Stack(
-                                        children: [
-                                          Image.file(
-                                            controller.filePicCar[index],
-                                          ),
-                                          Positioned(
-                                              top: 10.sp,
-                                              left: 8.sp,
-                                              child: Container(
-                                                height: 20.sp,
-                                                width: 20.sp,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    shape: BoxShape.circle),
-                                                child: Center(
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      controller.deletePic(
-                                                          0, index);
-                                                    },
-                                                    child: Icon(Icons.clear,
-                                                        size: 15.sp,
-                                                        color: Pallete
-                                                            .pinkColorPrinciple),
+                                      itemBuilder: (context, index) => Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 5.w),
+                                        child: Stack(
+                                          children: [
+                                            Image.file(
+                                              controller.filePicCar[index],
+                                              height: 100.sp,
+                                              width: 100.sp,
+                                              fit: BoxFit.cover,
+                                            ),
+                                            Positioned(
+                                                top: 4.sp,
+                                                left: 4.sp,
+                                                child: Container(
+                                                  height: 20.sp,
+                                                  width: 20.sp,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      shape: BoxShape.circle),
+                                                  child: Center(
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        controller.deletePic(
+                                                            0, index);
+                                                      },
+                                                      child: Icon(Icons.clear,
+                                                          size: 12.sp,
+                                                          color: Pallete
+                                                              .pinkColorPrinciple),
+                                                    ),
                                                   ),
-                                                ),
-                                              ))
-                                        ],
+                                                ))
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -248,10 +256,13 @@ class CarInformationRegister extends StatelessWidget {
                                         children: [
                                           Image.file(
                                             controller.fileGreyCard,
+                                            height: 100.sp,
+                                            width: 100.sp,
+                                            fit: BoxFit.cover,
                                           ),
                                           Positioned(
-                                              top: 10.sp,
-                                              left: 8.sp,
+                                              top: 4.sp,
+                                              left: 4.sp,
                                               child: Container(
                                                 height: 20.sp,
                                                 width: 20.sp,
@@ -265,7 +276,7 @@ class CarInformationRegister extends StatelessWidget {
                                                           1, 0);
                                                     },
                                                     child: Icon(Icons.clear,
-                                                        size: 15.sp,
+                                                        size: 12.sp,
                                                         color: Pallete
                                                             .pinkColorPrinciple),
                                                   ),
@@ -292,26 +303,32 @@ class CarInformationRegister extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset('assets/icons/Active.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          SvgPicture.asset('assets/icons/notActive.svg'),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                        ],
+                      Directionality(
+                        textDirection:
+                            GetStorage().read("lang").toString() == "en"
+                                ? TextDirection.rtl
+                                : TextDirection.ltr,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset('assets/icons/Active.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            SvgPicture.asset('assets/icons/notActive.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 48.h,

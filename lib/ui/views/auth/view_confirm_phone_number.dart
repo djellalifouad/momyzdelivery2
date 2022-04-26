@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.register.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
@@ -44,6 +45,12 @@ class _ConfirmPhoneNumberRegisterState
         }
       },
     );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -210,23 +217,29 @@ class _ConfirmPhoneNumberRegisterState
                     SizedBox(
                       height: 48.h,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/Active.svg'),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        SvgPicture.asset('assets/icons/notActive.svg'),
-                      ],
+                    Directionality(
+                      textDirection:
+                          GetStorage().read("lang").toString() == "en"
+                              ? TextDirection.rtl
+                              : TextDirection.ltr,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('assets/icons/notActive.svg'),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          SvgPicture.asset('assets/icons/notActive.svg'),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          SvgPicture.asset('assets/icons/Active.svg'),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          SvgPicture.asset('assets/icons/notActive.svg'),
+                        ],
+                      ),
                     ),
                   ]),
             ),
