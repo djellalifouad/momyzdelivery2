@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:momyzdelivery/constant/server.const.dart';
+import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 
 import '../models/model.order.dart';
 import '../ui/views/orders/view_orders.dart';
@@ -66,6 +67,9 @@ class OrderService {
       Uri.parse(baseUrl + "orders/${id}/accept"),
       headers: headers,
     );
+    print('response accept order');
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -102,7 +106,9 @@ class OrderService {
       Uri.parse(baseUrl + "orders/${id}/code/send"),
       headers: headers,
     );
+    print("enter");
     print("response sendCode");
+    showMessage(response.body);
     print(response.body);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
@@ -111,6 +117,7 @@ class OrderService {
       return false;
     }
   }
+
   static Future<bool> arrive(String id, String token, String code) async {
     Map<String, String> headers = {
       'Accept': 'application/json',

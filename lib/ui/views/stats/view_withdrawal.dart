@@ -230,7 +230,8 @@ class _WithdrawalState extends State<Withdrawal> {
                                               height: 5.h,
                                             ),
                                             Text(
-                                              controller.amountController.text,
+                                              controller.amountController.text +
+                                                  "₪",
                                               style: GoogleFonts.poppins(
                                                   fontSize: 60.sp,
                                                   fontWeight: FontWeight.w600,

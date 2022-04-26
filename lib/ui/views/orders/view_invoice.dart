@@ -288,7 +288,7 @@ class _InvoiceState extends State<Invoice> {
                                       color: Pallete.greyColorPrinciple,
                                       fontSize: 13.sp,
                                       fontWeight: FontWeight.w400)),
-                              Text(widget.order.shipping.toString(),
+                              Text(widget.order.shipping.toString() + "₪",
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.sp,
@@ -314,7 +314,7 @@ class _InvoiceState extends State<Invoice> {
                                       color: Pallete.greyColorPrinciple,
                                       fontSize: 13.sp,
                                       fontWeight: FontWeight.w400)),
-                              Text(widget.order.value_added_tax,
+                              Text(widget.order.value_added_tax + "₪",
                                   style: TextStyle(
                                       color: Color.fromRGBO(255, 161, 201, 1),
                                       fontSize: 16.sp,
@@ -340,7 +340,7 @@ class _InvoiceState extends State<Invoice> {
                                       color: Pallete.greyColorPrinciple,
                                       fontSize: 13.sp,
                                       fontWeight: FontWeight.w400)),
-                              Text(widget.order.total.toString(),
+                              Text(widget.order.total.toString() + "₪",
                                   style: TextStyle(
                                       color: Color.fromRGBO(249, 72, 146, 1),
                                       fontSize: 16.sp,

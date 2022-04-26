@@ -93,12 +93,31 @@ class OrderDetails extends StatelessWidget {
                       ),
                       child: Column(children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
+                              height: 60.sp,
+                              width: 60.sp,
+                              child: CachedNetworkImage(
+                                  errorWidget: (context, string, val) =>
+                                      Image.asset(
+                                        'assets/images/cover.png',
+                                        height: 25.sp,
+                                        width: 25.sp,
+                                      ),
+                                  placeholder: (context, string) => Image.asset(
+                                        'assets/images/cover.png',
+                                        height: 25.sp,
+                                        width: 25.sp,
+                                      ),
+                                  imageUrl: order.items[index].image_url),
+                            ),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            Container(
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(order.items[index].name,
                                       style: TextStyle(
@@ -118,43 +137,27 @@ class OrderDetails extends StatelessWidget {
                                         fontSize: 8.sp,
                                         color: Colors.black,
                                       ),
-                                      textDirection: TextDirection.rtl,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   )
                                 ],
                               ),
                             ),
-                            SizedBox(
-                              width: 8.w,
-                            ),
-                            Container(
-                              height: 60.sp,
-                              width: 60.sp,
-                              child: CachedNetworkImage(
-                                  errorWidget: (context, string, val) =>
-                                      Image.asset(
-                                        'assets/images/cover.png',
-                                        height: 25.sp,
-                                        width: 25.sp,
-                                      ),
-                                  placeholder: (context, string) => Image.asset(
-                                        'assets/images/cover.png',
-                                        height: 25.sp,
-                                        width: 25.sp,
-                                      ),
-                                  imageUrl: order.items[index].image_url),
-                            )
                           ],
                         ),
                         SizedBox(
                           height: 14.h,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Row(
                               children: [
+                                Text('date'.tr + " : ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10.sp,
+                                        color: Colors.black)),
                                 Text(
                                   order.date.toString(),
                                   style: TextStyle(
@@ -162,11 +165,6 @@ class OrderDetails extends StatelessWidget {
                                       fontSize: 10.sp,
                                       color: Pallete.greyColorPrinciple),
                                 ),
-                                Text(" : " + 'date'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 10.sp,
-                                        color: Colors.black)),
                               ],
                             ),
                             SizedBox(
@@ -174,16 +172,16 @@ class OrderDetails extends StatelessWidget {
                             ),
                             Row(
                               children: [
+                                Text('qty'.tr + " : ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10.sp,
+                                        color: Colors.black)),
                                 Text(order.items[index].qty.toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 10.sp,
                                         color: Pallete.greyColorPrinciple)),
-                                Text(" : " + 'qty'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 10.sp,
-                                        color: Colors.black)),
                               ],
                             ),
                             SizedBox(
@@ -191,6 +189,11 @@ class OrderDetails extends StatelessWidget {
                             ),
                             Row(
                               children: [
+                                Text('price'.tr + " : ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 10.sp,
+                                        color: Colors.black)),
                                 Text(
                                   order.items[index].price.toString(),
                                   style: TextStyle(
@@ -198,11 +201,6 @@ class OrderDetails extends StatelessWidget {
                                       fontSize: 10.sp,
                                       color: Pallete.greyColorPrinciple),
                                 ),
-                                Text(" : " + 'price'.tr,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 10.sp,
-                                        color: Colors.black)),
                               ],
                             ),
                           ],
@@ -235,29 +233,73 @@ class OrderDetails extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: 12.h,
-                    horizontal: 16.w,
+                    horizontal: 5.w,
                   ),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(order.store.name.toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.black)),
-                        SizedBox(
-                          height: 10.h,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(100.r),
+                          child: CachedNetworkImage(
+                              errorWidget: (context, string, val) =>
+                                  Image.asset('assets/images/test.png'),
+                              placeholder: (context, string) =>
+                                  Image.asset('assets/images/test.png'),
+                              height: 60.sp,
+                              width: 60.sp,
+                              imageUrl: order.store.image_url),
                         ),
-                        Row(
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(order.store.name.toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.sp,
+                                    color: Colors.black)),
+                            SizedBox(
+                              height: 10.h,
+                            ),
                             Row(
                               children: [
                                 Row(
                                   children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 100.w,
+                                          child: Text(
+                                            order.store.address,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 10.sp,
+                                              color: Pallete.greyColorPrinciple,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 6.w,
+                                        ),
+                                        SvgPicture.asset(
+                                          'assets/icons/location.svg',
+                                          height: 12.sp,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 12.w,
+                                ),
+                                Row(
+                                  children: [
                                     Text(
-                                      order.store.address,
+                                      order.store.phone,
                                       style: GoogleFonts.poppins(
                                         fontSize: 10.sp,
                                         color: Pallete.greyColorPrinciple,
@@ -268,54 +310,16 @@ class OrderDetails extends StatelessWidget {
                                       width: 6.w,
                                     ),
                                     SvgPicture.asset(
-                                      'assets/icons/location.svg',
+                                      'assets/icons/phone.svg',
                                       height: 12.sp,
                                     ),
                                   ],
                                 )
                               ],
                             ),
-                            SizedBox(
-                              width: 12.w,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  order.store.phone,
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 10.sp,
-                                    color: Pallete.greyColorPrinciple,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 6.w,
-                                ),
-                                SvgPicture.asset(
-                                  'assets/icons/phone.svg',
-                                  height: 12.sp,
-                                ),
-                              ],
-                            )
                           ],
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 17.w,
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100.r),
-                      child: CachedNetworkImage(
-                          errorWidget: (context, string, val) =>
-                              Image.asset('assets/images/test.png'),
-                          placeholder: (context, string) =>
-                              Image.asset('assets/images/test.png'),
-                          height: 70.sp,
-                          width: 70.sp,
-                          imageUrl: order.store.image_url),
-                    )
-                  ]),
+                      ]),
                 )),
             SizedBox(
               height: 12.h,
@@ -336,29 +340,68 @@ class OrderDetails extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     vertical: 12.h,
-                    horizontal: 16.w,
+                    horizontal: 5.w,
                   ),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(order.user.username.toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16.sp,
-                                color: Colors.black)),
-                        SizedBox(
-                          height: 10.h,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(100.r),
+                          child: CachedNetworkImage(
+                              errorWidget: (context, string, val) =>
+                                  Image.asset('assets/images/test.png'),
+                              placeholder: (context, string) =>
+                                  Image.asset('assets/images/test.png'),
+                              height: 70.sp,
+                              width: 70.sp,
+                              imageUrl: order.user.image_url),
                         ),
-                        Row(
+                        SizedBox(
+                          width: 20.w,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(order.user.username.toString(),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16.sp,
+                                    color: Colors.black)),
+                            SizedBox(
+                              height: 10.h,
+                            ),
                             Row(
                               children: [
                                 Row(
                                   children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          order.user.address.toString(),
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 10.sp,
+                                            color: Pallete.greyColorPrinciple,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 6.w,
+                                        ),
+                                        SvgPicture.asset(
+                                          'assets/icons/location.svg',
+                                          height: 12.sp,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 12.w,
+                                ),
+                                Row(
+                                  children: [
                                     Text(
-                                      order.user.address.toString(),
+                                      order.user.phone.toString(),
                                       style: GoogleFonts.poppins(
                                         fontSize: 10.sp,
                                         color: Pallete.greyColorPrinciple,
@@ -369,54 +412,16 @@ class OrderDetails extends StatelessWidget {
                                       width: 6.w,
                                     ),
                                     SvgPicture.asset(
-                                      'assets/icons/location.svg',
+                                      'assets/icons/phone.svg',
                                       height: 12.sp,
                                     ),
                                   ],
                                 )
                               ],
                             ),
-                            SizedBox(
-                              width: 12.w,
-                            ),
-                            Row(
-                              children: [
-                                Text(
-                                  order.user.phone.toString(),
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 10.sp,
-                                    color: Pallete.greyColorPrinciple,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 6.w,
-                                ),
-                                SvgPicture.asset(
-                                  'assets/icons/phone.svg',
-                                  height: 12.sp,
-                                ),
-                              ],
-                            )
                           ],
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 17.w,
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(100.r),
-                      child: CachedNetworkImage(
-                          errorWidget: (context, string, val) =>
-                              Image.asset('assets/images/test.png'),
-                          placeholder: (context, string) =>
-                              Image.asset('assets/images/test.png'),
-                          height: 70.sp,
-                          width: 70.sp,
-                          imageUrl: order.user.image_url),
-                    )
-                  ]),
+                      ]),
                 )),
             SizedBox(
               height: 24.h,

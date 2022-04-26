@@ -137,7 +137,6 @@ class _MyAppState extends State<MyApp> {
       body: message.notification!.body,
     ));
   }
-  
   @override
   void initState() {
     setupInteractedMessage();

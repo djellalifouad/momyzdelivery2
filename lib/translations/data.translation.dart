@@ -4,6 +4,7 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "delivery_price": "Delivery price",
           "delivery_information": "Delivery Information",
           "order_place": "Order place",
           "order_delivered": "Order delivered",
@@ -200,6 +201,7 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "delivery_price": "سعر التوصيلة",
           "delivery_information": "معلومات التوصيل",
           "order_place": "مكان التوصيل ",
           "order_delivered": "تم توصيل الطلب",

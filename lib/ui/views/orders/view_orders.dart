@@ -14,7 +14,6 @@ class Orders extends StatefulWidget {
   @override
   State<Orders> createState() => _OrdersState();
 }
-
 class _OrdersState extends State<Orders> {
   final controller = Get.put(OrderController());
   @override

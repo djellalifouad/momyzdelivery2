@@ -7,6 +7,8 @@ import 'package:momyzdelivery/services/service.orders.dart';
 import 'package:get/get.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder1.dart';
 
+import '../ui/views/toast/toast.message.dart';
+
 class ConfirmOrderFileController extends GetxController {
   var box = GetStorage();
   String token = "";
@@ -33,7 +35,7 @@ class ConfirmOrderFileController extends GetxController {
         type: FileType.custom,
         allowedExtensions: ["PNG", "JPG", "JPEG"]);
     if (result != null) {
-      files = result.paths.map((path) => File(path.toString())).toList();
+      files.addAll(result.paths.map((path) => File(path.toString())).toList());
       update();
     } else {
       update();
@@ -47,13 +49,15 @@ class ConfirmOrderFileController extends GetxController {
   }
 
   sendPictureOrder(String id) async {
+    if (files.isEmpty) {
+      showMessage("please_add_ids_pic".tr);
+      return;
+    }
     updateIsSendingOrder();
-
     token = box.read('token').toString();
     bool s = await OrderService.sendPictureOrder(
         order_id: id, images: files, token: token);
-    OrderService.sendCode(id, token);
-
+    await OrderService.sendCode(id, token);
     updateIsSendingOrder();
     Get.to(ConfirmOrder(id));
   }

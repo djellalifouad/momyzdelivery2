@@ -210,7 +210,7 @@ class HomeController extends GetxController {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        order.shipping.toString(),
+                        order.shipping.toString() + " ₪",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 24.sp,

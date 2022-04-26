@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 
-
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +14,7 @@ import '../components/component_textField.dart';
 import '../profile/view_profile.dart';
 import '../stats/view_stat_profile.dart';
 import '../wait_view.dart';
+
 class ConfirmOrder3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class ConfirmOrder3 extends StatelessWidget {
                       height: 40.h,
                     ),
                     ButtonComponent('open_map'.tr, () {
-  
+                      Get.to(ProvidedStylesExample());
                     }),
                     SizedBox(
                       height: 48.h,

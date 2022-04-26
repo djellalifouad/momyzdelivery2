@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/services/service.orders.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder3.dart';
+import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +20,7 @@ import '../wait_view.dart';
 class ConfirmOrder extends StatelessWidget {
   String id;
   ConfirmOrder(this.id);
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +74,12 @@ class ConfirmOrder extends StatelessWidget {
                           margin: EdgeInsets.only(left: 16.0.w, right: 16.w),
                           height: 50.sp,
                           child: PinCodeTextField(
+                            controller: controller,
                             onSubmitted: (s) {},
                             enablePinAutofill: true,
                             autovalidateMode: AutovalidateMode.disabled,
                             appContext: context,
-                            length: 5,
+                            length: 6,
                             textStyle: TextStyle(
                               fontSize: 16.sp,
                             ),
@@ -103,8 +106,13 @@ class ConfirmOrder extends StatelessWidget {
                             onCompleted: (v) async {
                               var box = GetStorage();
                               String token = box.read('token').toString();
-                              OrderService.arrive(id, token, v);
-                              Get.to(ConfirmOrder3());
+                              bool result =
+                                  await OrderService.arrive(id, token, v);
+                              if (result) {
+                                Get.to(ConfirmOrder3());
+                              } else {
+                                showMessage("wrongSms".tr);
+                              }
                             },
                             onChanged: (value) {},
                             beforeTextPaste: (text) {
@@ -116,7 +124,18 @@ class ConfirmOrder extends StatelessWidget {
                     SizedBox(
                       height: 41.h,
                     ),
-                    ButtonComponent('code_activation_confirmation'.tr, () {}),
+                    ButtonComponent('code_activation_confirmation'.tr,
+                        () async {
+                      var box = GetStorage();
+                      String token = box.read('token').toString();
+                      bool result =
+                          await OrderService.arrive(id, token, controller.text);
+                      if (result) {
+                        Get.to(ConfirmOrder3());
+                      } else {
+                        showMessage("wrongSms".tr);
+                      }
+                    }),
                     SizedBox(
                       height: 48.h,
                     ),
