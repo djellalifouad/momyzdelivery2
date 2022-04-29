@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
                                                 splashController.v!.image_url,
                                           ),
                                         ),
-                                        splashController.v!.online == 2
+                                        splashController.v!.online == 1
                                             ? Positioned(
                                                 top: 9.sp,
                                                 right: 9.sp,

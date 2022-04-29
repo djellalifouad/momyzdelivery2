@@ -259,6 +259,7 @@ class HomeController extends GetxController {
             ),
           ),
         ),
+        enableDrag: false,
         useRootNavigator: false);
   }
 
@@ -447,26 +448,39 @@ class HomeController extends GetxController {
           topRight: Radius.circular(16),
         ),
       ),
+      isDismissible: false,
+      enableDrag: false,
     );
   }
 
   showBottomOrder3(Order? order) {
-    Get.bottomSheet(Container(
-      height: 60.h,
-      width: 1.sw,
-      decoration: BoxDecoration(
-          color: Colors.white, // or some other color
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16.0.r),
-              topRight: Radius.circular(16.0.r))),
-      child: Center(
-        child: InkWell(
-            onTap: () {
-              Get.back();
-              showBottomOrder2(order);
-            },
-            child: SvgPicture.asset('assets/icons/hide.svg')),
+    Get.bottomSheet(
+      Container(
+        height: 60.h,
+        width: 1.sw,
+        decoration: BoxDecoration(
+            color: Colors.white, // or some other color
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16.0.r),
+                topRight: Radius.circular(16.0.r))),
+        child: Center(
+          child: InkWell(
+              onTap: () {
+                Get.back();
+                showBottomOrder2(order);
+              },
+              child: SvgPicture.asset('assets/icons/hide.svg')),
+        ),
       ),
-    ));
+      barrierColor: Colors.transparent,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      isDismissible: false,
+      enableDrag: false,
+    );
   }
 }

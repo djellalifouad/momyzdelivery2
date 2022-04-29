@@ -14,6 +14,7 @@ class Orders extends StatefulWidget {
   @override
   State<Orders> createState() => _OrdersState();
 }
+
 class _OrdersState extends State<Orders> {
   final controller = Get.put(OrderController());
   @override
@@ -67,6 +68,7 @@ class _OrdersState extends State<Orders> {
                         RefreshIndicator(
                           color: Pallete.pinkColorPrinciple,
                           onRefresh: () async {
+                            print('here');
                             controller.getOrdersFirst();
                           },
                           child: controller.orders.isEmpty
@@ -76,6 +78,8 @@ class _OrdersState extends State<Orders> {
                                     horizontal: 24.w,
                                   ),
                                   child: ListView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
                                     controller: controller.scrollController1,
                                     itemCount: controller.orders.length,
                                     itemBuilder: (context, index) {
@@ -190,11 +194,18 @@ class _OrdersState extends State<Orders> {
                                                             height: 4.h,
                                                           ),
                                                           Text(
-                                                            controller
-                                                                .orders[index]
-                                                                .store
-                                                                .bio
-                                                                .toString(),
+                                                            "order_contains"
+                                                                    .tr +
+                                                                " " +
+                                                                controller
+                                                                    .orders[
+                                                                        index]
+                                                                    .items
+                                                                    .length
+                                                                    .toString() +
+                                                                " " +
+                                                                "order_products"
+                                                                    .tr,
                                                             style: TextStyle(
                                                               fontWeight:
                                                                   FontWeight
@@ -354,10 +365,11 @@ class _OrdersState extends State<Orders> {
                                                                 ),
                                                                 Text(
                                                                   controller
-                                                                      .orders[
-                                                                          index]
-                                                                      .shipping
-                                                                      .toString(),
+                                                                          .orders[
+                                                                              index]
+                                                                          .shipping
+                                                                          .toString() +
+                                                                      "₪",
                                                                   style:
                                                                       TextStyle(
                                                                     fontWeight:

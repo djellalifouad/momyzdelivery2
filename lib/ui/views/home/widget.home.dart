@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_map_polyline_new/google_map_polyline_new.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
@@ -28,16 +29,43 @@ class HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    getCor();
   }
+
+  getCor() async {
+    var routeCords = await _googleMapPolyline.getCoordinatesWithLocation(
+        origin: LatLng(35.70455, -0.633304),
+        destination: LatLng(40.698432, -73.924038),
+        mode: RouteMode.driving);
+    _polylines.add(Polyline(
+      polylineId: PolylineId('route1'),
+      visible: true,
+      points: routeCords!,
+      width: 4,
+      color: Colors.red,
+    ));
+    print("wow");
+    print(_googleMapPolyline);
+    setState(() {});
+  }
+
+  int _polylineCount = 1;
+  Set<Polyline> _polylines = {};
+
+  GoogleMapPolyline _googleMapPolyline =
+      new GoogleMapPolyline(apiKey: "AIzaSyDdoj4ZqbDs_gJEiRCl5am3Vy6cPMYRLcU");
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SplashController>(builder: (splashController) {
       return SafeArea(
-        child: new Scaffold(
+        child: Scaffold(
           body: Stack(
             children: [
               GoogleMap(
+                polylines: Set<Polyline>.of(_polylines),
+                myLocationButtonEnabled: false,
+                myLocationEnabled: true,
                 zoomGesturesEnabled: false,
                 zoomControlsEnabled: false,
                 mapType: MapType.normal,
@@ -48,11 +76,13 @@ class HomeState extends State<Home> {
               ),
               splashController.v!.state == 2
                   ? Positioned(
-                      top: 40.sp,
+                      top: 20.sp,
                       right: 20.sp,
                       child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.w,
+                        ),
                         height: 34.h,
-                        width: 110.w,
                         child: Row(children: [
                           Switch(
                               focusColor: Pallete.pinkColorPrinciple,

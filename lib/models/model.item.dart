@@ -20,8 +20,8 @@ class Item {
     Map<String, dynamic> map,
   ) {
     return Item(
-      image_url: map['image_url'].toString(),
-        price: map['price'].toString(),
+        image_url: map['image_url'].toString(),
+        price: map['unit_price'].toString(),
         id: map['id'],
         description: map['description'].toString(),
         product_id: map['product_id'],

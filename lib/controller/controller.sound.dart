@@ -1,10 +1,15 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 
 class SoundController {
+  var assetsAudioPlayer = AssetsAudioPlayer();
+
   play() {
-    AssetsAudioPlayer.newPlayer().open(
-      Audio("assets/audios/song1.mp3"),
+    assetsAudioPlayer.open(
+      Audio("assets/sound/awesome.mp3"),
     );
   }
 
+  stop() {
+    assetsAudioPlayer.stop();
+  }
 }

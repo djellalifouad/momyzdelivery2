@@ -25,8 +25,9 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+            backgroundColor: Pallete.backGroundColor2,
             appBar: AppBar(
-              backgroundColor: Pallete.backGroundColor,
+              backgroundColor: Pallete.backGroundColor2,
               centerTitle: true,
               elevation: 0,
               title: Text(
@@ -38,51 +39,19 @@ class _NotificationsState extends State<Notifications> {
                 ),
               ),
             ),
-            backgroundColor: Pallete.backGroundColor,
-            body: GetBuilder<NotificationController>(builder: (controller) {
-              if (controller.isGettingNotification) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  controller.notifications.isEmpty
-                      ? Container()
-                      : Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 24.w,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'today'.tr,
-                                style: TextStyle(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              Text(
-                                'read_all_notif'.tr,
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w400,
-                                  color: Pallete.greyText,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  Stack(
-                    children: [
-                      Expanded(
-                        child: RefreshIndicator(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GetBuilder<NotificationController>(builder: (controller) {
+                  if (controller.isGettingNotification) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Expanded(
+                    child: Stack(
+                      children: [
+                        RefreshIndicator(
                           color: Pallete.pinkColorPrinciple,
                           onRefresh: () async {
                             controller.getNotifcationsFirst();
@@ -95,7 +64,6 @@ class _NotificationsState extends State<Notifications> {
                                     horizontal: 24.w,
                                   ),
                                   child: ListView.builder(
-                                      shrinkWrap: true,
                                       physics: AlwaysScrollableScrollPhysics(),
                                       controller: controller.scrollController1,
                                       itemCount:
@@ -111,6 +79,112 @@ class _NotificationsState extends State<Notifications> {
                                                 Get.locale!.countryCode == "US"
                                                     ? "en"
                                                     : 'ar');
+                                        if (index == 0) {
+                                          return Column(
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'today'.tr,
+                                                    style: TextStyle(
+                                                      fontSize: 16.sp,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'read_all_notif'.tr,
+                                                    style: TextStyle(
+                                                      fontSize: 12.sp,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Pallete.greyText,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 20.h,
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    bottom: 10.h),
+                                                child: Row(
+                                                  children: [
+                                                    Image.asset(
+                                                        'assets/images/test.png'),
+                                                    SizedBox(width: 10.w),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                          width: 0.7.sw,
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                controller
+                                                                    .notifications[
+                                                                        index]
+                                                                    .title,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  fontSize:
+                                                                      14.sp,
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                difference,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  fontSize:
+                                                                      11.sp,
+                                                                  color: Pallete
+                                                                      .pinkColorPrinciple,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: 4.h,
+                                                        ),
+                                                        Text(
+                                                          controller
+                                                              .notifications[
+                                                                  index]
+                                                              .body,
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 11.sp,
+                                                            color: Pallete
+                                                                .greyText,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          );
+                                        }
+
                                         return Padding(
                                           padding:
                                               EdgeInsets.only(bottom: 10.h),
@@ -175,11 +249,11 @@ class _NotificationsState extends State<Notifications> {
                                         );
                                       })),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              );
-            })));
+                      ],
+                    ),
+                  );
+                }),
+              ],
+            )));
   }
 }

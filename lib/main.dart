@@ -9,10 +9,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
 import 'package:momyzdelivery/translations/data.translation.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
+import 'package:momyzdelivery/ui/views/bottom/view_bottom.dart';
 import 'package:momyzdelivery/ui/views/splashScreen/widget.splash.dart';
 import 'package:get/get.dart';
+import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'controller/controller.home.dart';
+import 'controller/controller.sound.dart';
 
+SoundController soundController = SoundController();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -33,12 +37,10 @@ class _MyAppState extends State<MyApp> {
     // a terminated state.
     RemoteMessage? initialMessage =
         await FirebaseMessaging.instance.getInitialMessage();
-
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
-    if (initialMessage != null) {
-      _handleMessage(initialMessage);
-    }
+
     AwesomeNotifications().initialize(null, // icon for your app notification
         [
           NotificationChannel(
@@ -54,7 +56,7 @@ class _MyAppState extends State<MyApp> {
 
     // Also handle any interaction when the app is in the background via a
     // Stream listener
-    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true, // Required to display a heads up notification
@@ -81,15 +83,15 @@ class _MyAppState extends State<MyApp> {
       print('User declined or has not accepted permission');
     }
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('wiwiwiwiwiwiw');
+      showMessage("open app from notification");
       RemoteNotification? notification = message.notification;
       if (notification != null) {
         final homeController = Get.find<HomeController>();
         homeController.showBottomOrder(message.data['order_id']);
       }
     });
-
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      soundController.play();
       RemoteNotification? notification = message.notification;
       if (notification != null) {
         AwesomeNotifications().createNotification(
@@ -114,34 +116,22 @@ class _MyAppState extends State<MyApp> {
     AwesomeNotifications()
         .actionStream
         .listen((ReceivedNotification receivedNotification) {
-      print('wiwiwiwiwiwiw');
-
-      final homeController = Get.find<HomeController>();
-      homeController.showBottomOrder(
-          receivedNotification.payload!['order_id'].toString());
+      var notif = receivedNotification.payload;
+      Get.off(ProvidedStylesExample());
+      if (notif != null) {
+        soundController.stop();
+        final homeController = Get.find<HomeController>();
+        homeController.showBottomOrder(notif['order_id'].toString());
+      }
     });
   }
 
-  void _handleMessage(RemoteMessage message) {
-    AwesomeNotifications().createNotification(
-        content: NotificationContent(
-      id: DateTime.now().microsecond,
-      color: Colors.transparent,
-      displayOnBackground: true,
-      displayOnForeground: true,
-      channelKey: 'FISHTENDER_NOTIFICATION',
-      notificationLayout: NotificationLayout.Inbox,
-      hideLargeIconOnExpand: true,
-      largeIcon: 'asset://assets/images/appicon.png',
-      title: message.notification!.title,
-      body: message.notification!.body,
-    ));
-  }
   @override
   void initState() {
     setupInteractedMessage();
     super.initState();
   }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -165,12 +155,14 @@ class _MyAppState extends State<MyApp> {
             ));
   }
 }
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   void _incrementCounter() {
@@ -205,5 +197,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('onbackground message');
+  print(message.data);
+  RemoteNotification? notification = message.notification;
+  soundController.play();
+  // AwesomeNotifications().cancelAll();
+  if (notification != null) {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: DateTime.now().microsecond,
+            color: Colors.transparent,
+            displayOnBackground: true,
+            displayOnForeground: true,
+            channelKey: 'FISHTENDER_NOTIFICATION',
+            notificationLayout: NotificationLayout.Inbox,
+            hideLargeIconOnExpand: true,
+            title: message.notification!.title,
+            body: message.notification!.body,
+            payload: {
+              'order_id': message.data['order_id'],
+            }),
+        actionButtons: [NotificationActionButton(label: 'Accept', key: 's')]);
   }
 }
