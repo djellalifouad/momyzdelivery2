@@ -91,7 +91,7 @@ class _StateUserState extends State<StateUser> {
                         ),
                         Center(
                           child: Text(
-                            " \₪ ${controller.v!.wallet}".toString(),
+                            "${controller.v!.wallet}₪".toString(),
                             style: GoogleFonts.poppins(
                               fontSize: 50.sp,
                               fontWeight: FontWeight.w600,

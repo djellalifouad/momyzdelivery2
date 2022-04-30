@@ -181,10 +181,13 @@ class CarInformationRegisterUpdate extends StatelessWidget {
                                       children: [
                                         Image.file(
                                           controller.fileGreyCard,
+                                          height: 120.sp,
+                                          width: 120.sp,
+                                          fit: BoxFit.cover,
                                         ),
                                         Positioned(
-                                            top: 10.sp,
-                                            left: 8.sp,
+                                            top: 4.sp,
+                                            left: 4.sp,
                                             child: Container(
                                               height: 20.sp,
                                               width: 20.sp,

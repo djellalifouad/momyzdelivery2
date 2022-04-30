@@ -27,7 +27,6 @@ class HomeController extends GetxController {
     box = GetStorage();
     token = box.read('token').toString();
   }
-
   updateLocation() async {
     if (isProcessing) {
       return;
@@ -46,7 +45,6 @@ class HomeController extends GetxController {
       update();
     }
   }
-
   showBottomOrder(String id) async {
     Order? order = await OrderService.previewOrder(id, token);
     Get.bottomSheet(
@@ -262,9 +260,7 @@ class HomeController extends GetxController {
         enableDrag: false,
         useRootNavigator: false);
   }
-
   bool hide = false;
-
   showBottomOrder2(Order? order) {
     Get.bottomSheet(
       Container(

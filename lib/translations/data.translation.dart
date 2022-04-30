@@ -4,6 +4,7 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "delete_filter": "Delete Filter",
           "order_contains": "The order contain",
           "order_product": "products",
           "delivery_price": "Delivery price",
@@ -34,8 +35,9 @@ class LocalString extends Translations {
           "min_error": "minimum withdrawal is",
           "transaction_success": "funds withdrawn successfully",
           "order_location": "Order location",
-          "normal_delivery": "Normal delivery",
+          "normal_delivery": "Normal Delivery",
           "express_delivery": "Express Delivery",
+          "program_delivery": "Programmed  Delivery",
           "booked_delivery": "Booked Delivery",
           "ammount": "the amount",
           "withdtawal_detail": "Draw details",
@@ -203,6 +205,7 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "delete_filter": "إلغاء فلتر",
           "order_contains": "الطلب يحتوي على",
           "order_products": "منتجات",
           "delivery_price": "سعر التوصيلة",
@@ -234,6 +237,7 @@ class LocalString extends Translations {
           "order_location": "موقع الطلب ",
           "normal_delivery": "توصيل عادي",
           "express_delivery": "توصيل سريع",
+          "program_delivery": "توصيل مبرمج",
           "booked_delivery": "توصيل مؤقت",
           "ammount": "المبلغ",
           "withdtawal_detail": "تفاصيل السحب ",

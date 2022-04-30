@@ -40,18 +40,23 @@ class _OrdersState extends State<Orders> {
                   color: Colors.black,
                 ),
               ),
-              leading: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
-                  ),
-                  child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: SvgPicture.asset(
-                      'assets/icons/Filter.svg',
-                      height: 10.sp,
-                      width: 10.sp,
+              leading: InkWell(
+                onTap: () {
+                  controller.showFilterOrderBottomSheet();
+                },
+                child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.w,
                     ),
-                  )),
+                    child: Container(
+                      padding: EdgeInsets.all(5.sp),
+                      child: SvgPicture.asset(
+                        'assets/icons/Filter.svg',
+                        height: 10.sp,
+                        width: 10.sp,
+                      ),
+                    )),
+              ),
             ),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -143,11 +148,12 @@ class _OrdersState extends State<Orders> {
                                                                       .spaceBetween,
                                                               children: [
                                                                 Text(
-                                                                  controller
-                                                                      .orders[
-                                                                          index]
-                                                                      .store
-                                                                      .username,
+                                                                  "#" +
+                                                                      controller
+                                                                          .orders[
+                                                                              index]
+                                                                          .id
+                                                                          .toString(),
                                                                   style:
                                                                       TextStyle(
                                                                     fontWeight:

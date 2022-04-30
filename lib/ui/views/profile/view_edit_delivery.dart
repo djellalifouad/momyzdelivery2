@@ -95,7 +95,9 @@ class EditDelivery extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  splashController.v!.name,
+                  splashController.v!.express_delivery == 1
+                      ? "express_delivery".tr
+                      : "normal_delivery".tr,
                   style: TextStyle(
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w400,

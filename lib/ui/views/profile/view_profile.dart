@@ -149,6 +149,7 @@ class _ProfileState extends State<Profile> {
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
                               ),
+                              textDirection: TextDirection.ltr,
                             ),
                           ),
                           SizedBox(

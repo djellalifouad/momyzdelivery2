@@ -121,7 +121,9 @@ class _MyAppState extends State<MyApp> {
       if (notif != null) {
         soundController.stop();
         final homeController = Get.find<HomeController>();
-        homeController.showBottomOrder(notif['order_id'].toString());
+        if (homeController != null) {
+          homeController.showBottomOrder(notif['order_id'].toString());
+        }
       }
     });
   }
@@ -140,6 +142,7 @@ class _MyAppState extends State<MyApp> {
         minTextAdapt: true,
         splitScreenMode: true,
         builder: () => GetMaterialApp(
+              title: "Momys Delivery",
               translations: LocalString(),
               locale: GetStorage().read("lang").toString() == "en"
                   ? Locale('en', "US")

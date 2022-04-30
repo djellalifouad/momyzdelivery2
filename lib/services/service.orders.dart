@@ -40,6 +40,38 @@ class OrderService {
     };
   }
 
+  static Future<Map<String, dynamic>> getOrdersFiltred(String token,
+      String page, int delivery_type, double minPrice, double maxPrice) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Authorization': "Bearer ${token}",
+    };
+
+    http.Response response = await http.get(
+      Uri.parse(baseUrl +
+          "orders?page=${page}&delivery_type=${delivery_type}&price=${minPrice}&price=${maxPrice}]"),
+      headers: headers,
+    );
+    print("response get order ");
+    print(response.body);
+    List<Order> orderList = [];
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    if (response.statusCode == 200) {
+      for (int i = 0; i < responseData['data'].length; i++) {
+        orderList.add(Order.fromMap(responseData['data'][i]));
+      }
+      return {
+        'success': true,
+        'orders': orderList,
+        'isMore': responseData['links']['next'] == null ? false : true,
+      };
+    }
+    return {
+      'success': false,
+    };
+  }
+
   static Future<bool> declineOrder(String id, String token) async {
     Map<String, String> headers = {
       'Accept': 'application/json',
@@ -50,6 +82,8 @@ class OrderService {
       Uri.parse(baseUrl + "orders/${id}/decline"),
       headers: headers,
     );
+    print("response declive");
+    print(response.body);
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -124,6 +158,7 @@ class OrderService {
       'X-Requested-With': 'XMLHttpRequest',
       'Authorization': "Bearer ${token}",
     };
+
     http.Response response = await http.post(
       Uri.parse(baseUrl + "orders/${id}/arrive"),
       body: {
@@ -131,6 +166,9 @@ class OrderService {
       },
       headers: headers,
     );
+    print("response arrive");
+    print(response.body);
+    showMessage(response.body);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
       return true;
