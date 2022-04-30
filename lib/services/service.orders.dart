@@ -39,7 +39,6 @@ class OrderService {
       'success': false,
     };
   }
-
   static Future<Map<String, dynamic>> getOrdersFiltred(String token,
       String page, int delivery_type, double minPrice, double maxPrice) async {
     Map<String, String> headers = {
@@ -47,10 +46,9 @@ class OrderService {
       'X-Requested-With': 'XMLHttpRequest',
       'Authorization': "Bearer ${token}",
     };
-
     http.Response response = await http.get(
       Uri.parse(baseUrl +
-          "orders?page=${page}&delivery_type=${delivery_type}&price=${minPrice}&price=${maxPrice}]"),
+          "orders?page=${page}&delivery_type=${delivery_type}&price[min]=${minPrice}&price[max]=${maxPrice}"),
       headers: headers,
     );
     print("response get order ");

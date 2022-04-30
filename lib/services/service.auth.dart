@@ -292,7 +292,7 @@ class AuthService {
           data: {
             'phone': phone,
             'country_code': country_code,
-            'fcm_token': "testesthvjkfdjskkljflds",
+            'fcm_token': token,
             'lon': lon,
             'lat': lat,
             'express_delivery': express_delivery,
