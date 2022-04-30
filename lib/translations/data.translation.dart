@@ -4,6 +4,7 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "already_exist": "You already have a request",
           "delete_filter": "Delete Filter",
           "order_contains": "The order contain",
           "order_product": "products",
@@ -205,6 +206,7 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "already_exist": "لديك طلب من قبل",
           "delete_filter": "إلغاء فلتر",
           "order_contains": "الطلب يحتوي على",
           "order_products": "منتجات",

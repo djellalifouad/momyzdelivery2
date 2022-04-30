@@ -3,7 +3,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
@@ -26,7 +25,6 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -40,7 +38,6 @@ class _MyAppState extends State<MyApp> {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
-
     AwesomeNotifications().initialize(null, // icon for your app notification
         [
           NotificationChannel(
@@ -53,10 +50,8 @@ class _MyAppState extends State<MyApp> {
             enableVibration: true,
           )
         ]);
-
     // Also handle any interaction when the app is in the background via a
     // Stream listener
-
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true, // Required to display a heads up notification
@@ -64,7 +59,6 @@ class _MyAppState extends State<MyApp> {
       sound: true,
     );
     FirebaseMessaging messaging = FirebaseMessaging.instance;
-
     NotificationSettings settings = await messaging.requestPermission(
       alert: true,
       announcement: true,

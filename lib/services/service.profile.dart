@@ -204,7 +204,6 @@ class ProfileService {
       'X-Requested-With': 'XMLHttpRequest',
       'Authorization': "Bearer ${token}",
     };
-
     http.Response response = await http.get(
       Uri.parse(baseUrl + "profile"),
       headers: headers,
@@ -231,7 +230,6 @@ class ProfileService {
     );
     print("response get logout ");
     print(response.body);
-
     final Map<String, dynamic> responseData = json.decode(response.body);
     if (response.statusCode == 200) {
       return true;
@@ -252,7 +250,10 @@ class ProfileService {
     );
     print("response /delete-account");
     print(response.body);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 412) {
+      return "already_exist"; 
+    }
+    if (response.statusCode == 201) {
       return "success";
     } else {
       return "error";

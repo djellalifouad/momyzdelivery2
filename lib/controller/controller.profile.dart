@@ -25,6 +25,7 @@ class ProfileController extends GetxController {
     token = box.read('token').toString();
     super.onInit();
   }
+
   changeStateIsSending() {
     isSending = !isSending;
     update();
@@ -98,10 +99,16 @@ class ProfileController extends GetxController {
               onPressed: () async {
                 String result = await ProfileService.sendDeleteAccount(token);
                 Get.back();
+                if (result == "already_exist") {
+                  showMessage("already_exist".tr);
+                  return;
+                }
                 if (result == "success") {
                   showMessage("success".tr);
+                  return;
                 } else {
                   showMessage("error".tr);
+                  return;
                 }
               },
               child: Text(

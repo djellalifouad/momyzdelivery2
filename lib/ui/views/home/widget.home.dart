@@ -31,7 +31,6 @@ class HomeState extends State<Home> {
     super.initState();
     getCor();
   }
-
   getCor() async {
     var routeCords = await _googleMapPolyline.getCoordinatesWithLocation(
         origin: LatLng(35.70455, -0.633304),
@@ -53,7 +52,7 @@ class HomeState extends State<Home> {
   Set<Polyline> _polylines = {};
 
   GoogleMapPolyline _googleMapPolyline =
-      new GoogleMapPolyline(apiKey: "AIzaSyDdoj4ZqbDs_gJEiRCl5am3Vy6cPMYRLcU");
+      new GoogleMapPolyline(apiKey: "AIzaSyCh4YCK9UppAKQShFZKjyDBN4sNMJwzg-A");
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +65,8 @@ class HomeState extends State<Home> {
                 polylines: Set<Polyline>.of(_polylines),
                 myLocationButtonEnabled: false,
                 myLocationEnabled: true,
-                zoomGesturesEnabled: false,
-                zoomControlsEnabled: false,
+                zoomGesturesEnabled: true,
+                zoomControlsEnabled: true,
                 mapType: MapType.normal,
                 initialCameraPosition: _kGooglePlex,
                 onMapCreated: (GoogleMapController controller) {
@@ -95,7 +94,7 @@ class HomeState extends State<Home> {
                               }),
                           Text(
                             'ondelivery'.tr,
-                            style: TextStyle(
+                          style: TextStyle(
                                 fontSize: 10.sp, fontWeight: FontWeight.bold),
                           ),
                         ]),
