@@ -251,7 +251,7 @@ class ProfileService {
     print("response /delete-account");
     print(response.body);
     if (response.statusCode == 412) {
-      return "already_exist"; 
+      return "already_exist";
     }
     if (response.statusCode == 201) {
       return "success";

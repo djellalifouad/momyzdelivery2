@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_map_polyline_new/google_map_polyline_new.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,105 +16,75 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(35.6976541, -0.6337376),
-    zoom: 16.4746,
-  );
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
-  bool deliveryValue = true;
-  final homeController = Get.put(HomeController());
   @override
   void initState() {
+    //fetch direction polylines from Google API
     super.initState();
-    getCor();
-  }
-  getCor() async {
-    var routeCords = await _googleMapPolyline.getCoordinatesWithLocation(
-        origin: LatLng(35.70455, -0.633304),
-        destination: LatLng(40.698432, -73.924038),
-        mode: RouteMode.driving);
-    _polylines.add(Polyline(
-      polylineId: PolylineId('route1'),
-      visible: true,
-      points: routeCords!,
-      width: 4,
-      color: Colors.red,
-    ));
-    print("wow");
-    print(_googleMapPolyline);
-    setState(() {});
   }
 
-  int _polylineCount = 1;
-  Set<Polyline> _polylines = {};
-
-  GoogleMapPolyline _googleMapPolyline =
-      new GoogleMapPolyline(apiKey: "AIzaSyCh4YCK9UppAKQShFZKjyDBN4sNMJwzg-A");
+  final homeController = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SplashController>(builder: (splashController) {
-      return SafeArea(
-        child: Scaffold(
-          body: Stack(
-            children: [
-              GoogleMap(
-                polylines: Set<Polyline>.of(_polylines),
-                myLocationButtonEnabled: false,
-                myLocationEnabled: true,
-                zoomGesturesEnabled: true,
-                zoomControlsEnabled: true,
-                mapType: MapType.normal,
-                initialCameraPosition: _kGooglePlex,
-                onMapCreated: (GoogleMapController controller) {
-                  _controller.complete(controller);
-                },
-              ),
-              splashController.v!.state == 2
-                  ? Positioned(
-                      top: 20.sp,
-                      right: 20.sp,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 5.w,
-                        ),
-                        height: 34.h,
-                        child: Row(children: [
-                          Switch(
-                              focusColor: Pallete.pinkColorPrinciple,
-                              activeColor: Pallete.pinkColorPrinciple,
-                              value: splashController.v!.online == 1
-                                  ? true
-                                  : false,
-                              onChanged: (val) {
-                                homeController.updateLocation();
-                              }),
-                          Text(
-                            'ondelivery'.tr,
-                          style: TextStyle(
-                                fontSize: 10.sp, fontWeight: FontWeight.bold),
-                          ),
-                        ]),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            color: Colors.white),
+    return GetBuilder<HomeController>(builder: (context) {
+      return GetBuilder<SplashController>(builder: (splashController) {
+        return SafeArea(
+          child: Scaffold(
+            body: Stack(
+              children: [
+                homeController.currentLocation == null
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : GoogleMap(
+                        rotateGesturesEnabled: true,
+                        myLocationButtonEnabled: true,
+                        zoomControlsEnabled: false,
+                        mapType: MapType.normal,
+                        markers: homeController.markers,
+                        polylines:
+                            Set<Polyline>.of(homeController.polylines.values),
+                        myLocationEnabled: true,
+                        initialCameraPosition: CameraPosition(
+                            target: homeController.currentLocation!, zoom: 75),
+                        onMapCreated: (GoogleMapController controller) {},
                       ),
-                    )
-                  : Container(),
-            ],
+                splashController.v!.state == 2
+                    ? Positioned(
+                        top: 20.sp,
+                        left: 20.sp,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 5.w,
+                          ),
+                          height: 34.h,
+                          child: Row(children: [
+                            Switch(
+                                focusColor: Pallete.pinkColorPrinciple,
+                                activeColor: Pallete.pinkColorPrinciple,
+                                value: splashController.v!.online == 1
+                                    ? true
+                                    : false,
+                                onChanged: (val) {
+                                  homeController.updateLocation();
+                                }),
+                            Text(
+                              'ondelivery'.tr,
+                              style: TextStyle(
+                                  fontSize: 10.sp, fontWeight: FontWeight.bold),
+                            ),
+                          ]),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Colors.white),
+                        ),
+                      )
+                    : Container(),
+              ],
+            ),
           ),
-        ),
-      );
+        );
+      });
     });
-  }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }

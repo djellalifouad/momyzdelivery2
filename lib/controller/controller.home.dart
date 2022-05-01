@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:momyzdelivery/models/model.order.dart';
@@ -12,7 +15,6 @@ import 'package:momyzdelivery/services/service.orders.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../ui/views/components/component_button.dart';
 import '../ui/views/confirmOrder/view_confirmOrder1.dart';
 import '../ui/views/confirmOrder/view_confirmOrder2.dart';
@@ -22,11 +24,21 @@ class HomeController extends GetxController {
   bool isProcessing = false;
   String token = "";
   var box;
+  Order? order;
   @override
   void onInit() {
     box = GetStorage();
     token = box.read('token').toString();
+    getCurrentLocation();
   }
+
+  getCurrentLocation() {
+    Geolocator.getCurrentPosition().then((va) {
+      currentLocation = LatLng(va.latitude, va.longitude);
+      update();
+    });
+  }
+
   updateLocation() async {
     if (isProcessing) {
       return;
@@ -45,8 +57,9 @@ class HomeController extends GetxController {
       update();
     }
   }
+
   showBottomOrder(String id) async {
-    Order? order = await OrderService.previewOrder(id, token);
+    order = await OrderService.previewOrder(id, token);
     Get.bottomSheet(
         Container(
           decoration: BoxDecoration(
@@ -122,7 +135,7 @@ class HomeController extends GetxController {
                 Padding(
                   padding: EdgeInsets.only(right: 10.w),
                   child: Text(
-                    order.address,
+                    order!.address,
                     style:
                         TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
@@ -142,7 +155,7 @@ class HomeController extends GetxController {
                           height: 4.h,
                         ),
                         Text(
-                          order.store.name.toString(),
+                          order!.store.name.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.sp,
@@ -167,7 +180,7 @@ class HomeController extends GetxController {
                           height: 4.h,
                         ),
                         Text(
-                          order.items.length.toString(),
+                          order!.items.length.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.sp,
@@ -192,7 +205,7 @@ class HomeController extends GetxController {
                       height: 4.h,
                     ),
                     Text(
-                      order.delivery_type.toString(),
+                      order!.delivery_type.toString(),
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 16.sp,
@@ -208,7 +221,7 @@ class HomeController extends GetxController {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        order.shipping.toString() + " ₪",
+                        order!.shipping.toString() + " ₪",
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 24.sp,
@@ -228,7 +241,7 @@ class HomeController extends GetxController {
                   bool val = await OrderService.acceptOrder(id, token);
                   if (val) {
                     Get.back();
-                    showBottomOrder2(order);
+                    showBottomOrder2();
                   }
                 }),
                 SizedBox(
@@ -260,8 +273,9 @@ class HomeController extends GetxController {
         enableDrag: false,
         useRootNavigator: false);
   }
+
   bool hide = false;
-  showBottomOrder2(Order? order) {
+  showBottomOrder2() {
     Get.bottomSheet(
       Container(
         decoration: BoxDecoration(
@@ -288,7 +302,7 @@ class HomeController extends GetxController {
                   InkWell(
                     onTap: () {
                       Get.back();
-                      showBottomOrder3(order);
+                      showBottomOrder3();
                     },
                     child: Icon(
                       Icons.clear,
@@ -375,7 +389,7 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    order.store.address,
+                    order!.store.address,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -416,7 +430,7 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    order.user.address,
+                    order!.user.address,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -428,7 +442,7 @@ class HomeController extends GetxController {
                 height: 32.h,
               ),
               ButtonComponent("order_delivered".tr, () {
-                Get.to(ConfirmOrder2(order));
+                Get.to(ConfirmOrder2(order!));
               }),
               SizedBox(
                 height: 22.h,
@@ -449,7 +463,7 @@ class HomeController extends GetxController {
     );
   }
 
-  showBottomOrder3(Order? order) {
+  showBottomOrder3() {
     Get.bottomSheet(
       Container(
         height: 60.h,
@@ -463,7 +477,7 @@ class HomeController extends GetxController {
           child: InkWell(
               onTap: () {
                 Get.back();
-                showBottomOrder2(order);
+                showBottomOrder2();
               },
               child: SvgPicture.asset('assets/icons/hide.svg')),
         ),
@@ -478,5 +492,103 @@ class HomeController extends GetxController {
       isDismissible: false,
       enableDrag: false,
     );
+  }
+
+  getDirections() async {
+    markers.add(Marker(
+      //add start location marker
+      markerId: MarkerId(startLocation.toString()),
+      position: LatLng(currentLocation!.latitude,
+          currentLocation!.longitude), //position of marker
+      infoWindow: InfoWindow(
+        //popup info
+        title: 'Starting Point',
+        snippet: 'Start Marker',
+      ),
+      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    ));
+
+    markers.add(Marker(
+      //add distination location marker
+      markerId: MarkerId(startLocation.toString()),
+      position: startLocation, //position of marker
+      infoWindow: InfoWindow(
+        //popup info
+        title: 'Market Point',
+        snippet: 'Market Marker',
+      ),
+      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    ));
+    markers.add(Marker(
+      //add distination location marker
+      markerId: MarkerId(endLocation.toString()),
+      position: endLocation, //position of marker
+      infoWindow: InfoWindow(
+        //popup info
+        title: 'Destination Point',
+        snippet: 'Destination Marker',
+      ),
+      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    ));
+
+    List<LatLng> polylineCoordinates = [];
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      googleAPiKey,
+      PointLatLng(currentLocation!.latitude, currentLocation!.longitude),
+      PointLatLng(startLocation.latitude, startLocation.longitude),
+      travelMode: TravelMode.driving,
+      optimizeWaypoints: true,
+    );
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+
+    addPolyLine(polylineCoordinates, "1");
+    result = await polylinePoints.getRouteBetweenCoordinates(
+      googleAPiKey,
+      PointLatLng(startLocation.latitude, startLocation.longitude),
+      PointLatLng(endLocation.latitude, endLocation.longitude),
+      travelMode: TravelMode.driving,
+      optimizeWaypoints: true,
+    );
+
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    } else {
+      print(result.errorMessage);
+    }
+    addPolyLine(polylineCoordinates, "2");
+  }
+
+  GoogleMapController? mapController; //contrller for Google map
+  PolylinePoints polylinePoints = PolylinePoints();
+
+  String googleAPiKey = "AIzaSyCh4YCK9UppAKQShFZKjyDBN4sNMJwzg-A";
+
+  Set<Marker> markers = Set(); //markers for google map
+  Map<PolylineId, Polyline> polylines = {}; //polylines to show direction
+
+  LatLng startLocation = LatLng(35.7089088, -0.6229565);
+  LatLng endLocation = LatLng(35.697688, -0.6122717);
+  LatLng? currentLocation;
+  addPolyLine(List<LatLng> polylineCoordinates, String s) {
+    PolylineId id = PolylineId(s);
+    Polyline polyline = Polyline(
+        polylineId: id,
+        jointType: JointType.bevel,
+        zIndex: 10,
+        color: Pallete.pinkColorPrinciple,
+        points: polylineCoordinates,
+        width: 4,
+        endCap: Cap.roundCap,
+        startCap: Cap.roundCap);
+    polylines[id] = polyline;
+    update();
   }
 }

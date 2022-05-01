@@ -88,7 +88,7 @@ class _MyAppState extends State<MyApp> {
       soundController.play();
       RemoteNotification? notification = message.notification;
       if (notification != null) {
-        AwesomeNotifications().createNotification(
+        AwesomeNotifications().createNotification( 
             content: NotificationContent(
                 id: DateTime.now().microsecond,
                 color: Colors.transparent,
@@ -101,10 +101,7 @@ class _MyAppState extends State<MyApp> {
                 body: message.notification!.body,
                 payload: {
                   'order_id': message.data['order_id'],
-                }),
-            actionButtons: [
-              NotificationActionButton(label: 'Accept', key: 's')
-            ]);
+                }),);
       }
     });
     AwesomeNotifications()
