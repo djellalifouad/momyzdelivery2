@@ -85,23 +85,26 @@ class _MyAppState extends State<MyApp> {
       }
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+     
       soundController.play();
       RemoteNotification? notification = message.notification;
       if (notification != null) {
-        AwesomeNotifications().createNotification( 
-            content: NotificationContent(
-                id: DateTime.now().microsecond,
-                color: Colors.transparent,
-                displayOnBackground: true,
-                displayOnForeground: true,
-                channelKey: 'FISHTENDER_NOTIFICATION',
-                notificationLayout: NotificationLayout.Inbox,
-                hideLargeIconOnExpand: true,
-                title: message.notification!.title,
-                body: message.notification!.body,
-                payload: {
-                  'order_id': message.data['order_id'],
-                }),);
+        AwesomeNotifications().createNotification(
+          content: NotificationContent(
+              id: DateTime.now().microsecond,
+              color: Colors.transparent,
+              displayOnBackground: true,
+              displayOnForeground: true,
+              channelKey: 'FISHTENDER_NOTIFICATION',
+              notificationLayout: NotificationLayout.Inbox,
+              hideLargeIconOnExpand: true,
+              title: message.notification!.title,
+              body: message.notification!.body,
+              payload: {
+                'order_id': message.data['order_id'],
+                'order_type': message.data['order_type'],
+              }),
+        );
       }
     });
     AwesomeNotifications()
@@ -113,7 +116,11 @@ class _MyAppState extends State<MyApp> {
         soundController.stop();
         final homeController = Get.find<HomeController>();
         if (homeController != null) {
-          homeController.showBottomOrder(notif['order_id'].toString());
+          if (notif['order_type'].toString() == "2") {
+            homeController.showBottomOrder(notif['order_id'].toString());
+          } else {
+            homeController.previewOrderNormal(notif['order_id'].toString());
+          }
         }
       }
     });
@@ -200,7 +207,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print(message.data);
   RemoteNotification? notification = message.notification;
   soundController.play();
-  // AwesomeNotifications().cancelAll();
+  AwesomeNotifications().cancelAll();
   if (notification != null) {
     AwesomeNotifications().createNotification(
         content: NotificationContent(

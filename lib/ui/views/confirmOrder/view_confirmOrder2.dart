@@ -17,14 +17,12 @@ import '../../../models/model.order.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
-
 class ConfirmOrder2 extends StatefulWidget {
-  Order order;
+  String order;
   ConfirmOrder2(this.order);
   @override
   State<ConfirmOrder2> createState() => _ConfirmOrder2State();
 }
-
 class _ConfirmOrder2State extends State<ConfirmOrder2> {
   @override
   Widget build(BuildContext context) {
@@ -150,8 +148,8 @@ class _ConfirmOrder2State extends State<ConfirmOrder2> {
                               )
                             : ButtonComponent('code_activation_confirmation'.tr,
                                 () {
-                                confirmOrderController.sendPictureOrder(
-                                    widget.order.id.toString());
+                                confirmOrderController
+                                    .sendPictureOrder(widget.order.toString());
                               }),
                         SizedBox(
                           height: 48.h,

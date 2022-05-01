@@ -39,6 +39,21 @@ class HomeController extends GetxController {
     });
   }
 
+  clearPolyline() {
+    polylines.clear();
+    update();
+  }
+
+  clearMarkers() {
+    markers.clear();
+    update();
+  }
+
+  hideBottom2() {
+    showboolBottomOrder2 = false;
+    update();
+  }
+
   updateLocation() async {
     if (isProcessing) {
       return;
@@ -58,7 +73,25 @@ class HomeController extends GetxController {
     }
   }
 
+  previewOrder(String id) async {
+    token = box.read('token').toString();
+    order = await OrderService.previewOrder(id, token);
+    update();
+    return;
+  }
+
+  previewOrderNormal(String id) async {
+    token = box.read('token').toString();
+    order = await OrderService.previewOrder2(id, token);
+    update();
+    GetStorage().write("currentOrder", id);
+    getDirections();
+    showboolBottomOrder2 = true;
+    update();
+  }
+
   showBottomOrder(String id) async {
+    token = box.read('token').toString();
     order = await OrderService.previewOrder(id, token);
     Get.bottomSheet(
         Container(
@@ -240,8 +273,11 @@ class HomeController extends GetxController {
                 ButtonComponent("accept_order".tr, () async {
                   bool val = await OrderService.acceptOrder(id, token);
                   if (val) {
+                    GetStorage().write("currentOrder", id);
                     Get.back();
-                    showBottomOrder2();
+                    getDirections();
+                    showboolBottomOrder2 = true;
+                    update();
                   }
                 }),
                 SizedBox(
@@ -276,6 +312,7 @@ class HomeController extends GetxController {
 
   bool hide = false;
   showBottomOrder2() {
+    getDirections();
     Get.bottomSheet(
       Container(
         decoration: BoxDecoration(
@@ -442,7 +479,7 @@ class HomeController extends GetxController {
                 height: 32.h,
               ),
               ButtonComponent("order_delivered".tr, () {
-                Get.to(ConfirmOrder2(order!));
+                Get.to(ConfirmOrder2(order!.id.toString()));
               }),
               SizedBox(
                 height: 22.h,
@@ -461,6 +498,34 @@ class HomeController extends GetxController {
       isDismissible: false,
       enableDrag: false,
     );
+  }
+
+  bool showboolBottomOrder2 = false;
+  showtextBottomSheet() {
+    Get.bottomSheet(
+        Container(
+          height: 160.h,
+          width: 1.sw,
+          color: Colors.white,
+          child: Text("tesds"),
+        ),
+        useRootNavigator: false,
+        ignoreSafeArea: false,
+        barrierColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+          ),
+        ),
+        enableDrag: false,
+        persistent: true);
+  }
+
+  bool ignore = false;
+  updateIgnore() {
+    ignore = !ignore;
+    update();
   }
 
   showBottomOrder3() {
@@ -497,45 +562,42 @@ class HomeController extends GetxController {
   getDirections() async {
     markers.add(Marker(
       //add start location marker
-      markerId: MarkerId(startLocation.toString()),
+      markerId: MarkerId(currentLocation.toString()),
       position: LatLng(currentLocation!.latitude,
           currentLocation!.longitude), //position of marker
       infoWindow: InfoWindow(
         //popup info
-        title: 'Starting Point',
-        snippet: 'Start Marker',
+        title: 'start_location'.tr,
       ),
       icon: BitmapDescriptor.defaultMarker, //Icon for Marker
     ));
 
     markers.add(Marker(
       //add distination location marker
-      markerId: MarkerId(startLocation.toString()),
-      position: startLocation, //position of marker
+      markerId:
+          MarkerId(order!.store.lat.toString() + order!.store.lon.toString()),
+      position: LatLng(order!.store.lat, order!.store.lon), //position of marker
       infoWindow: InfoWindow(
         //popup info
-        title: 'Market Point',
-        snippet: 'Market Marker',
+        title: 'store_location'.tr,
       ),
       icon: BitmapDescriptor.defaultMarker, //Icon for Marker
     ));
     markers.add(Marker(
       //add distination location marker
-      markerId: MarkerId(endLocation.toString()),
-      position: endLocation, //position of marker
+      markerId: MarkerId(order!.lat.toString() + order!.lon.toString()),
+      position: LatLng(order!.lat, order!.lon),
       infoWindow: InfoWindow(
         //popup info
-        title: 'Destination Point',
-        snippet: 'Destination Marker',
+        title: 'user_location'.tr,
       ),
       icon: BitmapDescriptor.defaultMarker, //Icon for Marker
     ));
-
     List<LatLng> polylineCoordinates = [];
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
       PointLatLng(currentLocation!.latitude, currentLocation!.longitude),
-      PointLatLng(startLocation.latitude, startLocation.longitude),
+      PointLatLng(order!.store.lat, order!.store.lon),
       travelMode: TravelMode.driving,
       optimizeWaypoints: true,
     );
@@ -546,16 +608,14 @@ class HomeController extends GetxController {
     } else {
       print(result.errorMessage);
     }
-
     addPolyLine(polylineCoordinates, "1");
     result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
-      PointLatLng(startLocation.latitude, startLocation.longitude),
-      PointLatLng(endLocation.latitude, endLocation.longitude),
+      PointLatLng(order!.store.lat, order!.store.lon),
+      PointLatLng(order!.lat, order!.lon),
       travelMode: TravelMode.driving,
       optimizeWaypoints: true,
     );
-
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
@@ -564,16 +624,14 @@ class HomeController extends GetxController {
       print(result.errorMessage);
     }
     addPolyLine(polylineCoordinates, "2");
+    update();
   }
 
   GoogleMapController? mapController; //contrller for Google map
   PolylinePoints polylinePoints = PolylinePoints();
-
   String googleAPiKey = "AIzaSyCh4YCK9UppAKQShFZKjyDBN4sNMJwzg-A";
-
   Set<Marker> markers = Set(); //markers for google map
   Map<PolylineId, Polyline> polylines = {}; //polylines to show direction
-
   LatLng startLocation = LatLng(35.7089088, -0.6229565);
   LatLng endLocation = LatLng(35.697688, -0.6122717);
   LatLng? currentLocation;

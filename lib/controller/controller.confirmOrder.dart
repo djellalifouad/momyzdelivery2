@@ -54,11 +54,14 @@ class ConfirmOrderFileController extends GetxController {
       return;
     }
     updateIsSendingOrder();
+
     token = box.read('token').toString();
     bool s = await OrderService.sendPictureOrder(
         order_id: id, images: files, token: token);
     await OrderService.sendCode(id, token);
     updateIsSendingOrder();
     Get.to(ConfirmOrder(id));
+    files.clear();
+    update();
   }
 }

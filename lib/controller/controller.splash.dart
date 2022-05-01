@@ -7,6 +7,7 @@ import 'package:momyzdelivery/services/service.auth.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../ui/views/auth/view_car_information.dart';
@@ -44,7 +45,13 @@ class SplashController extends GetxController {
         Get.off(CarInformationRegister());
         return;
       }
-      Get.off(ProvidedStylesExample());
+      if (getStorage.hasData("currentOrder")) {
+        String id = getStorage.read("currentOrder").toString();
+        Get.to(ConfirmOrder2(id));
+        return;
+      } else {
+        Get.off(ProvidedStylesExample());
+      }
     } else {
       Get.off(Login1View());
     }
