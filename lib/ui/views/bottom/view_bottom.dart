@@ -60,7 +60,6 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
       ),
     ];
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,24 +80,22 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         margin: EdgeInsets.all(0.0),
         popActionScreens: PopActionScreensType.all,
         bottomScreenMargin: 0.0,
-
         selectedTabScreenContext: (context) {},
         hideNavigationBar: _hideNavBar,
         decoration: NavBarDecoration(
             colorBehindNavBar: Colors.red,
             borderRadius: BorderRadius.circular(20.0)),
         popAllScreensOnTapOfSelectedTab: true,
-
         itemAnimationProperties: ItemAnimationProperties(
-          duration: Duration(milliseconds: 400),
+          duration: Duration(milliseconds: 0),
           curve: Curves.ease,
+          
         ),
         screenTransitionAnimation: ScreenTransitionAnimation(
-          animateTabTransition: true,
+          animateTabTransition: false,
           curve: Curves.ease,
-          duration: Duration(milliseconds: 200),
+          duration: Duration(milliseconds: 0),
         ),
-
         navBarStyle:
             NavBarStyle.style12, // Choose the nav bar style with this property
       ),

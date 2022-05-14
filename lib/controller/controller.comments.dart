@@ -49,6 +49,7 @@ class CommentController extends GetxController {
     if (comment != null) {
       comments.add(comment);
       textEditingController.text = "";
+      showMessage('comment_success'.tr);
       image = null;
       update();
     } else {

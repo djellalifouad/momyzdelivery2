@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
+import 'package:momyzdelivery/services/service.termsofuser.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder3.dart';
+import 'package:momyzdelivery/ui/views/privacyPolicy/privacyPolicy.widget.dart';
 import 'package:momyzdelivery/ui/views/profile/view_edit_delivery.dart';
 import 'package:momyzdelivery/ui/views/profile/view_settings.dart';
 
@@ -23,6 +25,7 @@ import '../complaints/view_list_complaint2.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../stats/view_stat_profile.dart';
+import '../termsOfUse/termsOfUse.widget.dart';
 import '../wait_view.dart';
 import 'components/component.profile.dart';
 
@@ -249,13 +252,23 @@ class _ProfileState extends State<Profile> {
                                       ),
                                     )
                                   : Container(),
-                              ProfileCompoenent(
-                                title: 'politics'.tr,
-                                pic: 'assets/icons/Shield.svg',
+                              InkWell(
+                                onTap: () {
+                                  Get.to(PrivacyPolicy());
+                                },
+                                child: ProfileCompoenent(
+                                  title: 'politics'.tr,
+                                  pic: 'assets/icons/Shield.svg',
+                                ),
                               ),
-                              ProfileCompoenent(
-                                title: 'conditions'.tr,
-                                pic: 'assets/icons/Document.svg',
+                              InkWell(
+                                onTap: () {
+                                  Get.to(PrivacyPolicy2());
+                                },
+                                child: ProfileCompoenent(
+                                  title: 'conditions'.tr,
+                                  pic: 'assets/icons/Document.svg',
+                                ),
                               ),
                               splashController.v!.state == 2
                                   ? InkWell(

@@ -377,7 +377,7 @@ class OrderDetails extends StatelessWidget {
                                     Row(
                                       children: [
                                         Text(
-                                          order.user.address.toString(),
+                                          order.address.toString(),
                                           style: GoogleFonts.poppins(
                                             fontSize: 10.sp,
                                             color: Pallete.greyColorPrinciple,

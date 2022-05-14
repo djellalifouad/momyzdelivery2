@@ -6,25 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
 
 showMessage(String text) {
-  print("test");
-  Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Pallete.pinkColorPrinciple,
-      textColor: Colors.white,
-      fontSize: 12.0);
-
-  return;
   Get.snackbar(
     text,
     "",
     snackPosition: SnackPosition.BOTTOM,
     snackStyle: SnackStyle.FLOATING,
-    margin: EdgeInsets.symmetric(horizontal: 40.w, vertical: 5.h),
-    borderRadius: 20.r,
-    padding: EdgeInsets.symmetric(vertical: 0.h, horizontal: 5),
+    duration: Duration(seconds: 10),
     titleText: Center(
       child: Text(
         text,
@@ -36,4 +23,16 @@ showMessage(String text) {
     ),
     backgroundColor: Pallete.pinkColorPrinciple,
   );
+  return;
+  print("test");
+  Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Pallete.pinkColorPrinciple,
+      textColor: Colors.white,
+      fontSize: 12.0);
+
+  return;
 }

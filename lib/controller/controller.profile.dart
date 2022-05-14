@@ -12,7 +12,7 @@ import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:momyzdelivery/models/model.user.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constant/pallete.const.dart';
 
 class ProfileController extends GetxController {
@@ -63,7 +63,7 @@ class ProfileController extends GetxController {
     Get.dialog(AlertDialog(
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         SizedBox(
-          height: 10,
+          height: 15,
         ),
         SvgPicture.asset('assets/icons/DangerIcon.svg'),
         SizedBox(
@@ -71,7 +71,7 @@ class ProfileController extends GetxController {
         ),
         Text(
           'delete_account'.tr,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(
           height: 5,
@@ -79,21 +79,21 @@ class ProfileController extends GetxController {
         Text(
           'delete_account_desc'.tr,
           style: TextStyle(
-            fontSize: 8,
+            fontSize: 10.sp,
           ),
         )
       ]),
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         Container(
-          height: 27,
-          width: 77,
+          height: 35,
+          width: 80,
           child: TextButton(
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(235, 87, 87, 1),
                   textStyle: TextStyle(
-                      fontSize: 7,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {
@@ -117,14 +117,14 @@ class ProfileController extends GetxController {
               )),
         ),
         Container(
-          height: 27,
-          width: 77,
+          height: 35,
+          width: 80,
           child: TextButton(
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(251, 229, 229, 1),
                   textStyle: TextStyle(
-                      fontSize: 7,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {

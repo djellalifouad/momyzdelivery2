@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:momyzdelivery/controller/controller.home.dart';
 import 'package:momyzdelivery/services/service.orders.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder3.dart';
@@ -194,7 +195,10 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                         String token = box.read('token').toString();
                         bool result =
                             await OrderService.arrive(widget.id, token, v);
+
                         if (result) {
+                          final homeController = Get.find<HomeController>();
+                          homeController.clearOrder();
                           Get.to(ConfirmOrder3());
                         } else {
                           showMessage("wrongSms".tr);
@@ -216,6 +220,8 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                 bool result = await OrderService.arrive(
                     widget.id, token, controller.text);
                 if (result) {
+                  final homeController = Get.find<HomeController>();
+                  homeController.clearOrder();
                   Get.to(ConfirmOrder3());
                 } else {
                   showMessage("wrongSms".tr);

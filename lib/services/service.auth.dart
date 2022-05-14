@@ -7,10 +7,12 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/constant/server.const.dart';
 import 'package:http/http.dart' as http;
+import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import '../models/model.car.dart';
 import '../models/model.settings.dart';
 import '../models/model.user.dart';
 import '../ui/views/profile/view_settings.dart';
+import 'package:get/get.dart' as getx;
 
 class AuthService {
   static Future<SettigsModel?> getSettings(String token) async {
@@ -100,6 +102,12 @@ class AuthService {
         return false;
       }
       if (e.response!.statusCode == 422) {
+        Map<String, dynamic> map = json.decode(e.response.toString());
+        if (map["account"] == "Store") {
+          showMessage("account_store".tr);
+        } else if (map["account"] == "User") {
+          showMessage("account_user".tr);
+        }
         return true;
       }
     }

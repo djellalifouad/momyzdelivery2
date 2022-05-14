@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:get/get.dart';
+import 'package:momyzdelivery/controller/controller.transactions.dart';
 import 'package:momyzdelivery/models/model.user.dart';
 import 'package:momyzdelivery/models/model.withdrawal.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
@@ -21,10 +22,12 @@ class WithdrawalController extends GetxController {
     box = GetStorage();
     token = box.read('token').toString();
   }
+
   updateIsRequest() {
     isRequest = !isRequest;
     update();
   }
+
   makeWithdrawal() async {
     print('test');
     token = box.read('token').toString();
@@ -45,8 +48,10 @@ class WithdrawalController extends GetxController {
         if (result == null) {
           showMessage("error".tr);
         } else {
-          showMessage("transaction_success".tr);
+          showMessage("withdrawal_success2".tr);
         }
+        final transactionController = Get.find<TransactionController>();
+        transactionController.getTransactionsFirst();
         Get.back();
         updateIsRequest();
       } else {

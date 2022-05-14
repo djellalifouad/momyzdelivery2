@@ -17,8 +17,12 @@ class Driver {
   String car_registration_certificate_image_url;
   int online;
   String wallet;
+  double lon;
+  double lat; 
 
   Driver({
+    required this.lon, 
+    required this.lat,
     required this.wallet,
     required this.personal_id,
     required this.access_token,
@@ -40,6 +44,8 @@ class Driver {
     print("the map");
     print(map['online']);
     return Driver(
+      lon: map['lon'],
+      lat: map['lat'],
       wallet: map['wallet'].toString(),
       online: map['online'],
       personal_id: map['personal_id'].toString(),

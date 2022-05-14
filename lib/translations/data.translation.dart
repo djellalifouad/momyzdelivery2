@@ -4,13 +4,37 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "account_user":
+              "This number is registered in the customer application, please use another number",
+          "account_store":
+              "This number is registered in the store application, please use another number",
+          "success_logout": "Successfully logged out",
+          "add_pic_vehicule": "Vehicle photo added successfully",
+          "delete_pic_vehicule": "Vehicle image deleted successfully",
+          "update_personal_info_success":
+              "Your personal information has been changed successfully",
+          "you_online": "You are now available to receive orders",
+          "you_offline": "You are now out of service",
+          "account_verified":
+              "Your account is currently being reviewed by the administration",
+          "terms_of_use_empty": "Terms of use is currently unavailable",
+          "privacy_policy_empty": "Privacy policy is currently unavailable",
+          "you_will_retrieve": "You will retreive",
+          "withdrawal_success2":
+              "The withdrawal request has been successfully created and is currently under review by the administration",
+          "complaint_success":
+              "Your complaint has been sent and the administration will address it as soon as possible",
+          "accept_order": "The request has been successfully accepted",
+          "user_not_accepted":
+              "Your account is currently not activated and is being processed by the administration",
+          "comment_success": "Your comment has been submitted successfully",
           "store_location": "Store location ",
           "user_location": "customer location",
           "start_location": "start position",
           "already_exist": "You already have a request",
           "delete_filter": "Delete Filter",
           "order_contains": "The order contain",
-          "order_product": "products",
+          "order_products": "products",
           "delivery_price": "Delivery price",
           "delivery_information": "Delivery Information",
           "order_place": "Order place",
@@ -145,14 +169,14 @@ class LocalString extends Translations {
           'delivery_price2': "Delivery price",
           "orders": "Orders",
           "read_all_notif": "read all notifications",
-          "notifcations": "Notifications",
+          "notifications": "Notifications",
           "today": 'Today',
           "delete_file": "delete file",
           "card_grey": "Gray card",
           "vehicule_pic": "Vehicle Pictures",
           "vehicule_type2": "Vehicle files",
           "my_profile": "My profile",
-          "profile": "my profile",
+          "profile": "My profile",
           "edit_profile": "Edit profile",
           "deliver_vehicule": "delivery method",
           "general": "General",
@@ -209,6 +233,28 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "account_user":
+              "هذا الرقم مسجل في تطبيق العميل  يرجى إستخدام رقم أخر",
+          "account_store":
+              "هذا الرقم مسجل في تطبيق المتجر  يرجى إستخدام رقم أخر ",
+          "success_logout": "تم تسجيل الخروج بنجاح ",
+          "add_pic_vehicule": "تمت إضافة صورة المركبة بنجاح",
+          "delete_pic_vehicule": "تم حذف صورة المركبة بنجاح",
+          "update_personal_info_success": "تم تغيير المعلومات الشخصية بنجاح",
+          "you_online": "إنت الأن متوفر لتلقي الطلبات ",
+          "you_offline": "أنت الأن خارج الخدمة",
+          "account_verified": "حاليا تتم مراجعة حسابك من طرف الإدارة ",
+          "terms_of_use_empty": "شروط الإستخدام غير متوفرة حالياً",
+          "privacy_policy_empty": "سياسة الخصوصية غير متوفرة حالياً",
+          "you_will_retrieve": "سوف تقوم بسحب",
+          "withdrawal_success2":
+              "تم إنشاء طلب السحب بنجاح و هو قيد المراجعة من طرف الإداراة حالياً ",
+          "complaint_success":
+              "تم إرسال الشكوى الخاصة بيك وستقوم الإدارة بمعالجتها في أقرب وقت",
+          "accept_order": "تم قبول الطلب بنجاح ",
+          "user_not_accepted":
+              "حاليا حسابك غير مفعل وتتم معالجته من طرف الإدارة",
+          "comment_success": "تم إرسال تعليقك بنجاح",
           "store_location": "موقع المتجر ",
           "user_location": "موقع العميل",
           "start_location": "موقع الإنطلاق ",

@@ -11,7 +11,6 @@ import 'package:momyzdelivery/constant/pallete.const.dart';
 import 'package:get/get.dart';
 import 'package:momyzdelivery/controller/controller.home.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
-
 import '../components/component_button.dart';
 import '../confirmOrder/view_confirmOrder2.dart';
 
@@ -19,19 +18,16 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => HomeState();
 }
-
 class HomeState extends State<Home> {
   @override
   void initState() {
-    //fetch direction polylines from Google API
+    homeController.getCurrentLocation();
     super.initState();
   }
-
   final homeController = Get.put(HomeController());
-
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(builder: (context) {
+    return GetBuilder<HomeController>(builder: (controller) {
       return GetBuilder<SplashController>(builder: (splashController) {
         return SafeArea(
           child: Scaffold(
@@ -43,6 +39,7 @@ class HomeState extends State<Home> {
                   width: 0,
                 );
               }
+              controller.saveTocurrentOrder();
               if (homeController.ignore) {
                 print("hna3");
                 return Container(
@@ -218,7 +215,7 @@ class HomeState extends State<Home> {
                             width: 10.w,
                           ),
                           Text(
-                            homeController.order!.user.address,
+                            homeController.order!.address,
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12.sp,
@@ -245,6 +242,7 @@ class HomeState extends State<Home> {
               );
             }),
             body: Stack(
+              alignment: Alignment.center,
               children: [
                 homeController.currentLocation == null
                     ? Center(
@@ -280,18 +278,65 @@ class HomeState extends State<Home> {
                                     ? true
                                     : false,
                                 onChanged: (val) {
-                                  homeController.showtextBottomSheet();
-                                  // homeController.updateLocation();
+                                  homeController.updateLocation();
                                 }),
                             Text(
                               'ondelivery'.tr,
                               style: TextStyle(
-                                  fontSize: 10.sp, fontWeight: FontWeight.bold),
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ]),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10.r),
                               color: Colors.white),
+                        ),
+                      )
+                    : Positioned(
+                        top: 20.sp,
+                        left: 20.sp,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 5.w,
+                          ),
+                          height: 34.h,
+                          child: Row(children: [
+                            Switch(
+                                focusColor: Colors.grey,
+                                activeColor: Colors.grey,
+                                value: false,
+                                onChanged: (val) {
+                                  // homeController.updateLocation();
+                                }),
+                            Text(
+                              'ondelivery'.tr,
+                              style: TextStyle(
+                                  color: Colors.grey.withOpacity(0.9),
+                                  fontSize: 10.sp,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ]),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Colors.white.withOpacity(0.5)),
+                        ),
+                      ),
+                splashController.v!.state.toString() != "2"
+                    ? Positioned(
+                        bottom: 80.h,
+                        child: Container(
+                          height: 50.h,
+                          width: 0.8.sw,
+                          decoration: BoxDecoration(
+                              color: Pallete.pinkColorPrinciple,
+                              borderRadius: BorderRadius.circular(10.r)),
+                          child: Center(
+                            child: Text(
+                              "account_verified".tr,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
                         ),
                       )
                     : Container(),

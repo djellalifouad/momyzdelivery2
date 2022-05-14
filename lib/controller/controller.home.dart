@@ -33,8 +33,10 @@ class HomeController extends GetxController {
   }
 
   getCurrentLocation() {
+    print("get current ");
     Geolocator.getCurrentPosition().then((va) {
       currentLocation = LatLng(va.latitude, va.longitude);
+      getDirections();
       update();
     });
   }
@@ -47,6 +49,13 @@ class HomeController extends GetxController {
   clearMarkers() {
     markers.clear();
     update();
+  }
+
+  clearOrder() {
+    clearMarkers();
+    clearPolyline();
+    order = null; 
+    update(); 
   }
 
   hideBottom2() {
@@ -68,7 +77,12 @@ class HomeController extends GetxController {
     } else {
       v!.car = splashController.v!.car;
       splashController.updateDriver(v);
-      showMessage('success'.tr);
+      if (v.online == 1) {
+        showMessage('you_online'.tr);
+      } else {
+        showMessage('you_offline'.tr);
+      }
+
       update();
     }
   }
@@ -84,10 +98,15 @@ class HomeController extends GetxController {
     token = box.read('token').toString();
     order = await OrderService.previewOrder2(id, token);
     update();
-    GetStorage().write("currentOrder", id);
     getDirections();
     showboolBottomOrder2 = true;
     update();
+  }
+
+  saveTocurrentOrder() {
+    if (order != null) {
+      GetStorage().write("currentOrder", order!.id.toString());
+    }
   }
 
   showBottomOrder(String id) async {
@@ -560,6 +579,9 @@ class HomeController extends GetxController {
   }
 
   getDirections() async {
+    if (order == null) {
+      return;
+    }
     markers.add(Marker(
       //add start location marker
       markerId: MarkerId(currentLocation.toString()),

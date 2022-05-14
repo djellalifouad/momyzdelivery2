@@ -36,7 +36,6 @@ class _InvoiceState extends State<Invoice> {
         appBar: AppBar(
           backgroundColor: Pallete.pinkColorPrinciple,
           elevation: 0,
-          leading: Container(),
           centerTitle: true,
           title: Text(
             'invoice_title'.tr,

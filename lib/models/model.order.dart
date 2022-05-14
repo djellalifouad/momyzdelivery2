@@ -51,6 +51,7 @@ class Order {
     for (int i = 0; i < map['items'].length; i++) {
       itemss.add(Item.fromMap(map['items'][i]));
     }
+    print(map);
     return Order(
         id: map['id'],
         user: User2.fromMap(map['user']),
@@ -72,6 +73,6 @@ class Order {
         state: map['state'],
         payment_method: map['payment_method'],
         date: map['date'],
-        note: map['note']);
+        note: map['note'].toString());
   }
 }

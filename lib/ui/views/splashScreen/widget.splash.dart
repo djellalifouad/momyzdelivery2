@@ -45,6 +45,14 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     print('wow');
     return Scaffold(
+      bottomSheet: Container(
+          height: 100.h,
+          child: Center(
+              child: SvgPicture.asset(
+            'assets/images/momyz_logo_2.svg',
+            height: 70.sp,
+            width: 70.sp,
+          ))),
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -52,8 +60,8 @@ class _SplashScreenState extends State<SplashScreen>
           SvgPicture.asset(
             'assets/icons/011.svg',
             color: Colors.black,
-            height: 120.h,
-            width: 120.w,
+            height: 100.h,
+            width: 100.w,
           ),
           CircularProgressIndicator(),
         ],

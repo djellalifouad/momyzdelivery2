@@ -219,7 +219,7 @@ class _WithdrawalState extends State<Withdrawal> {
                                               height: 42.h,
                                             ),
                                             Text(
-                                              "you_will_retrieve",
+                                              "you_will_retrieve".tr,
                                               style: TextStyle(
                                                   fontSize: 18.sp,
                                                   fontWeight: FontWeight.w400,

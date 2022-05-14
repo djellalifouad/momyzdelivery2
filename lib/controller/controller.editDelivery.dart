@@ -11,7 +11,7 @@ import 'package:momyzdelivery/models/model.car.dart';
 import 'package:momyzdelivery/models/model.user.dart';
 import 'package:momyzdelivery/services/service.car.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constant/pallete.const.dart';
 import 'controller.splash.dart';
 
@@ -49,7 +49,7 @@ class EditDeliveryController extends GetxController {
       Driver? v = splashController.v;
       v!.car = car;
       splashController.updateDriver(v);
-      showMessage('success'.tr);
+      showMessage('add_pic_vehicule'.tr);
     } else {
       showMessage('error'.tr);
     }
@@ -60,16 +60,13 @@ class EditDeliveryController extends GetxController {
     token = box.read('token').toString();
     Get.dialog(AlertDialog(
       content: Column(mainAxisSize: MainAxisSize.min, children: [
-        SizedBox(
-          height: 10,
-        ),
         SvgPicture.asset('assets/icons/DangerIcon.svg'),
         SizedBox(
           height: 15,
         ),
         Text(
           'delete_car'.tr,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(
           height: 5,
@@ -77,23 +74,23 @@ class EditDeliveryController extends GetxController {
         Text(
           'delete_car_desc'.tr,
           style: TextStyle(
-            fontSize: 8,
+            fontSize: 10.sp,
           ),
         )
       ]),
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         Container(
-          height: 27,
-          width: 77,
+          height: 35,
+          width: 80,
           child: TextButton(
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(235, 87, 87, 1),
                   textStyle: TextStyle(
-                      fontSize: 7,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white)),
+                      color: Colors.white,
+                      fontSize: 9.sp)),
               onPressed: () async {
                 Car? car = await CarService.deleteCarImage(token, id);
 
@@ -102,25 +99,25 @@ class EditDeliveryController extends GetxController {
                   v!.car = car;
                   splashController.updateDriver(v);
                   Get.back();
-                  showMessage('success'.tr);
+                  showMessage('delete_pic_vehicule'.tr);
                 } else {
                   showMessage('error'.tr);
                 }
               },
               child: Text(
                 'confirm_delete'.tr,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 9.sp),
               )),
         ),
         Container(
-          height: 27,
-          width: 77,
+          height: 35,
+          width: 80,
           child: TextButton(
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(251, 229, 229, 1),
                   textStyle: TextStyle(
-                      fontSize: 7,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {

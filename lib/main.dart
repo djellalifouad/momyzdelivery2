@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
+import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:momyzdelivery/translations/data.translation.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:momyzdelivery/ui/views/bottom/view_bottom.dart';
@@ -85,7 +86,6 @@ class _MyAppState extends State<MyApp> {
       }
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-     
       soundController.play();
       RemoteNotification? notification = message.notification;
       if (notification != null) {
@@ -111,10 +111,10 @@ class _MyAppState extends State<MyApp> {
         .actionStream
         .listen((ReceivedNotification receivedNotification) {
       var notif = receivedNotification.payload;
-      Get.off(ProvidedStylesExample());
       if (notif != null) {
         soundController.stop();
-        final homeController = Get.find<HomeController>();
+        final homeController = Get.put(HomeController());
+        final splashController = Get.put(SplashController());
         if (homeController != null) {
           if (notif['order_type'].toString() == "2") {
             homeController.showBottomOrder(notif['order_id'].toString());
@@ -125,13 +125,11 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-
   @override
   void initState() {
     setupInteractedMessage();
     super.initState();
   }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -150,6 +148,9 @@ class _MyAppState extends State<MyApp> {
                 textTheme: GoogleFonts.ibmPlexSansArabicTextTheme(
                   Theme.of(context).textTheme,
                 ),
+                colorScheme: ColorScheme.fromSwatch().copyWith(
+                    secondary: Pallete.pinkColorPrinciple,
+                    primary: Colors.black),
               ),
               debugShowCheckedModeBanner: false,
               home: SplashScreen(),
@@ -203,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
-  print('onbackground message');
+  showMessage('onbackground message');
   print(message.data);
   RemoteNotification? notification = message.notification;
   soundController.play();

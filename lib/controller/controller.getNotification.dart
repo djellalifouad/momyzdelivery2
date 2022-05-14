@@ -5,6 +5,8 @@ import 'package:momyzdelivery/models/model.order.dart';
 import 'package:get/get.dart';
 import 'package:momyzdelivery/services/service.notification.dart';
 import 'package:momyzdelivery/services/service.orders.dart';
+import 'package:momyzdelivery/ui/views/orders/view_order_details.dart';
+import 'package:momyzdelivery/ui/views/profile/view_profile.dart';
 
 class NotificationController extends GetxController {
   ScrollController scrollController1 = ScrollController();
@@ -87,5 +89,18 @@ class NotificationController extends GetxController {
       page++;
     }
     update();
+  }
+
+  navigateNotication(NotificationModel notificationModel) async {
+    token = box.read('token').toString();
+    if (notificationModel.route == "home") {
+      return;
+    } else if (notificationModel.route == "order") {
+      Order? order = await OrderService.previewOrder2(
+          notificationModel.order_id.toString(), token);
+      if (order != null) {
+        Get.to(OrderDetails(order));
+      }
+    }
   }
 }

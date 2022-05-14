@@ -137,14 +137,10 @@ class OrderService {
       'X-Requested-With': 'XMLHttpRequest',
       'Authorization': "Bearer ${token}",
     };
-    showMessage("previewOrder2");
-    showMessage("orders/${id}");
     http.Response response = await http.get(
       Uri.parse(baseUrl + "orders/${id}"),
       headers: headers,
     );
-    print('response priview Order');
-    showMessage(response.body);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
       return Order.fromMap(map['data']);
@@ -194,6 +190,7 @@ class OrderService {
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
       GetStorage().remove("currentOrder");
+      
       return true;
     } else {
       return false;

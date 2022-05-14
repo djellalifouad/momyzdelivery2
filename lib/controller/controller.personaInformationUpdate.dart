@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/services/service.auth.dart';
-import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 
 import '../models/model.user.dart';
 import '../ui/views/auth/view_car_information.dart';
+import '../ui/views/toast/toast.message.dart';
 import 'controller.splash.dart';
 
 class PersonalInformationControllerUpdate extends GetxController {
@@ -73,8 +73,10 @@ class PersonalInformationControllerUpdate extends GetxController {
 
       changeStateIsSending();
       if (result != null) {
-        splashController.updateDriver(result);
+        print("wow2");
         showMessage("personal_success".tr);
+        splashController.updateDriver(result);
+
         Get.back();
       } else {
         showMessage("error".tr);

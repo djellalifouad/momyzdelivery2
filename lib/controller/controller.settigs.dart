@@ -40,7 +40,7 @@ class SettingsController extends GetxController {
         ),
         Text(
           'leave_app'.tr,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(
           height: 5,
@@ -48,21 +48,21 @@ class SettingsController extends GetxController {
         Text(
           'leave_desc'.tr,
           style: TextStyle(
-            fontSize: 8,
+            fontSize: 10.sp,
           ),
         )
       ]),
       actionsAlignment: MainAxisAlignment.center,
       actions: [
         Container(
-          height: 27,
-          width: 77,
+          height: 35,
+          width: 80,
           child: TextButton(
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(235, 87, 87, 1),
                   textStyle: TextStyle(
-                      fontSize: 7,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {
@@ -70,7 +70,7 @@ class SettingsController extends GetxController {
                 box.remove('token');
                 Get.offAll(Login1View());
                 if (result) {
-                  showMessage("success".tr);
+                  showMessage("success_logout".tr);
                 } else {
                   showMessage("error".tr);
                 }
@@ -81,14 +81,14 @@ class SettingsController extends GetxController {
               )),
         ),
         Container(
-          height: 27,
-          width: 77,
+          height: 35,
+          width: 80,
           child: TextButton(
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(251, 229, 229, 1),
                   textStyle: TextStyle(
-                      fontSize: 7,
+                      fontSize: 9.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {

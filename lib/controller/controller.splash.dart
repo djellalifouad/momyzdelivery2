@@ -9,7 +9,7 @@ import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
-
+import 'dart:math' show cos, sqrt, asin;
 import '../ui/views/auth/view_car_information.dart';
 import '../ui/views/auth/view_personal_info.dart';
 import '../ui/views/bottom/view_bottom.dart';
@@ -18,6 +18,7 @@ class SplashController extends GetxController {
   late Position position;
   Driver? v;
   SettigsModel? s;
+  GetStorage getStorage = GetStorage();
   updateDriver(Driver driver) {
     v = driver;
     update();
@@ -50,11 +51,38 @@ class SplashController extends GetxController {
         Get.to(ConfirmOrder2(id));
         return;
       } else {
+        updatePosition();
         Get.off(ProvidedStylesExample());
       }
     } else {
       Get.off(Login1View());
     }
+  }
+
+  updatePosition() {
+    print("bismilah calculate position");
+    String token = getStorage.read('token');
+    Geolocator.getCurrentPosition().then((position) async {
+      double distance = Geolocator.distanceBetween(
+          position.latitude, position.longitude, v!.lat, v!.lon);
+      print("distance");
+      print("distance" + distance.toString());
+      if (distance >= 500) {
+        Driver? driver = await ProfileService.updateDriverPostion(
+            token, position.latitude, position.longitude);
+        if (driver != null) {
+          updateDriver(driver);
+          update();
+          Future.delayed(const Duration(seconds: 15), () {
+            updatePosition();
+          });
+        }
+      } else {
+        Future.delayed(const Duration(seconds: 15), () {
+          updatePosition();
+        });
+      }
+    });
   }
 }
 
@@ -87,6 +115,15 @@ Future<Position> _determinePosition() async {
   print(position2);
 
   return position2;
+}
+
+double calculateDistance(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;
+  var c = cos;
+  var a = 0.5 -
+      c((lat2 - lat1) * p) / 2 +
+      c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+  return 12742 * asin(sqrt(a));
 }
 
 // init function used for redirection

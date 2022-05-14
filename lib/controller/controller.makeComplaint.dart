@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -8,6 +7,8 @@ import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
+import 'controller.tickets.dart';
 
 class makeComplaintController extends GetxController {
   final TextEditingController titleController = TextEditingController();
@@ -56,8 +57,14 @@ class makeComplaintController extends GetxController {
       String s = await ProfileService.createTicket(
           token, titleController.text, descController.text, file);
       if (s == "success") {
-        showMessage("success".tr);
+        print("here");
         Get.back();
+        titleController.clear();
+        descController.clear();
+        file = null;
+        showMessage("complaint_success".tr);
+        final ticketController = Get.find<TicketController>();
+        ticketController.getFirst();
       } else {
         showMessage("error".tr);
       }

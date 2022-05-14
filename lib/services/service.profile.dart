@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
@@ -9,10 +8,8 @@ import 'package:momyzdelivery/ui/views/stats/view_withdrawal.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import '../constant/server.const.dart';
 import 'dart:convert';
-
 import '../models/model.ticket.dart';
 import '../models/model.user.dart';
-
 class ProfileService {
   static Future<Map<String, dynamic>> getTicets(
       int page, String token, int status) async {
@@ -311,6 +308,34 @@ class ProfileService {
     if (responsed.statusCode == 202) {
       Map<String, dynamic> map = json.decode(responsed.body);
       return map['data']['profile']['image_url'];
+    } else {
+      return null;
+    }
+  }
+
+  static Future<Driver?> updateDriverPostion(
+      String token, double lat, double lon) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      "X-Requested-With": "XMLHttpRequest",
+      'Authorization': "Bearer ${token}",
+    };
+    http.Response response = await http.put(
+      Uri.parse(baseUrl + "profile/location"),
+      body: {
+        "lat": lat.toString(),
+        "lon": lon.toString(),
+      },
+      headers: headers,
+    );
+    print("profile/location");
+    print("response body");
+    print(response.statusCode);
+    print(response.body);
+    Map<String, dynamic> map = json.decode(response.body);
+
+    if (response.statusCode == 202) {
+      return Driver.fromMap(map['data']['driver']);
     } else {
       return null;
     }
