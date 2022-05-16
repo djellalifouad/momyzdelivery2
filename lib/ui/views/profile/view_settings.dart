@@ -65,7 +65,7 @@ class Settings extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            Get.to(UpdatePhone());
+            Get.to(() => UpdatePhone());
           },
           child: ProfileCompoenent2(
             isRed: false,

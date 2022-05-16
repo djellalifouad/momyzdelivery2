@@ -114,6 +114,41 @@ class AuthService {
     return false;
   }
 
+  static Future<bool> phoneCheck2({
+    required String country_code,
+    required String phone,
+  }) async {
+    Dio dio = Dio();
+    try {
+      Response<dynamic> result = await dio.post(
+        baseUrl + "phone-check",
+        data: {
+          'phone': phone,
+          'country_code': country_code,
+        },
+        options: Options(headers: {
+          HttpHeaders.acceptHeader: "application/json",
+        }),
+      );
+    } on DioError catch (e) {
+      print(e.response!.statusCode);
+
+      if (e.response!.statusCode == 404) {
+        return false;
+      }
+      if (e.response!.statusCode == 422) {
+        Map<String, dynamic> map = json.decode(e.response.toString());
+        if (map["account"] == "Store") {
+          showMessage("account_store".tr);
+        } else if (map["account"] == "User") {
+          showMessage("account_user".tr);
+        }
+        return false;
+      }
+    }
+    return false;
+  }
+
   static Future<Car?> updateCarInformation2({
     required String token,
     required String name,

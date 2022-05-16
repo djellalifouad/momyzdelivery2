@@ -22,10 +22,12 @@ class RegisterController extends GetxController {
     countryCode = value;
     update();
   }
+
   changeIsCheckingPhone() {
     isCheckingPhone = !isCheckingPhone;
     update();
   }
+
   checkPhone() async {
     if (formKey.currentState!.validate()) {
       if (phoneController.text.length < 9) {
@@ -36,7 +38,7 @@ class RegisterController extends GetxController {
       changeIsCheckingPhone();
       print(countryCode);
       print(phoneController.text);
-      bool exist = await AuthService.phoneCheck(
+      bool exist = await AuthService.phoneCheck2(
           country_code: countryCode, phone: phoneController.text);
       print(exist);
       if (!exist) {
@@ -68,8 +70,9 @@ class RegisterController extends GetxController {
       verificationCompleted: (phoneAuthCredential) async {},
     );
   }
-  resendSmsToPhone() async  {
-     FirebaseAuth auth = FirebaseAuth.instance;
+
+  resendSmsToPhone() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
       phoneNumber: countryCode + phoneController.text,
       codeSent: (String verificationId, int? resendToken) async {
@@ -83,6 +86,5 @@ class RegisterController extends GetxController {
       },
       verificationCompleted: (phoneAuthCredential) async {},
     );
-
   }
 }

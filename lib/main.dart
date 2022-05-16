@@ -86,8 +86,26 @@ class _MyAppState extends State<MyApp> {
       }
     });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      soundController.play();
       RemoteNotification? notification = message.notification;
+      print("message notification foreground");
+      print(message.data['route'] == 'home');
+      if (message.data['route'] == 'home') {
+        AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: DateTime.now().microsecond,
+            color: Colors.transparent,
+            displayOnBackground: true,
+            displayOnForeground: true,
+            channelKey: 'FISHTENDER_NOTIFICATION',
+            notificationLayout: NotificationLayout.Inbox,
+            hideLargeIconOnExpand: true,
+            title: "activate_title".tr,
+            body: "activate_desc".tr,
+          ),
+        );
+        return;
+      }
+      soundController.play();
       if (notification != null) {
         AwesomeNotifications().createNotification(
           content: NotificationContent(
@@ -125,11 +143,13 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+
   @override
   void initState() {
     setupInteractedMessage();
     super.initState();
   }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -207,23 +227,39 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   showMessage('onbackground message');
   print(message.data);
   RemoteNotification? notification = message.notification;
+  if (message.data['route'] == 'home') {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: DateTime.now().microsecond,
+        color: Colors.transparent,
+        displayOnBackground: true,
+        displayOnForeground: true,
+        channelKey: 'FISHTENDER_NOTIFICATION',
+        notificationLayout: NotificationLayout.Inbox,
+        hideLargeIconOnExpand: true,
+        title: "activate_title".tr,
+        body: "activate_desc".tr,
+      ),
+    );
+    return;
+  }
   soundController.play();
   AwesomeNotifications().cancelAll();
   if (notification != null) {
     AwesomeNotifications().createNotification(
-        content: NotificationContent(
-            id: DateTime.now().microsecond,
-            color: Colors.transparent,
-            displayOnBackground: true,
-            displayOnForeground: true,
-            channelKey: 'FISHTENDER_NOTIFICATION',
-            notificationLayout: NotificationLayout.Inbox,
-            hideLargeIconOnExpand: true,
-            title: message.notification!.title,
-            body: message.notification!.body,
-            payload: {
-              'order_id': message.data['order_id'],
-            }),
-        actionButtons: [NotificationActionButton(label: 'Accept', key: 's')]);
+      content: NotificationContent(
+          id: DateTime.now().microsecond,
+          color: Colors.transparent,
+          displayOnBackground: true,
+          displayOnForeground: true,
+          channelKey: 'FISHTENDER_NOTIFICATION',
+          notificationLayout: NotificationLayout.Inbox,
+          hideLargeIconOnExpand: true,
+          title: message.notification!.title,
+          body: message.notification!.body,
+          payload: {
+            'order_id': message.data['order_id'],
+          }),
+    );
   }
 }

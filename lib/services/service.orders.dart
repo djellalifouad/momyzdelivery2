@@ -26,6 +26,8 @@ class OrderService {
     List<Order> orderList = [];
     final Map<String, dynamic> responseData = json.decode(response.body);
     if (response.statusCode == 200) {
+      print("responsee orders");
+      print(response.body);
       for (int i = 0; i < responseData['data'].length; i++) {
         orderList.add(Order.fromMap(responseData['data'][i]));
       }
@@ -190,7 +192,7 @@ class OrderService {
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
       GetStorage().remove("currentOrder");
-      
+
       return true;
     } else {
       return false;

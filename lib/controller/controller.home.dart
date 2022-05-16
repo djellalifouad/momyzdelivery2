@@ -50,19 +50,16 @@ class HomeController extends GetxController {
     markers.clear();
     update();
   }
-
   clearOrder() {
     clearMarkers();
     clearPolyline();
     order = null; 
     update(); 
   }
-
   hideBottom2() {
     showboolBottomOrder2 = false;
     update();
   }
-
   updateLocation() async {
     if (isProcessing) {
       return;

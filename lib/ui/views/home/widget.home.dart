@@ -18,13 +18,36 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => HomeState();
 }
-class HomeState extends State<Home> {
+
+class HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   void initState() {
+    WidgetsBinding.instance!.addObserver(this);
     homeController.getCurrentLocation();
     super.initState();
   }
+
   final homeController = Get.put(HomeController());
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.inactive:
+        print('appLifeCycleState inactive');
+        break;
+      case AppLifecycleState.resumed:
+        print("resuled");
+        setState(() {});
+        break;
+      case AppLifecycleState.paused:
+        print('appLifeCycleState paused');
+        break;
+      case AppLifecycleState.detached:
+        print('appLifeCycleState detached');
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
@@ -259,7 +282,9 @@ class HomeState extends State<Home> {
                         myLocationEnabled: true,
                         initialCameraPosition: CameraPosition(
                             target: homeController.currentLocation!, zoom: 25),
-                        onMapCreated: (GoogleMapController controller) {},
+                        onMapCreated: (GoogleMapController controller) {
+                          setState(() {});
+                        },
                       ),
                 splashController.v!.state.toString() == "2"
                     ? Positioned(

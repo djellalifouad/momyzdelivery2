@@ -25,7 +25,6 @@ class UpdatePhoneController extends GetxController {
   onInit() {
     box = GetStorage();
     phoneController.text = splashController.v!.phone;
-
     token = box.read('token').toString();
     super.onInit();
   }

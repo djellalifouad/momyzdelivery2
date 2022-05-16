@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:stacked/stacked.dart';
 
@@ -32,7 +33,7 @@ class SettingsController extends GetxController {
     Get.dialog(AlertDialog(
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         SizedBox(
-          height: 10,
+          height: 15,
         ),
         SvgPicture.asset('assets/icons/DangerIcon.svg'),
         SizedBox(
@@ -40,7 +41,7 @@ class SettingsController extends GetxController {
         ),
         Text(
           'leave_app'.tr,
-          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(
           height: 5,
@@ -48,8 +49,9 @@ class SettingsController extends GetxController {
         Text(
           'leave_desc'.tr,
           style: TextStyle(
-            fontSize: 10.sp,
+            fontSize: 14.sp,
           ),
+          textAlign: TextAlign.center,
         )
       ]),
       actionsAlignment: MainAxisAlignment.center,
@@ -62,7 +64,7 @@ class SettingsController extends GetxController {
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(235, 87, 87, 1),
                   textStyle: TextStyle(
-                      fontSize: 9.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {
@@ -77,7 +79,7 @@ class SettingsController extends GetxController {
               },
               child: Text(
                 'logout'.tr,
-                style: TextStyle(color: Colors.white),
+                style: GoogleFonts.ibmPlexSansArabic(color: Colors.white),
               )),
         ),
         Container(
@@ -88,7 +90,7 @@ class SettingsController extends GetxController {
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(251, 229, 229, 1),
                   textStyle: TextStyle(
-                      fontSize: 9.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {
@@ -96,7 +98,8 @@ class SettingsController extends GetxController {
               },
               child: Text(
                 'cancel_delete'.tr,
-                style: TextStyle(color: Pallete.pinkColorPrinciple),
+                style: GoogleFonts.ibmPlexSansArabic(
+                    color: Pallete.pinkColorPrinciple),
               )),
         ),
       ],

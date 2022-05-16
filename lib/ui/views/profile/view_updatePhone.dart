@@ -9,11 +9,9 @@ import '../../../controller/controller.updatePhone.dart';
 import '../components/component_button.dart';
 
 class UpdatePhone extends StatelessWidget {
-  const UpdatePhone({Key? key}) : super(key: key);
-
+  final controller = Get.put(UpdatePhoneController());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(UpdatePhoneController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -69,8 +67,8 @@ class UpdatePhone extends StatelessWidget {
           Directionality(
             textDirection: TextDirection.rtl,
             child: IntlPhoneField(
+              
               keyboardType: TextInputType.phone,
-              autofocus: true,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               invalidNumberMessage: "please_enter_delivery_type".tr,
               flagsButtonPadding: EdgeInsets.only(left: 20.w, right: 20.w),

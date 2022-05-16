@@ -10,6 +10,7 @@ import '../constant/server.const.dart';
 import 'dart:convert';
 import '../models/model.ticket.dart';
 import '../models/model.user.dart';
+
 class ProfileService {
   static Future<Map<String, dynamic>> getTicets(
       int page, String token, int status) async {
@@ -210,6 +211,9 @@ class ProfileService {
 
     final Map<String, dynamic> responseData = json.decode(response.body);
     if (response.statusCode == 401) {
+      return null;
+    }
+    if (responseData['data'] == null) {
       return null;
     }
     return Driver.fromMap(responseData['data']['driver']);

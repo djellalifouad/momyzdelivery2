@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
@@ -63,24 +64,22 @@ class ProfileController extends GetxController {
     Get.dialog(AlertDialog(
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         SizedBox(
-          height: 15,
+          height: 15.h,
         ),
         SvgPicture.asset('assets/icons/DangerIcon.svg'),
         SizedBox(
-          height: 15,
+          height: 15.h,
         ),
         Text(
           'delete_account'.tr,
-          style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-        ),
-        SizedBox(
-          height: 5,
+          style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.w600),
         ),
         Text(
           'delete_account_desc'.tr,
           style: TextStyle(
-            fontSize: 10.sp,
+            fontSize: 14.sp,
           ),
+          textAlign: TextAlign.center,
         )
       ]),
       actionsAlignment: MainAxisAlignment.center,
@@ -93,7 +92,7 @@ class ProfileController extends GetxController {
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(235, 87, 87, 1),
                   textStyle: TextStyle(
-                      fontSize: 9.sp,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {
@@ -104,7 +103,7 @@ class ProfileController extends GetxController {
                   return;
                 }
                 if (result == "success") {
-                  showMessage("success".tr);
+                  showMessage("delete_sended".tr);
                   return;
                 } else {
                   showMessage("error".tr);
@@ -113,7 +112,7 @@ class ProfileController extends GetxController {
               },
               child: Text(
                 'confirm_delete'.tr,
-                style: TextStyle(color: Colors.white),
+                style: GoogleFonts.ibmPlexSansArabic(color: Colors.white),
               )),
         ),
         Container(
@@ -123,8 +122,8 @@ class ProfileController extends GetxController {
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(251, 229, 229, 1),
-                  textStyle: TextStyle(
-                      fontSize: 9.sp,
+                  textStyle: GoogleFonts.ibmPlexSansArabic(
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {

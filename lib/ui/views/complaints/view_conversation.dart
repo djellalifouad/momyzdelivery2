@@ -84,14 +84,22 @@ class _ConversationState extends State<Conversation> {
                                           Positioned(
                                             top: 4.sp,
                                             right: 4.sp,
-                                            child: InkWell(
-                                              onTap: () {
-                                                controller.deleteImage();
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                size: 8.sp,
-                                                color: Colors.black,
+                                            child: Container(
+                                              height: 15.sp,
+                                              width: 15.sp,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  controller.deleteImage();
+                                                },
+                                                child: Icon(
+                                                  Icons.clear,
+                                                  size: 8.sp,
+                                                  color: Colors.black,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -211,32 +219,37 @@ class _ConversationState extends State<Conversation> {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Align(
-                                alignment:
-                                    controller.comments[index].sender == "admin"
-                                        ? Alignment.topRight
-                                        : Alignment.topLeft,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: controller
-                                                  .comments[index].sender ==
-                                              "admin"
-                                          ? Color.fromRGBO(249, 72, 146, 0.15)
-                                          : Color.fromRGBO(235, 236, 240, 1),
-                                      borderRadius:
-                                          BorderRadius.circular(10.r)),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(10.sp),
-                                    child: Text(
-                                      controller.comments[index].message,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w400,
+                            controller.comments[index].message != ""
+                                ? Align(
+                                    alignment:
+                                        controller.comments[index].sender ==
+                                                "admin"
+                                            ? Alignment.topRight
+                                            : Alignment.topLeft,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: controller
+                                                      .comments[index].sender ==
+                                                  "admin"
+                                              ? Color.fromRGBO(
+                                                  249, 72, 146, 0.15)
+                                              : Color.fromRGBO(
+                                                  235, 236, 240, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(10.r)),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(10.sp),
+                                        child: Text(
+                                          controller.comments[index].message,
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                )),
+                                    ))
+                                : Container(),
                             Builder(
                               builder: (context) {
                                 if (controller

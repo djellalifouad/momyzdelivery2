@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.register.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
-
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,17 +17,14 @@ import '../../../controller/phoneConfirmationRegister.controller.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
-
 class ConfirmPhoneNumberLogin extends StatefulWidget {
   @override
   State<ConfirmPhoneNumberLogin> createState() =>
       _ConfirmPhoneNumberLoginState();
 }
-
 class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin> {
   late Timer _timer;
   int _start = 20;
-
   void startTimer() {
     _start = 20;
     setState(() {});
@@ -46,7 +42,6 @@ class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin> {
       },
     );
   }
-
   @override
   void initState() {
     if (mounted) {

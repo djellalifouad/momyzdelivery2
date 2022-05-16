@@ -18,10 +18,10 @@ class Driver {
   int online;
   String wallet;
   double lon;
-  double lat; 
+  double lat;
 
   Driver({
-    required this.lon, 
+    required this.lon,
     required this.lat,
     required this.wallet,
     required this.personal_id,
@@ -41,8 +41,9 @@ class Driver {
     required this.online,
   });
   factory Driver.fromMap(Map<String, dynamic> map) {
-    print("the map");
-    print(map['online']);
+    if (map == null) {
+      return null!;
+    }
     return Driver(
       lon: map['lon'],
       lat: map['lat'],

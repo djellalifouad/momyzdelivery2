@@ -38,7 +38,7 @@ class CommentController extends GetxController {
 
   sendComment(String id) async {
     token = box.read('token').toString();
-    if (textEditingController.text.isEmpty) {
+    if (textEditingController.text.isEmpty && image == null) {
       showMessage('enter_message'.tr);
       return;
     }

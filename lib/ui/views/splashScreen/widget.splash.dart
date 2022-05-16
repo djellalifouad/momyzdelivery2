@@ -11,34 +11,12 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with WidgetsBindingObserver {
+class _SplashScreenState extends State<SplashScreen> {
   final splashController = Get.put(SplashController());
   @override
   void initState() {
-    WidgetsBinding.instance!.addObserver(this);
     splashController.check();
     super.initState();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.paused:
-        print("Paused");
-        break;
-      case AppLifecycleState.detached:
-        print("detached");
-        final homeController = Get.find<HomeController>();
-        print("hh");
-        print(splashController.v!.online == 1);
-        if (splashController.v!.online == 1) {
-          homeController.updateLocation();
-        }
-        break;
-        print("Suspending");
-        break;
-    }
   }
 
   @override
@@ -51,7 +29,8 @@ class _SplashScreenState extends State<SplashScreen>
               child: SvgPicture.asset(
             'assets/images/momyz_logo_2.svg',
             height: 70.sp,
-            width: 70.sp,
+            width: 50.sp,
+            color: Colors.black,
           ))),
       body: Center(
           child: Column(
@@ -61,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
             'assets/icons/011.svg',
             color: Colors.black,
             height: 100.h,
-            width: 100.w,
+            width: 70.w,
           ),
           CircularProgressIndicator(),
         ],
