@@ -28,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Center(
               child: SvgPicture.asset(
             'assets/images/momyz_logo_2.svg',
-            height: 70.sp,
-            width: 50.sp,
+            height: 40.sp,
+            width: 40.sp,
             color: Colors.black,
           ))),
       body: Center(
@@ -39,10 +39,22 @@ class _SplashScreenState extends State<SplashScreen> {
           SvgPicture.asset(
             'assets/icons/011.svg',
             color: Colors.black,
-            height: 100.h,
-            width: 70.w,
+            height: 80.h,
+            width: 80.w,
           ),
-          CircularProgressIndicator(),
+          SizedBox(
+            height: 15.h,
+          ),
+          Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+            clipBehavior: Clip.antiAlias,
+            width: 1.sw * 0.1,
+            child: const LinearProgressIndicator(
+              minHeight: 4,
+              color: Color(0xffF94892),
+              backgroundColor: Color(0x26F94892),
+            ),
+          ),
         ],
       )),
     );

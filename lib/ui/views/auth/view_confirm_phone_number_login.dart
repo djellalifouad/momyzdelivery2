@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.register.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,12 +18,15 @@ import '../../../controller/phoneConfirmationRegister.controller.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
+
 class ConfirmPhoneNumberLogin extends StatefulWidget {
   @override
   State<ConfirmPhoneNumberLogin> createState() =>
       _ConfirmPhoneNumberLoginState();
 }
-class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin> {
+
+class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin>
+    with CodeAutoFill {
   late Timer _timer;
   int _start = 20;
   void startTimer() {
@@ -42,18 +46,32 @@ class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin> {
       },
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    cancel();
+  }
+
   @override
   void initState() {
+    listenForCode();
+
+    SmsAutoFill().getAppSignature.then((signature) {
+      setState(() {
+        appSignature = signature;
+      });
+    });
     if (mounted) {
       startTimer();
     }
     super.initState();
   }
 
+  final phoneConfirmationLoginController =
+      Get.put(PhoneConfirmationLoginController());
   @override
   Widget build(BuildContext context) {
-    final phoneConfirmationLoginController =
-        Get.put(PhoneConfirmationLoginController());
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Padding(
@@ -212,5 +230,13 @@ class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin> {
         ),
       ),
     );
+  }
+
+  String? appSignature;
+  String? otpCode;
+
+  @override
+  void codeUpdated() {
+    phoneConfirmationLoginController.codePinController.text = code.toString();
   }
 }

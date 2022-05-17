@@ -119,34 +119,28 @@ class AuthService {
     required String phone,
   }) async {
     Dio dio = Dio();
-    try {
-      Response<dynamic> result = await dio.post(
-        baseUrl + "phone-check",
-        data: {
-          'phone': phone,
-          'country_code': country_code,
-        },
-        options: Options(headers: {
-          HttpHeaders.acceptHeader: "application/json",
-        }),
-      );
-    } on DioError catch (e) {
-      print(e.response!.statusCode);
+    http.Response response =
+        await http.post(Uri.parse(baseUrl + "phone-check"), body: {
+      'phone': phone,
+      'country_code': country_code,
+    });
+    print(response.statusCode);
+    print(response.body);
 
-      if (e.response!.statusCode == 404) {
-        return false;
-      }
-      if (e.response!.statusCode == 422) {
-        Map<String, dynamic> map = json.decode(e.response.toString());
-        if (map["account"] == "Store") {
-          showMessage("account_store".tr);
-        } else if (map["account"] == "User") {
-          showMessage("account_user".tr);
-        }
-        return false;
-      }
+    if (response!.statusCode == 404) {
+      print("here");
+      return false;
     }
-    return false;
+    if (response!.statusCode == 422) {
+      Map<String, dynamic> map = json.decode(response.body);
+      if (map["account"] == "Store") {
+        showMessage("account_store".tr);
+      } else if (map["account"] == "User") {
+        showMessage("account_user".tr);
+      }
+      return true;
+    }
+    return true;
   }
 
   static Future<Car?> updateCarInformation2({

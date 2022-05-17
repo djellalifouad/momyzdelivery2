@@ -21,9 +21,9 @@ class Order {
   int payment_method;
   String date;
   String note;
-  User2 user;
+  User2? user;
   List<Item> items;
-  Store store;
+  Store? store;
   Order(
       {required this.id,
       required this.user,
@@ -54,8 +54,8 @@ class Order {
     print(map);
     return Order(
         id: map['id'],
-        user: User2.fromMap(map['user']),
-        store: Store.fromMap(map['store']),
+        user: map['user'] == null ? null : User2.fromMap(map['user']),
+        store: map['store'] == null ? null : Store.fromMap(map['store']),
         items: itemss,
         rate: map['rate'].toString(),
         rate_note: map['rate_note'].toString(),

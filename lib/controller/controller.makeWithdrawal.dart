@@ -47,12 +47,13 @@ class WithdrawalController extends GetxController {
         }
         if (result == null) {
           showMessage("error".tr);
-        } else {
-          showMessage("withdrawal_success2".tr);
-        }
+          return;
+        } else {}
         final transactionController = Get.find<TransactionController>();
         transactionController.getTransactionsFirst();
         Get.back();
+        showMessage("withdrawal_success2".tr);
+        print("withdrawal_success2".tr);
         updateIsRequest();
       } else {
         showMessage("min_error".tr +

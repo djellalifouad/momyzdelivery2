@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/controller/controller.register.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 
 import '../../../constant/pallete.const.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,8 +25,8 @@ class ConfirmPhoneNumberRegister extends StatefulWidget {
       _ConfirmPhoneNumberRegisterState();
 }
 
-class _ConfirmPhoneNumberRegisterState
-    extends State<ConfirmPhoneNumberRegister> {
+class _ConfirmPhoneNumberRegisterState extends State<ConfirmPhoneNumberRegister>
+    with CodeAutoFill {
   late Timer _timer;
   int _start = 20;
 
@@ -50,21 +51,29 @@ class _ConfirmPhoneNumberRegisterState
   @override
   void dispose() {
     _timer.cancel();
+    cancel();
     super.dispose();
   }
 
   @override
   void initState() {
+    listenForCode();
+
+    SmsAutoFill().getAppSignature.then((signature) {
+      setState(() {
+        appSignature = signature;
+      });
+    });
     if (mounted) {
       startTimer();
     }
     super.initState();
   }
 
+  final phoneConfirmationRegisterController =
+      Get.put(PhoneConfirmationRegisterController());
   @override
   Widget build(BuildContext context) {
-    final phoneConfirmationRegisterController =
-        Get.put(PhoneConfirmationRegisterController());
     return SafeArea(
       child: Scaffold(
         bottomNavigationBar: Padding(
@@ -247,5 +256,14 @@ class _ConfirmPhoneNumberRegisterState
         ),
       ),
     );
+  }
+
+  String? appSignature;
+  String? otpCode;
+
+  @override
+  void codeUpdated() {
+    phoneConfirmationRegisterController.codePinController.text =
+        code.toString();
   }
 }

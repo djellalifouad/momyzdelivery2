@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:momyzdelivery/models/model.car.dart';
 import 'package:momyzdelivery/models/model.user.dart';
 import 'package:momyzdelivery/services/service.car.dart';
@@ -62,19 +63,19 @@ class EditDeliveryController extends GetxController {
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         SvgPicture.asset('assets/icons/DangerIcon.svg'),
         SizedBox(
-          height: 15,
+          height: 15.h,
         ),
         Text(
           'delete_car'.tr,
           style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
         ),
         SizedBox(
-          height: 5,
+          height: 15.h,
         ),
         Text(
           'delete_car_desc'.tr,
           style: TextStyle(
-            fontSize: 10.sp,
+            fontSize: 14.sp,
           ),
         )
       ]),
@@ -87,10 +88,10 @@ class EditDeliveryController extends GetxController {
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(235, 87, 87, 1),
-                  textStyle: TextStyle(
+                  textStyle: GoogleFonts.ibmPlexSansArabic(
                       fontWeight: FontWeight.w600,
                       color: Colors.white,
-                      fontSize: 9.sp)),
+                      fontSize: 10.sp)),
               onPressed: () async {
                 Car? car = await CarService.deleteCarImage(token, id);
 
@@ -116,8 +117,8 @@ class EditDeliveryController extends GetxController {
               style: TextButton.styleFrom(
                   primary: Colors.white,
                   backgroundColor: Color.fromRGBO(251, 229, 229, 1),
-                  textStyle: TextStyle(
-                      fontSize: 9.sp,
+                  textStyle: GoogleFonts.ibmPlexSansArabic(
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w600,
                       color: Colors.white)),
               onPressed: () async {

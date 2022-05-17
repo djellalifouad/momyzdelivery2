@@ -128,12 +128,19 @@ class _InvoiceState extends State<Invoice> {
                                   showList = !showList;
                                   setState(() {});
                                 },
-                                child: SvgPicture.asset(
-                                  !showList
-                                      ? 'assets/icons/ArrowBack.svg'
-                                      : 'assets/icons/arrowLeft.svg',
-                                  height: 15.sp,
-                                  width: 15.sp,
+                                child: Container(
+                                  height: 30.sp,
+                                  width: 30.sp,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(7.0.sp),
+                                    child: SvgPicture.asset(
+                                      !showList
+                                          ? 'assets/icons/ArrowBack.svg'
+                                          : 'assets/icons/arrowLeft.svg',
+                                      height: 15.sp,
+                                      width: 15.sp,
+                                    ),
+                                  ),
                                 ),
                               )
                             ],
@@ -201,7 +208,10 @@ class _InvoiceState extends State<Invoice> {
                                       color: Pallete.greyColorPrinciple,
                                       fontSize: 13.sp,
                                       fontWeight: FontWeight.w400)),
-                              Text(widget.order.store.name,
+                              Text(
+                                  widget.order.store == null
+                                      ? "store_deleted".tr
+                                      : widget.order.store!.name,
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 16.sp,

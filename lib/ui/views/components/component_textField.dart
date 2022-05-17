@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,11 +19,15 @@ class TextFormFieldComponent extends StatelessWidget {
     required this.validator,
     required this.textEditingController,
   });
+  List<String> numberTypes = ['number'.tr + ' ' + 'IBAN'.tr, 'ammount'.tr];
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: textEditingController,
       validator: validator,
+      keyboardType: numberTypes.contains(title) & Platform.isAndroid
+          ? TextInputType.number
+          : TextInputType.text,
       readOnly: icon2.isNotEmpty,
       style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
       decoration: InputDecoration(

@@ -170,7 +170,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                             width: 10.w,
                           ),
                           Text(
-                            homeController.order!.store.address.toString(),
+                            homeController.order!.store!.address.toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12.sp,
@@ -197,7 +197,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                             width: 10.w,
                           ),
                           Text(
-                            homeController.order!.store.address,
+                            homeController.order!.store!.address,
                             style: TextStyle(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 12.sp,

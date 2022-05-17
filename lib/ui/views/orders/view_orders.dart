@@ -14,6 +14,7 @@ class Orders extends StatefulWidget {
   @override
   State<Orders> createState() => _OrdersState();
 }
+
 class _OrdersState extends State<Orders> {
   final controller = Get.put(OrderController());
   @override
@@ -21,6 +22,7 @@ class _OrdersState extends State<Orders> {
     controller.getOrders();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -123,10 +125,23 @@ class _OrdersState extends State<Orders> {
                                                   Row(
                                                     children: [
                                                       CachedNetworkImage(
+                                                        errorWidget: (context,
+                                                                string, val) =>
+                                                            Image.asset(
+                                                          'assets/images/test.png',
+                                                          height: 25.sp,
+                                                          width: 25.sp,
+                                                        ),
                                                         imageUrl: controller
-                                                            .orders[index]
-                                                            .store
-                                                            .image_url,
+                                                                    .orders[
+                                                                        index]
+                                                                    .store ==
+                                                                null
+                                                            ? ""
+                                                            : controller
+                                                                .orders[index]
+                                                                .store!
+                                                                .image_url,
                                                         height: 42.sp,
                                                         width: 42.sp,
                                                       ),

@@ -149,7 +149,6 @@ class _MyAppState extends State<MyApp> {
     setupInteractedMessage();
     super.initState();
   }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

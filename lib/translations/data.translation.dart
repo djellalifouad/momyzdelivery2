@@ -4,6 +4,9 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "user_deleted": "User deleted",
+          "store_deleted": "Store deleted",
+          "order_success": "The request has been confirmed successfully",
           "delete_sended":
               "Your request for account deletion has been successfully sent",
           "activate_title": "About activating the account",
@@ -238,6 +241,9 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "user_deleted": "تم حذف المستخدم ",
+          "store_deleted": "تم حذف المتجر ",
+          "order_success": "تم تأكيد وصول الطلب بنجاح ",
           "delete_sended": "تم إرسال طلبك من أجل حذف الحساب  بنجاح",
 
           "activate_title": "بخصوص تفعيل الحساب",

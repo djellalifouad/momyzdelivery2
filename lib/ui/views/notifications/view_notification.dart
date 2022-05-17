@@ -76,7 +76,7 @@ class _NotificationsState extends State<Notifications> {
                                         locale: Get.locale!.countryCode == "US"
                                             ? "en"
                                             : 'ar');
-                                    if (index == 0) {
+                                    if (false) {
                                       return InkWell(
                                         onTap: () {
                                           controller.navigateNotication(

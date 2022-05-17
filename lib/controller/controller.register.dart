@@ -40,7 +40,7 @@ class RegisterController extends GetxController {
       print(phoneController.text);
       bool exist = await AuthService.phoneCheck2(
           country_code: countryCode, phone: phoneController.text);
-      print(exist);
+
       if (!exist) {
         sendSmsToPhone();
       } else {

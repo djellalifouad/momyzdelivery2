@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/constant/server.const.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
-
+import 'package:get/get.dart';
 import '../models/model.order.dart';
 import '../ui/views/orders/view_orders.dart';
 import 'package:http/http.dart' as http;
@@ -188,11 +188,10 @@ class OrderService {
     );
     print("response arrive");
     print(response.body);
-    showMessage(response.body);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
       GetStorage().remove("currentOrder");
-
+      showMessage("order_success".tr);
       return true;
     } else {
       return false;

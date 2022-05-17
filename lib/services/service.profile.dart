@@ -279,7 +279,6 @@ class ProfileService {
     print(response.statusCode);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 422) {
-      showMessage(map['message']);
       return null;
     } else {
       return Transaction.fromMap(map['data']['withdrawal']);

@@ -13,6 +13,7 @@ import 'package:momyzdelivery/ui/views/auth/view_login3.dart';
 import '../../../constant/pallete.const.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
+
 class Login2View extends StatelessWidget {
   const Login2View({Key? key}) : super(key: key);
   @override

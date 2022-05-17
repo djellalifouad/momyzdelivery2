@@ -148,7 +148,7 @@ class HomeController extends GetxController {
                       width: 10.w,
                     ),
                     Text(
-                      order!.store.address,
+                      order!.store!.address,
                       style: TextStyle(
                           fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
@@ -204,7 +204,7 @@ class HomeController extends GetxController {
                           height: 4.h,
                         ),
                         Text(
-                          order!.store.name.toString(),
+                          order!.store!.name.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16.sp,
@@ -415,7 +415,7 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    order!.store.address.toString(),
+                    order!.store!.address.toString(),
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -442,7 +442,7 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    order!.store.address,
+                    order!.store!.address,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -483,7 +483,7 @@ class HomeController extends GetxController {
                     width: 10.w,
                   ),
                   Text(
-                    order!.user.address,
+                    order!.user!.address,
                     style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 12.sp,
@@ -594,8 +594,8 @@ class HomeController extends GetxController {
     markers.add(Marker(
       //add distination location marker
       markerId:
-          MarkerId(order!.store.lat.toString() + order!.store.lon.toString()),
-      position: LatLng(order!.store.lat, order!.store.lon), //position of marker
+          MarkerId(order!.store!.lat.toString() + order!.store!.lon.toString()),
+      position: LatLng(order!.store!.lat, order!.store!.lon), //position of marker
       infoWindow: InfoWindow(
         //popup info
         title: 'store_location'.tr,
@@ -616,7 +616,7 @@ class HomeController extends GetxController {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
       PointLatLng(currentLocation!.latitude, currentLocation!.longitude),
-      PointLatLng(order!.store.lat, order!.store.lon),
+      PointLatLng(order!.store!.lat, order!.store!.lon),
       travelMode: TravelMode.driving,
       optimizeWaypoints: true,
     );
@@ -630,7 +630,7 @@ class HomeController extends GetxController {
     addPolyLine(polylineCoordinates, "1");
     result = await polylinePoints.getRouteBetweenCoordinates(
       googleAPiKey,
-      PointLatLng(order!.store.lat, order!.store.lon),
+      PointLatLng(order!.store!.lat, order!.store!.lon),
       PointLatLng(order!.lat, order!.lon),
       travelMode: TravelMode.driving,
       optimizeWaypoints: true,
