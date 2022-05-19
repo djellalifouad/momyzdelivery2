@@ -78,7 +78,6 @@ class _MyAppState extends State<MyApp> {
       print('User declined or has not accepted permission');
     }
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      showMessage("open app from notification");
       RemoteNotification? notification = message.notification;
       if (notification != null) {
         final homeController = Get.find<HomeController>();

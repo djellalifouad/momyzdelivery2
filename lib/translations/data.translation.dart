@@ -4,6 +4,9 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
+          "done_withdrawal": "completed",
+          "not_yet_withdrawal": "canceled",
+          "not_yet_withdrawal2": "on hold",
           "user_deleted": "User deleted",
           "store_deleted": "Store deleted",
           "order_success": "The request has been confirmed successfully",
@@ -241,6 +244,9 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
+          "not_yet_withdrawal2": "قيد المراجعة ",
+          "done_withdrawal": "مكتملة",
+          "not_yet": "ملغية",
           "user_deleted": "تم حذف المستخدم ",
           "store_deleted": "تم حذف المتجر ",
           "order_success": "تم تأكيد وصول الطلب بنجاح ",

@@ -319,44 +319,175 @@ class _StateUserState extends State<StateUser> {
                                                 ],
                                               ),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 14.w),
-                                              child: Text(
-                                                  transactionController
-                                                              .transactions[
-                                                                  index]
-                                                              .model_type ==
-                                                          "WITHDRAWAL"
-                                                      ? transactionController
-                                                              .transactions[
-                                                                  index]
-                                                              .amount +
-                                                          "₪" +
-                                                          " -"
-                                                      : transactionController
-                                                              .transactions[
-                                                                  index]
-                                                              .amount +
-                                                          "₪" +
-                                                          " +",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14.sp,
-                                                      color: transactionController
-                                                                  .transactions[
-                                                                      index]
-                                                                  .model_type !=
-                                                              "WITHDRAWAL"
-                                                          ? Color.fromRGBO(
-                                                              33,
-                                                              150,
-                                                              83,
-                                                              1,
-                                                            )
-                                                          : Color.fromRGBO(
-                                                              235, 87, 87, 1))),
+                                            Center(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 15.w),
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        if (transactionController
+                                                                .transactions[
+                                                                    index]
+                                                                .state ==
+                                                            1) {
+                                                          return Container(
+                                                            child: Center(
+                                                                child: Text(
+                                                                    "not_yet_withdrawal2"
+                                                                        .tr,
+                                                                    style: TextStyle(
+                                                                        fontSize: 9
+                                                                            .sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        color: Color.fromRGBO(
+                                                                            242,
+                                                                            153,
+                                                                            74,
+                                                                            1)))),
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    5.sp),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(4
+                                                                            .r),
+                                                                color: Color
+                                                                        .fromRGBO(
+                                                                            242,
+                                                                            153,
+                                                                            74,
+                                                                            1)
+                                                                    .withOpacity(
+                                                                        0.1)),
+                                                          );
+                                                        } else if (transactionController
+                                                                .transactions[
+                                                                    index]
+                                                                .state ==
+                                                            2) {
+                                                          return Container(
+                                                            child: Center(
+                                                                child: Text(
+                                                                    "done_withdrawal"
+                                                                        .tr,
+                                                                    style: TextStyle(
+                                                                        fontSize: 9
+                                                                            .sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        color: Color.fromRGBO(
+                                                                            33,
+                                                                            150,
+                                                                            83,
+                                                                            1)))),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(4
+                                                                            .r),
+                                                                color: Color
+                                                                        .fromRGBO(
+                                                                            33,
+                                                                            150,
+                                                                            83,
+                                                                            1)
+                                                                    .withOpacity(
+                                                                        0.1)),
+                                                          );
+                                                        } else {
+                                                          return Container(
+                                                            height: 25.5.h,
+                                                            width: 75.w,
+                                                            child: Center(
+                                                                child: Text(
+                                                                    "not_yet_withdrawal2"
+                                                                        .tr,
+                                                                    style: TextStyle(
+                                                                        fontSize: 9
+                                                                            .sp,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        color: Color.fromRGBO(
+                                                                            235,
+                                                                            87,
+                                                                            87,
+                                                                            1)))),
+                                                            decoration: BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(4
+                                                                            .r),
+                                                                color: Color
+                                                                        .fromRGBO(
+                                                                            235,
+                                                                            87,
+                                                                            87,
+                                                                            1)
+                                                                    .withOpacity(
+                                                                        0.1)),
+                                                          );
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 14.w),
+                                                    child: Text(
+                                                        transactionController
+                                                                    .transactions[
+                                                                        index]
+                                                                    .model_type ==
+                                                                "WITHDRAWAL"
+                                                            ? transactionController
+                                                                    .transactions[
+                                                                        index]
+                                                                    .amount +
+                                                                "₪" +
+                                                                " -"
+                                                            : transactionController
+                                                                    .transactions[
+                                                                        index]
+                                                                    .amount +
+                                                                "₪" +
+                                                                " +",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 14.sp,
+                                                            color: transactionController
+                                                                        .transactions[
+                                                                            index]
+                                                                        .model_type !=
+                                                                    "WITHDRAWAL"
+                                                                ? Color
+                                                                    .fromRGBO(
+                                                                    33,
+                                                                    150,
+                                                                    83,
+                                                                    1,
+                                                                  )
+                                                                : Color
+                                                                    .fromRGBO(
+                                                                        235,
+                                                                        87,
+                                                                        87,
+                                                                        1))),
+                                                  ),
+                                                ],
+                                              ),
                                             )
                                           ]),
                                       decoration: BoxDecoration(

@@ -23,10 +23,11 @@ class Withdrawal extends StatefulWidget {
 
 class _WithdrawalState extends State<Withdrawal> {
   List<Widget> images = [];
+  final controller = Get.put(WithdrawalController());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(WithdrawalController());
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
           centerTitle: true,
           title: Text(
@@ -60,12 +61,13 @@ class _WithdrawalState extends State<Withdrawal> {
         padding: EdgeInsets.symmetric(
           horizontal: 24.w,
         ),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SingleChildScrollView(
+        child: SingleChildScrollView(
+          child: Align(
+            alignment: Alignment.topRight,
             child: Form(
               key: controller.formKey,
               child: Column(
+                
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(child: SvgPicture.asset('assets/icons/coins.svg')),
