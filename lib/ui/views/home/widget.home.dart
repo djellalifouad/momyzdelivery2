@@ -281,7 +281,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                             Set<Polyline>.of(homeController.polylines.values),
                         myLocationEnabled: true,
                         initialCameraPosition: CameraPosition(
-                            target: homeController.currentLocation!, zoom: 25),
+                            target: homeController.currentLocation!, zoom: 18),
                         onMapCreated: (GoogleMapController controller) {
                           setState(() {});
                         },

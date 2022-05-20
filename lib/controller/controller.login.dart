@@ -30,6 +30,7 @@ class LoginController extends GetxController {
       changeIsCheckingPhone();
       bool exist = await AuthService.phoneCheck(
           country_code: countryCode, phone: phoneController.text);
+
       if (!exist) {
         changeIsCheckingPhone();
         showMessage("pleaser_enter_a_correct_number".tr);
@@ -60,7 +61,8 @@ class LoginController extends GetxController {
       verificationCompleted: (phoneAuthCredential) async {},
     );
   }
-   resendSmsToPhone() async {
+
+  resendSmsToPhone() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
       phoneNumber: countryCode + phoneController.text,
@@ -68,12 +70,10 @@ class LoginController extends GetxController {
         print(verificationId);
         verficationIdCode = verificationId;
         update();
- 
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
       verificationFailed: (FirebaseAuthException error) {
         showMessage("error".tr);
-
       },
       verificationCompleted: (phoneAuthCredential) async {},
     );

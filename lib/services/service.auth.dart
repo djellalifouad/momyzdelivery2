@@ -105,10 +105,13 @@ class AuthService {
         Map<String, dynamic> map = json.decode(e.response.toString());
         if (map["account"] == "Store") {
           showMessage("account_store".tr);
+          return false;
         } else if (map["account"] == "User") {
           showMessage("account_user".tr);
+          return false;
+        } else {
+          return true;
         }
-        return true;
       }
     }
     return false;
