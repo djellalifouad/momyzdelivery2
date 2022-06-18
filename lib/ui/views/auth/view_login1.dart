@@ -79,6 +79,7 @@ class Login1View extends StatelessWidget {
                               ? TextDirection.ltr
                               : TextDirection.rtl,
                       child: IntlPhoneField(
+                        enabled: true,
                         keyboardType: TextInputType.phone,
                         autofocus: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -125,8 +126,28 @@ class Login1View extends StatelessWidget {
                         onChanged: (phone) {},
                       ),
                     ),
+
+                    Text(
+                      'password'.tr,
+                      style: TextStyle(
+                        color: Pallete.greyColorPrinciple,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                     SizedBox(
                       height: 10.h,
+                    ),
+                    TextFormFieldComponent(
+                      title: 'password'.tr,
+                      icon: 'assets/icons/profile.svg',
+                      icon2: '',
+                      validator: (val) {
+                        if (val!.length < 8) {
+                          return "password_confirm".tr;
+                        }
+                      },
+                      textEditingController: loginController.passwordController,
                     ),
                     SizedBox(
                       height: 170.h,

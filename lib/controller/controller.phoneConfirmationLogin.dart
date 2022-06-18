@@ -34,7 +34,9 @@ class PhoneConfirmationLoginController extends GetxController {
         if (value.user != null) {
           bool result = await AuthService.Login(
               country_code: loginController.countryCode,
-              phone: loginController.phoneController.text);
+              phone: loginController.phoneController.text,
+          password: loginController.passwordController.text,
+          );
 
           changeStateIsRegistring();
           if (result) {

@@ -38,6 +38,7 @@ class AuthService {
   static Future<bool> Login({
     required String country_code,
     required String phone,
+    required String password,
   }) async {
     String? token = await FirebaseMessaging.instance.getToken();
     Dio dio = Dio();
@@ -45,24 +46,19 @@ class AuthService {
       'Accept': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
     };
-    print('/login');
-    print({
-      'fcm_token': token,
-      'phone': phone,
-      'country_code': country_code,
-    });
     http.Response response =
         await http.post(Uri.parse(baseUrl + "login"), headers: headers, body: {
       'fcm_token': token.toString(),
       'phone': phone,
       'country_code': country_code,
+          'password' : password,
     });
     print({
       'fcm_token': "token",
       'phone': phone,
       'country_code': country_code,
     });
-    print("response get profile ");
+    print("response login ");
     print(response.body);
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -82,6 +78,7 @@ class AuthService {
   static Future<bool> phoneCheck({
     required String country_code,
     required String phone,
+    required String password,
   }) async {
     Dio dio = Dio();
     try {
@@ -90,12 +87,14 @@ class AuthService {
         data: {
           'phone': phone,
           'country_code': country_code,
+          'password' : password,
         },
         options: Options(headers: {
           HttpHeaders.acceptHeader: "application/json",
         }),
       );
     } on DioError catch (e) {
+        print(e.response);
       print(e.response!.statusCode);
 
       if (e.response!.statusCode == 404) {
@@ -120,13 +119,15 @@ class AuthService {
   static Future<bool> phoneCheck2({
     required String country_code,
     required String phone,
+    required String password,
   }) async {
     Dio dio = Dio();
     http.Response response =
         await http.post(Uri.parse(baseUrl + "phone-check"), body: {
       'phone': phone,
       'country_code': country_code,
-    });
+          'password' : password,
+        });
     print(response.statusCode);
     print(response.body);
 
@@ -304,6 +305,7 @@ class AuthService {
     required double lon,
     required String country_code,
     required String phone,
+    required String password,
   }) async {
     Response<dynamic> result;
     Dio dio = Dio();
@@ -326,6 +328,7 @@ class AuthService {
           'lat': lat,
           'express_delivery': express_delivery,
           'name': name,
+          'password' : password,
         },
       );
       result = await dio.post(baseUrl + "register",
@@ -337,6 +340,7 @@ class AuthService {
             'lat': lat,
             'express_delivery': express_delivery,
             'name': name,
+            'password' : password,
           },
           options: Options(headers: {
             HttpHeaders.acceptHeader: "application/json",

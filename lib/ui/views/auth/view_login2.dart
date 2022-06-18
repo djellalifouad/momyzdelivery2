@@ -8,8 +8,6 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:momyzdelivery/controller/controller.register.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
-import 'package:momyzdelivery/ui/views/auth/view_login3.dart';
-
 import '../../../constant/pallete.const.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
@@ -148,6 +146,29 @@ class Login2View extends StatelessWidget {
                         },
                         onChanged: (phone) {},
                       ),
+                    ),
+                    Text(
+                      'password'.tr,
+                      style: TextStyle(
+                        color: Pallete.greyColorPrinciple,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+
+                    TextFormFieldComponent(
+                      title: 'password'.tr,
+                      icon: 'assets/icons/profile.svg',
+                      icon2: '',
+                      validator: (val) {
+                        if (val!.length < 8) {
+                          return "password_confirm".tr;
+                        }
+                      },
+                      textEditingController: registerController.passwordController,
                     ),
                     SizedBox(
                       height: 10.h,

@@ -14,6 +14,7 @@ class RegisterController extends GetxController {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController deliveryTypeController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   String countryCode = "+213";
   String verficationIdCode = "";
   bool isCheckingPhone = false;
@@ -39,6 +40,7 @@ class RegisterController extends GetxController {
       print(countryCode);
       print(phoneController.text);
       bool exist = await AuthService.phoneCheck2(
+           password: passwordController.text,
           country_code: countryCode, phone: phoneController.text);
 
       if (!exist) {

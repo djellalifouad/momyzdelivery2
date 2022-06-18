@@ -10,6 +10,7 @@ class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
   String verficationIdCode = "";
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   String countryCode = "+213";
   bool isCheckingPhone = false;
   updateCountryCode(String value) {
@@ -29,7 +30,9 @@ class LoginController extends GetxController {
     } else {
       changeIsCheckingPhone();
       bool exist = await AuthService.phoneCheck(
-          country_code: countryCode, phone: phoneController.text);
+          country_code: countryCode, phone: phoneController.text,
+      password: passwordController.text,
+      );
 
       if (!exist) {
         changeIsCheckingPhone();

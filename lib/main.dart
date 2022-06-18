@@ -15,7 +15,6 @@ import 'package:get/get.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'controller/controller.home.dart';
 import 'controller/controller.sound.dart';
-
 SoundController soundController = SoundController();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
