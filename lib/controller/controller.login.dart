@@ -17,12 +17,10 @@ class LoginController extends GetxController {
     countryCode = value;
     update();
   }
-
   changeIsCheckingPhone() {
     isCheckingPhone = !isCheckingPhone;
     update();
   }
-
   checkPhone() async {
     if (phoneController.text.length < 9) {
       print("hh");

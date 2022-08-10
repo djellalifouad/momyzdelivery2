@@ -219,6 +219,49 @@ class ProfileService {
     return Driver.fromMap(responseData['data']['driver']);
   }
 
+  static Future<bool> checkPassword(String token, String password) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Authorization': "Bearer ${token}",
+    };
+    http.Response response = await http.post(
+        Uri.parse(baseUrl + "profile/check-password"),
+        headers: headers,
+        body: {
+          "password": password,
+        });
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    print(response.body);
+    return response.statusCode == 200;
+  }
+
+  static Future<bool> updatePassword(
+      {required String token,
+      required String old_password,
+      required String password,
+      required String password_confirmation}) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Authorization': "Bearer ${token}",
+    };
+    http.Response response = await http
+        .post(Uri.parse(baseUrl + "profile/password"), headers: headers, body: {
+      "old_password": old_password,
+      "password": password,
+      "password_confirmation": password_confirmation,
+    });
+    print({
+      "old_password": old_password,
+      "password": password,
+      "password_confirmation": password_confirmation,
+    });
+    final Map<String, dynamic> responseData = json.decode(response.body);
+    print(response.statusCode);
+    return response.statusCode == 202;
+  }
+
   static Future<bool> logout(String token) async {
     Map<String, String> headers = {
       'Accept': 'application/json',

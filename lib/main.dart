@@ -22,13 +22,11 @@ void main() async {
   await GetStorage.init();
   runApp(const MyApp());
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends State<MyApp> {
   Future<void> setupInteractedMessage() async {
     // Get any messages which caused the application to open from
@@ -154,7 +152,7 @@ class _MyAppState extends State<MyApp> {
         designSize: Size(375, 812),
         minTextAdapt: true,
         splitScreenMode: true,
-        builder: () => GetMaterialApp(
+        builder: (context,child) => GetMaterialApp(
               title: "Momys Delivery",
               translations: LocalString(),
               locale: GetStorage().read("lang").toString() == "en"
@@ -169,7 +167,7 @@ class _MyAppState extends State<MyApp> {
                     secondary: Pallete.pinkColorPrinciple,
                     primary: Colors.black),
               ),
-              debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: false, 
               home: SplashScreen(),
             ));
   }

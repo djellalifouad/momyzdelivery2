@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:momyzdelivery/controller/controller.carInformationController.dart';
-import 'package:momyzdelivery/ui/views/auth/view_forget_password.dart';
+import 'package:momyzdelivery/controller/controller.forgetPassword.dart';
 import 'package:momyzdelivery/ui/views/auth/view_login2.dart';
-
 import '../../../constant/pallete.const.dart';
+import 'package:get/get.dart';
+
 import '../../../controller/controller.login.dart';
 import '../components/component_button.dart';
-import '../components/component_textField.dart';
-import '../toast/toast.message.dart';
 
-class Login1View extends StatelessWidget {
-  const Login1View({Key? key}) : super(key: key);
+class ForgetPasswordWidget extends StatefulWidget {
+  ForgetPasswordWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final loginController = Get.put(LoginController());
+  State<ForgetPasswordWidget> createState() => _ForgetPasswordWidgetState();
+}
 
+class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final forgetPasswordController = Get.put(ForgetPasswordController());
     return Scaffold(
       backgroundColor: Pallete.backGroundColor,
       body: Padding(
@@ -40,7 +38,7 @@ class Login1View extends StatelessWidget {
                       height: 81.h,
                     ),
                     Text(
-                      "welcome".tr,
+                      "forget_password2".tr,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.black,
@@ -52,7 +50,7 @@ class Login1View extends StatelessWidget {
                       height: 8.h,
                     ),
                     Text(
-                      "welcome_desc".tr,
+                      "forget_password_desc".tr,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Pallete.greyText,
@@ -119,10 +117,11 @@ class Login1View extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8.sp),
                           ),
                         ),
-                        controller: loginController.phoneController,
+                        controller: forgetPasswordController.phoneController,
                         initialCountryCode: 'DZ',
                         onCountryChanged: (val) {
-                          loginController.updateCountryCode("+" + val.dialCode);
+                          forgetPasswordController
+                              .updateCountryCode("+" + val.dialCode);
                         },
                         onChanged: (phone) {},
                       ),
@@ -130,82 +129,24 @@ class Login1View extends StatelessWidget {
                     SizedBox(
                       height: 8.h,
                     ),
-                    Text(
-                      'password'.tr,
-                      style: TextStyle(
-                        color: Pallete.greyColorPrinciple,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
                     SizedBox(
                       height: 10.h,
-                    ),
-                    TextFormFieldComponent(
-                      title: 'password'.tr,
-                      icon: 'assets/icons/profile.svg',
-                      icon2: '',
-                      validator: (val) {
-                        if (val!.length < 8) {
-                          return "password_confirm".tr;
-                        }
-                      },
-                      textEditingController: loginController.passwordController,
                     ),
                     SizedBox(
                       height: 15.h,
                     ),
-                    InkWell(
-                      onTap: () {
-                        Get.to(ForgetPasswordWidget());
-                      },
-                      child: Text(
-                        'forget_password'.tr,
-                        style: TextStyle(
-                          color: Pallete.pinkColorPrinciple,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
                     SizedBox(
                       height: 170.h,
                     ),
-                    GetBuilder<LoginController>(
-                      builder: (_) => !loginController.isCheckingPhone
-                          ? ButtonComponent('login'.tr, () {
-                              loginController.checkPhone();
+                    GetBuilder<ForgetPasswordController>(
+                      builder: (_) => !forgetPasswordController.isCheckingPhone
+                          ? ButtonComponent('next'.tr, () {
+                              forgetPasswordController.checkPhone();
                             })
                           : Center(child: CircularProgressIndicator()),
                     ),
                     SizedBox(
                       height: 41.h,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.to(Login2View());
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'not_have_account'.tr + " ",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Text(
-                            'create_account'.tr,
-                            style: TextStyle(
-                              color: Pallete.pinkColorPrinciple,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                        ],
-                      ),
                     ),
                   ]),
             ),

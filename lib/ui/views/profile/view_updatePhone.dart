@@ -67,7 +67,6 @@ class UpdatePhone extends StatelessWidget {
           Directionality(
             textDirection: TextDirection.rtl,
             child: IntlPhoneField(
-              
               keyboardType: TextInputType.phone,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               invalidNumberMessage: "please_enter_delivery_type".tr,
@@ -77,7 +76,7 @@ class UpdatePhone extends StatelessWidget {
               showDropdownIcon: false,
               textAlign: TextAlign.start,
               validator: (val) {
-                if (val!.length < 12) {
+                if (val!.number.length < 12) {
                   return "please_enter_phone_number".tr;
                 }
               },

@@ -35,6 +35,33 @@ class AuthService {
     }
   }
 
+  static Future<bool> updatePassword(
+      {required String country_code,
+      required String phone,
+      required String password,
+      required String password_confirmation}) async {
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      "X-Requested-With": "XMLHttpRequest",
+    };
+    http.Response response = await http
+        .post(Uri.parse(baseUrl + "forget/password"), headers: headers, body: {
+      "country_code": country_code,
+      "phone": phone,
+      "password": password,
+      "password_confirmation": password_confirmation
+    });
+    print({
+      "country_code": country_code,
+      "phone": phone,
+      "password": password,
+      "password_confirmation": password_confirmation
+    });
+    print(response.body);
+    Map<String, dynamic> map = json.decode(response.body);
+    return (response.statusCode == 202);
+  }
+
   static Future<bool> Login({
     required String country_code,
     required String phone,
@@ -51,7 +78,7 @@ class AuthService {
       'fcm_token': token.toString(),
       'phone': phone,
       'country_code': country_code,
-          'password' : password,
+      'password': password,
     });
     print({
       'fcm_token': "token",
@@ -87,16 +114,15 @@ class AuthService {
         data: {
           'phone': phone,
           'country_code': country_code,
-          'password' : password,
+          'password': password,
         },
         options: Options(headers: {
           HttpHeaders.acceptHeader: "application/json",
         }),
       );
     } on DioError catch (e) {
-        print(e.response);
+      print(e.response);
       print(e.response!.statusCode);
-
       if (e.response!.statusCode == 404) {
         return false;
       }
@@ -126,8 +152,8 @@ class AuthService {
         await http.post(Uri.parse(baseUrl + "phone-check"), body: {
       'phone': phone,
       'country_code': country_code,
-          'password' : password,
-        });
+      'password': password,
+    });
     print(response.statusCode);
     print(response.body);
 
@@ -328,7 +354,7 @@ class AuthService {
           'lat': lat,
           'express_delivery': express_delivery,
           'name': name,
-          'password' : password,
+          'password': password,
         },
       );
       result = await dio.post(baseUrl + "register",
@@ -340,7 +366,7 @@ class AuthService {
             'lat': lat,
             'express_delivery': express_delivery,
             'name': name,
-            'password' : password,
+            'password': password,
           },
           options: Options(headers: {
             HttpHeaders.acceptHeader: "application/json",

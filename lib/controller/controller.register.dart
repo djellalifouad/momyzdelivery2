@@ -15,6 +15,7 @@ class RegisterController extends GetxController {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController deliveryTypeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordController2 = TextEditingController();
   String countryCode = "+213";
   String verficationIdCode = "";
   bool isCheckingPhone = false;

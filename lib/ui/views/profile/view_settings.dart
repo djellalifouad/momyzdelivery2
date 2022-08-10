@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get.dart';
 import 'package:momyzdelivery/controller/controller.settigs.dart';
+import 'package:momyzdelivery/ui/views/profile/view_check_profile.dart';
 import 'package:momyzdelivery/ui/views/profile/view_editCarInformation.dart';
 import 'package:momyzdelivery/ui/views/profile/view_personalInfoUpdate.dart';
 import 'package:momyzdelivery/ui/views/profile/view_updatePhone.dart';
@@ -81,6 +82,16 @@ class Settings extends StatelessWidget {
             isRed: false,
             isIcon: true,
             title: 'delivery3'.tr,
+          ),
+        ),
+            InkWell(
+          onTap: () {
+            Get.to(CheckPasswordWidget());
+          },
+          child: ProfileCompoenent2(
+            isRed: false,
+            isIcon: true,
+            title: 'update_password'.tr,
           ),
         ),
         InkWell(

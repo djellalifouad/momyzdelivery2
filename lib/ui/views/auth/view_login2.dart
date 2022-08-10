@@ -111,7 +111,7 @@ class Login2View extends StatelessWidget {
                         showDropdownIcon: false,
                         textAlign: TextAlign.start,
                         validator: (val) {
-                          if (val!.length < 12) {
+                          if (val!.completeNumber.length < 12) {
                             return "please_enter_phone_number".tr;
                           }
                         },
@@ -147,6 +147,9 @@ class Login2View extends StatelessWidget {
                         onChanged: (phone) {},
                       ),
                     ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
                     Text(
                       'password'.tr,
                       style: TextStyle(
@@ -170,6 +173,33 @@ class Login2View extends StatelessWidget {
                       },
                       textEditingController: registerController.passwordController,
                     ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    Text(
+                      'confirm_password'.tr,
+                      style: TextStyle(
+                        color: Pallete.greyColorPrinciple,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+
+                    TextFormFieldComponent(
+                      title: 'confirm_password'.tr,
+                      icon: 'assets/icons/profile.svg',
+                      icon2: '',
+                      validator: (val) {
+                        if (val! != registerController.passwordController.text) {
+                          return "password_confirm2".tr;
+                        }
+                      },
+                      textEditingController: registerController.passwordController2,
+                    ),
+
                     SizedBox(
                       height: 10.h,
                     ),
