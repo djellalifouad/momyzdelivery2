@@ -11,7 +11,23 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>momyzdelivery</string>
+	<string>Momys Delivery</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Uploading the profile image is optional, we only need it to complete your profile and it is not necessary to shop from the app</string>
+	<key>NSFileProviderDomainUsageDescription</key>
+	<string></string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your location is required for accurate notifactions  benefits for you , also you cane disable it with no problem </string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location is required for accurate notifaction benefits for you  lso you cane disable it with no problem </string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Uploading the profile image is optional, we only need it to complete your profile and it is not necessary to shop from the app</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -29,8 +45,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
