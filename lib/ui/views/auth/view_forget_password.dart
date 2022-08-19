@@ -22,6 +22,23 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
   Widget build(BuildContext context) {
     final forgetPasswordController = Get.put(ForgetPasswordController());
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
+        InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                  ))),
+        )
+      ]),
       backgroundColor: Pallete.backGroundColor,
       body: Padding(
         padding: EdgeInsets.symmetric(

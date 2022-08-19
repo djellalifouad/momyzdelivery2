@@ -5,23 +5,37 @@ import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:momyzdelivery/controller/controller.changePassword.dart';
 import 'package:momyzdelivery/ui/views/auth/view_forget_password.dart';
-
 import '../../../constant/pallete.const.dart';
 import '../../../controller/controller.login.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
-
 class ChangePasswordWidget1 extends StatefulWidget {
   ChangePasswordWidget1({Key? key}) : super(key: key);
   @override
   State<ChangePasswordWidget1> createState() => _ChangePasswordWidget1State();
 }
-
 class _ChangePasswordWidget1State extends State<ChangePasswordWidget1> {
   final changePasswordController = Get.put(ChangePasswordController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
+        InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                  ))),
+        )
+      ]),
       backgroundColor: Pallete.backGroundColor,
       body: Padding(
         padding: EdgeInsets.symmetric(
