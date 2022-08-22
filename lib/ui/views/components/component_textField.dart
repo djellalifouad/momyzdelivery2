@@ -52,6 +52,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
       obscureText: obscureText,
       controller: widget.textEditingController,
       validator: widget.validator,
+      
       keyboardType: numberTypes.contains(widget.title) & Platform.isAndroid
           ? TextInputType.number
           : TextInputType.text,
@@ -66,6 +67,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
           maxHeight: 35.sp,
           maxWidth: widget.title.isNotEmpty ? 65.sp : 30.sp,
         ),
+        
         prefixIcon: widget.icon.isNotEmpty
             ? Padding(
                 padding: EdgeInsets.only(

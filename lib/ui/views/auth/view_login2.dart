@@ -161,7 +161,6 @@ class Login2View extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-
                     TextFormFieldComponent(
                       title: 'password'.tr,
                       icon: 'assets/icons/profile.svg',
@@ -171,7 +170,8 @@ class Login2View extends StatelessWidget {
                           return "password_confirm".tr;
                         }
                       },
-                      textEditingController: registerController.passwordController,
+                      textEditingController:
+                          registerController.passwordController,
                     ),
                     SizedBox(
                       height: 10.h,
@@ -187,19 +187,19 @@ class Login2View extends StatelessWidget {
                     SizedBox(
                       height: 10.h,
                     ),
-
                     TextFormFieldComponent(
                       title: 'confirm_password'.tr,
                       icon: 'assets/icons/profile.svg',
                       icon2: '',
                       validator: (val) {
-                        if (val! != registerController.passwordController.text) {
+                        if (val! !=
+                            registerController.passwordController.text) {
                           return "password_confirm2".tr;
                         }
                       },
-                      textEditingController: registerController.passwordController2,
+                      textEditingController:
+                          registerController.passwordController2,
                     ),
-
                     SizedBox(
                       height: 10.h,
                     ),
@@ -264,7 +264,7 @@ class Login2View extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 48.h,
+                      height: 28.h,
                     ),
                     InkWell(
                       onTap: () {
@@ -291,6 +291,9 @@ class Login2View extends StatelessWidget {
                           ),
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: 28.h,
                     ),
                   ]),
             ),

@@ -45,7 +45,7 @@ class AuthService {
       "X-Requested-With": "XMLHttpRequest",
     };
     http.Response response = await http
-        .post(Uri.parse(baseUrl + "forget/password"), headers: headers, body: {
+        .post(Uri.parse(baseUrl + "forgot/password"), headers: headers, body: {
       "country_code": country_code,
       "phone": phone,
       "password": password,
@@ -73,6 +73,7 @@ class AuthService {
       'Accept': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
     };
+    print(baseUrl + "login");
     http.Response response =
         await http.post(Uri.parse(baseUrl + "login"), headers: headers, body: {
       'fcm_token': token.toString(),
