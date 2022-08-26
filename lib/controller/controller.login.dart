@@ -17,21 +17,24 @@ class LoginController extends GetxController {
     countryCode = value;
     update();
   }
+
   changeIsCheckingPhone() {
     isCheckingPhone = !isCheckingPhone;
     update();
   }
+
   checkPhone() async {
     if (phoneController.text.length < 9) {
       print("hh");
       showMessage('pleaser_enter_a_correct_number'.tr);
     } else {
+      print(int.parse(phoneController.text).toString());
       changeIsCheckingPhone();
       bool exist = await AuthService.phoneCheck(
-          country_code: countryCode, phone: phoneController.text,
-      password: passwordController.text,
+        country_code: countryCode,
+        phone: phoneController.text,
+        password: passwordController.text,
       );
-
       if (!exist) {
         changeIsCheckingPhone();
         showMessage("pleaser_enter_a_correct_number".tr);

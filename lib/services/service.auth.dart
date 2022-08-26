@@ -44,6 +44,7 @@ class AuthService {
       'Accept': 'application/json',
       "X-Requested-With": "XMLHttpRequest",
     };
+    phone = int.parse(phone).toString();
     http.Response response = await http
         .post(Uri.parse(baseUrl + "forgot/password"), headers: headers, body: {
       "country_code": country_code,
@@ -69,6 +70,13 @@ class AuthService {
   }) async {
     String? token = await FirebaseMessaging.instance.getToken();
     Dio dio = Dio();
+    phone = int.parse(phone).toString();
+    print({
+      'fcm_token': token.toString(),
+      'phone': phone,
+      'country_code': country_code,
+      'password': password,
+    });
     Map<String, String> headers = {
       'Accept': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
@@ -109,6 +117,7 @@ class AuthService {
     required String password,
   }) async {
     Dio dio = Dio();
+    phone = int.parse(phone).toString();
     try {
       Response<dynamic> result = await dio.post(
         baseUrl + "phone-check",
@@ -149,6 +158,7 @@ class AuthService {
     required String password,
   }) async {
     Dio dio = Dio();
+    phone = int.parse(phone).toString();
     http.Response response =
         await http.post(Uri.parse(baseUrl + "phone-check"), body: {
       'phone': phone,
@@ -336,6 +346,7 @@ class AuthService {
   }) async {
     Response<dynamic> result;
     Dio dio = Dio();
+    phone = int.parse(phone).toString();
     String? token = await FirebaseMessaging.instance.getToken();
     try {
       print({

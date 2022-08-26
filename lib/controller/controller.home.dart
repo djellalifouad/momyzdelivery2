@@ -31,7 +31,6 @@ class HomeController extends GetxController {
     token = box.read('token').toString();
     getCurrentLocation();
   }
-
   getCurrentLocation() {
     print("get current ");
     Geolocator.getCurrentPosition().then((va) {

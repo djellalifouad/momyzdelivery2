@@ -153,6 +153,7 @@ class ProfileService {
   static Future<Driver?> updateProfilePhone(
       String token, String countryCode, String phone) async {
     print('hre');
+    phone = int.parse(phone).toString();
     Map<String, String> headers = {
       'Accept': 'application/json',
       'X-Requested-With': 'XMLHttpRequest',
