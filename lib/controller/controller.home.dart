@@ -15,6 +15,7 @@ import 'package:momyzdelivery/services/service.orders.dart';
 import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../ui/views/components/component_button.dart';
 import '../ui/views/confirmOrder/view_confirmOrder1.dart';
 import '../ui/views/confirmOrder/view_confirmOrder2.dart';
@@ -31,13 +32,33 @@ class HomeController extends GetxController {
     token = box.read('token').toString();
     getCurrentLocation();
   }
-  getCurrentLocation() {
-    print("get current ");
+
+  getCurrentLocation() async {
+    bool result = await activatePermision();
+    if (!result) {
+      return;
+    }
+    final splashController = Get.find<SplashController>();
+    splashController.updatePosition();
     Geolocator.getCurrentPosition().then((va) {
       currentLocation = LatLng(va.latitude, va.longitude);
       getDirections();
       update();
     });
+  }
+
+  Future<bool> activatePermision() async {
+    if (await Permission.location.isPermanentlyDenied ||
+        await Permission.location.isDenied ||
+        await Permission.location.isRestricted) {
+      openAppSettings();
+      return false;
+    }
+    if (await Permission.location.request().isDenied) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   clearPolyline() {
@@ -49,16 +70,19 @@ class HomeController extends GetxController {
     markers.clear();
     update();
   }
+
   clearOrder() {
     clearMarkers();
     clearPolyline();
-    order = null; 
-    update(); 
+    order = null;
+    update();
   }
+
   hideBottom2() {
     showboolBottomOrder2 = false;
     update();
   }
+
   updateLocation() async {
     if (isProcessing) {
       return;
@@ -78,7 +102,6 @@ class HomeController extends GetxController {
       } else {
         showMessage('you_offline'.tr);
       }
-
       update();
     }
   }
@@ -86,6 +109,7 @@ class HomeController extends GetxController {
   previewOrder(String id) async {
     token = box.read('token').toString();
     order = await OrderService.previewOrder(id, token);
+    showBottomOrder(id);
     update();
     return;
   }
@@ -105,224 +129,12 @@ class HomeController extends GetxController {
     }
   }
 
+  bool showboolBottomOrder3 = false;
   showBottomOrder(String id) async {
     token = box.read('token').toString();
     order = await OrderService.previewOrder(id, token);
-    Get.bottomSheet(
-        Container(
-          decoration: BoxDecoration(
-              color: Colors.white, // or some other color
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16.0.r),
-                  topRight: Radius.circular(16.0.r))),
-          child: Padding(
-            padding: EdgeInsets.all(20.sp),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset('assets/icons/Ellipse 10 .svg'),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text(
-                      'taked_from'.tr,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.sp,
-                          color: Pallete.greyText),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/Ellipse 12.svg'),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text(
-                      order!.store!.address,
-                      style: TextStyle(
-                          fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                SvgPicture.asset('assets/icons/Ellipse 13.svg'),
-                SizedBox(
-                  height: 5.h,
-                ),
-                SvgPicture.asset('assets/icons/Ellipse 14.svg'),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Row(
-                  children: [
-                    SvgPicture.asset('assets/icons/Ellipse 15.svg'),
-                    SizedBox(
-                      width: 10.w,
-                    ),
-                    Text(
-                      'to'.tr,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.sp,
-                          color: Pallete.greyText),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 5.h),
-                Padding(
-                  padding: EdgeInsets.only(right: 10.w),
-                  child: Text(
-                    order!.address,
-                    style:
-                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('store_name'.tr,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.sp,
-                                color: Pallete.greyText)),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        Text(
-                          order!.store!.name.toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      width: 66.h,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'order_qty'.tr,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                              color: Pallete.greyText),
-                        ),
-                        SizedBox(
-                          height: 4.h,
-                        ),
-                        Text(
-                          order!.items.length.toString(),
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('special_information'.tr,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.sp,
-                            color: Pallete.greyText)),
-                    SizedBox(
-                      height: 4.h,
-                    ),
-                    Text(
-                      order!.delivery_type.toString(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 17.h,
-                ),
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        order!.shipping.toString() + " ₪",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24.sp,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Text('delivery_price'.tr),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                ButtonComponent("accept_order".tr, () async {
-                  bool val = await OrderService.acceptOrder(id, token);
-                  if (val) {
-                    GetStorage().write("currentOrder", id);
-                    Get.back();
-                    getDirections();
-                    showboolBottomOrder2 = true;
-                    update();
-                  }
-                }),
-                SizedBox(
-                  height: 22.h,
-                ),
-                InkWell(
-                  onTap: () async {
-                    bool val = await OrderService.declineOrder(id, token);
-                    if (val) {
-                      Get.back();
-                    } else {}
-                  },
-                  child: Center(
-                    child: Text(
-                      "decline_order".tr,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 14.sp,
-                        color: Color.fromRGBO(235, 87, 87, 1),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-        enableDrag: false,
-        useRootNavigator: false);
+    showboolBottomOrder3 = true;
+    update();
   }
 
   bool hide = false;
@@ -578,6 +390,13 @@ class HomeController extends GetxController {
     if (order == null) {
       return;
     }
+    if (currentLocation == null) {
+      await getCurrentLocation();
+      return;
+    }
+    if (currentLocation == null) {
+      return; 
+    }
     markers.add(Marker(
       //add start location marker
       markerId: MarkerId(currentLocation.toString()),
@@ -594,7 +413,8 @@ class HomeController extends GetxController {
       //add distination location marker
       markerId:
           MarkerId(order!.store!.lat.toString() + order!.store!.lon.toString()),
-      position: LatLng(order!.store!.lat, order!.store!.lon), //position of marker
+      position:
+          LatLng(order!.store!.lat, order!.store!.lon), //position of marker
       infoWindow: InfoWindow(
         //popup info
         title: 'store_location'.tr,

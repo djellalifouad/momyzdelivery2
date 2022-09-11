@@ -1,5 +1,4 @@
 import 'model.car.dart';
-
 class Driver {
   String access_token;
   String token_type;
@@ -19,7 +18,6 @@ class Driver {
   String wallet;
   double lon;
   double lat;
-
   Driver({
     required this.lon,
     required this.lat,
@@ -60,7 +58,7 @@ class Driver {
       name: map['name'],
       image_url: map['image_url'],
       phone: map['phone'],
-      country_code: map['country_code'],
+      country_code: map['country_code'].toString().substring(1),
       full_phone_number: map['full_phone_number'],
       state: map['state'],
       car: map['car'] == null ? null : Car.fromMap(map['car']),

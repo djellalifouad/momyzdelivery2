@@ -195,7 +195,7 @@ class OrderDetails extends StatelessWidget {
                                         fontSize: 10.sp,
                                         color: Colors.black)),
                                 Text(
-                                  order.items[index].price.toString(),
+                                  order.items[index].price.toString() + "₪",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 10.sp,
@@ -246,16 +246,18 @@ class OrderDetails extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100.r),
-                              child: CachedNetworkImage(
-                                  errorWidget: (context, string, val) =>
-                                      Image.asset('assets/images/test.png'),
-                                  placeholder: (context, string) =>
-                                      Image.asset('assets/images/test.png'),
-                                  height: 60.sp,
-                                  width: 60.sp,
-                                  imageUrl: order.store!.image_url),
+                            CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 30.sp,
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                    fit: BoxFit.cover,
+                                    errorWidget: (context, string, val) =>
+                                        Image.asset('assets/images/test.png'),
+                                    placeholder: (context, string) =>
+                                        Image.asset('assets/images/test.png'),
+                                    imageUrl: order.store!.image_url),
+                              ),
                             ),
                             SizedBox(
                               width: 20.w,
@@ -361,16 +363,18 @@ class OrderDetails extends StatelessWidget {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(100.r),
-                              child: CachedNetworkImage(
-                                  errorWidget: (context, string, val) =>
-                                      Image.asset('assets/images/test.png'),
-                                  placeholder: (context, string) =>
-                                      Image.asset('assets/images/test.png'),
-                                  height: 70.sp,
-                                  width: 70.sp,
-                                  imageUrl: order.user!.image_url),
+                            CircleAvatar(
+                              radius: 30.sp,
+                              backgroundColor: Colors.white,
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                    fit: BoxFit.contain,
+                                    errorWidget: (context, string, val) =>
+                                        Image.asset('assets/images/test.png'),
+                                    placeholder: (context, string) =>
+                                        Image.asset('assets/images/test.png'),
+                                    imageUrl: order.user!.image_url),
+                              ),
                             ),
                             SizedBox(
                               width: 20.w,

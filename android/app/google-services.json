@@ -7,12 +7,36 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:443824017410:android:70c91506692b699691571b",
+        "mobilesdk_app_id": "1:443824017410:android:ede4c2a0c2de892891571b",
         "android_client_info": {
-          "package_name": "com.hoskadev.momyz_seller_app"
+          "package_name": "com.hoskadev.momyz_client_app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "443824017410-2ddnh7mav2c0pauvrupo41lp0kkrm7is.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoskadev.momyz_client_app",
+            "certificate_hash": "62a215b5548b49545edf1937395efdd97d37fde0"
+          }
+        },
+        {
+          "client_id": "443824017410-3n3qa95ku0okv8vm39jd0s1mdkn7gmsi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoskadev.momyz_client_app",
+            "certificate_hash": "fbc068a2b66582bb70c207cdcd5acccb2bc83494"
+          }
+        },
+        {
+          "client_id": "443824017410-n0tmbq61saerdrhs6lon6961f9cj84fl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoskadev.momyz_client_app",
+            "certificate_hash": "d6634208486d93516deb1dfc2daf4efe5a5a7ba7"
+          }
+        },
         {
           "client_id": "443824017410-5ca5n9fj955gth3s5b90voc9li8uctem.apps.googleusercontent.com",
           "client_type": 3
@@ -43,7 +67,59 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:443824017410:android:ef3a24b88d1e785c91571b",
+        "mobilesdk_app_id": "1:443824017410:android:c815496102bbccd491571b",
+        "android_client_info": {
+          "package_name": "com.hoskadev.momyz_seller_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443824017410-d5nv223lblnfchmt3c5n4944nc2vvg0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoskadev.momyz_seller_app",
+            "certificate_hash": "17652896484585d42ba5d2caa382155413988a28"
+          }
+        },
+        {
+          "client_id": "443824017410-qefjn0k6s7ptq0242vmigqt3tccqh36h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoskadev.momyz_seller_app",
+            "certificate_hash": "837c7c93705f6bfe5930424b131d906d5f9ef655"
+          }
+        },
+        {
+          "client_id": "443824017410-5ca5n9fj955gth3s5b90voc9li8uctem.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7sgtUSmCnRCJzoKxjVtE_22fvUmYVbV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443824017410-5ca5n9fj955gth3s5b90voc9li8uctem.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "443824017410-b84rkm0ej03m78vd4dndp4jdgi6qkgr4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hoskadev.momyzSellerApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443824017410:android:86b06f0f3c14b3e891571b",
         "android_client_info": {
           "package_name": "com.hoskadev.momyzdelivery"
         }

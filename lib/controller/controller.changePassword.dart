@@ -33,13 +33,14 @@ class ChangePasswordController extends GetxController {
         return;
       }
       bool result = await AuthService.updatePassword(
-          country_code: forgetPasswordController.countryCode,
+          country_code: "+" + forgetPasswordController.countryCode,
           phone: forgetPasswordController.phoneController.text,
           password: passwordController.text,
           password_confirmation: passwordController2.text);
       updateIsUpdating();
       if (result) {
-        showMessage('success'.tr);
+        showMessage(
+            'تم تغيير كلمة السر بنجاح ، يرجى إعادة تسجيل الدخول بكلمة المرور الجديدة');
         Get.to(Login1View());
       } else {
         showMessage('error'.tr);

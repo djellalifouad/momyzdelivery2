@@ -15,12 +15,10 @@ import '../../../controller/controller.personaInformationUpdate.dart';
 import '../../../controller/controller.personalInformationRegisterController.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
-
 class PersonalInfoUpdateView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(PersonalInformationControllerUpdate());
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

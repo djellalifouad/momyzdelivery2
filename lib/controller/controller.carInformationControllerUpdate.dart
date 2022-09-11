@@ -43,7 +43,7 @@ class CarInformationControllerUpdate extends GetxController {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
         type: FileType.custom,
-        allowedExtensions: ["PNG", "JPG", "JPEG"]);
+        allowedExtensions: ["png", "jpg", "jpeg"]);
     List<File> files = [];
     if (result != null) {
       files = result.paths.map((path) => File(path.toString())).toList();
@@ -71,7 +71,7 @@ class CarInformationControllerUpdate extends GetxController {
       v!.car = result;
       splashController.updateDriver(v);
       Get.back();
-      showMessage("car_success".tr);
+      showMessage("تم تغير معلومات السيارة بنجاح");
     } else {
       showMessage("error".tr);
     }

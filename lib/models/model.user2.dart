@@ -25,7 +25,7 @@ class User2 {
 
     return User2(
         address: map['address'].toString(),
-        country_code: map['country_code'],
+        country_code: map['country_code'].toString().substring(1),
         image_url: map['image_url'],
         first_name: map['first_name'].toString(),
         last_name: map['last_name'].toString(),

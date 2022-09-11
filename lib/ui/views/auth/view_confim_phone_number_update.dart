@@ -66,7 +66,7 @@ class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
         Get.put(PhoneConfirmationUpdateController());
     return SafeArea(
       child: Scaffold(
-             appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
+        appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
           InkWell(
             onTap: () {
               Get.back();
@@ -114,9 +114,10 @@ class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
               } else {
                 return InkWell(
                   onTap: () {
-                    final loginController = Get.find<LoginController>();
+                    final loginController = Get.find<UpdatePhoneController>();
                     loginController.resendSmsToPhone();
                     startTimer();
+                    setState(() {});
                   },
                   child: Text(
                     'resend'.tr,
@@ -207,9 +208,8 @@ class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
                             controller: phoneConfirmationLoginController
                                 .codePinController,
                             onCompleted: (v) async {
-                              print(v);
-                              //   phoneConfirmationLoginController
-                              //       .verifyPhoneAndLogin();
+                              phoneConfirmationLoginController
+                                  .verifyPhoneAndRegister();
                             },
                             onChanged: (value) {},
                             beforeTextPaste: (text) {

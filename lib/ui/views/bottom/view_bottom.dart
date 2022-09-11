@@ -63,6 +63,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: PersistentTabView(
         context,
         controller: _controller,

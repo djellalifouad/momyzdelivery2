@@ -52,27 +52,27 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
       obscureText: obscureText,
       controller: widget.textEditingController,
       validator: widget.validator,
-      
       keyboardType: numberTypes.contains(widget.title) & Platform.isAndroid
           ? TextInputType.number
           : TextInputType.text,
       readOnly: widget.icon2.isNotEmpty,
+      textDirection: obscureText ? TextDirection.ltr : TextDirection.rtl,
+      textAlign: TextAlign.right,
       style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
         prefixIconConstraints: BoxConstraints(
           maxHeight: 15.sp,
-          maxWidth: widget.title.isNotEmpty ? 45.sp : 30.sp,
+          maxWidth: widget.title.isNotEmpty ? 45.sp : 20.sp,
         ),
         suffixIconConstraints: BoxConstraints(
           maxHeight: 35.sp,
           maxWidth: widget.title.isNotEmpty ? 65.sp : 30.sp,
         ),
-        
         prefixIcon: widget.icon.isNotEmpty
             ? Padding(
                 padding: EdgeInsets.only(
                   right: 15.w,
-                  left: 10.w,
+                  left: 5.w,
                 ),
                 child: SvgPicture.asset(
                   widget.icon,
@@ -110,6 +110,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
                     onSelected: (String value) {
                       widget.textEditingController.text = value;
                     },
+                    position: PopupMenuPosition.over,
                     itemBuilder: (BuildContext context) {
                       return ["normaDelivery".tr, "fastDelivery".tr]
                           .map<PopupMenuItem<String>>((String value) {
@@ -121,7 +122,6 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
                 )
               : Container();
         }),
-        filled: true,
         fillColor: Color.fromRGBO(252, 250, 250, 1),
         hintText: widget.title,
         focusedBorder: OutlineInputBorder(

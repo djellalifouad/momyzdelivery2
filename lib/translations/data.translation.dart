@@ -4,9 +4,12 @@ class LocalString extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
         'en_US': {
-                    "incorrect_password_message": "Please enter a confirm password",
-          "password_changed_successfully": "Password changed successfully" , 
-                    "update_password": "Update password", 
+          "pleaser_enter_a_correct_number3":
+              "This account does not exist. Please enter valid information.",
+          "autoLocation": "Grant the app permission to get the location",
+          "incorrect_password_message": "Please enter a confirm password",
+          "password_changed_successfully": "Password changed successfully",
+          "update_password": "Update password",
           "next": "Next",
           "forget_password": "you forgot the password ? ",
           "forget_password2": "Password recovery",
@@ -263,9 +266,10 @@ class LocalString extends Translations {
               "You will receive a phone message regarding the acceptance of your request by the administration. Thank you for your interest",
         },
         'ar_AR': {
-          "incorrect_password_message" : "يرجى إدخال كلمة سر صحيحة", 
-          "password_changed_successfully" : "تم تغيير كلمة السر بنجاح", 
-          "update_password" : "تعديل كلمة السر ", 
+          "autoLocation": "منح التطبيق الإذن للحصول على الموقع",
+          "incorrect_password_message": "يرجى إدخال كلمة سر صحيحة",
+          "password_changed_successfully": "تم تغيير كلمة السر بنجاح",
+          "update_password": "تعديل كلمة السر ",
           "next": "التالي",
           "forget_password": "نسيت كلمة السر ؟ ",
           "forget_password2": "إستعادة كلمة السر",
@@ -398,9 +402,10 @@ class LocalString extends Translations {
           "id": "رقم بطاقة الهوية  ",
           "id_pic": "صورة بطاقة الهوية ",
           "per_pic": "صورة رخصة السياقة ",
-
           "error": "حدت مشكل يرجى إعادة المحاولة لاحقاً ",
           "pleaser_enter_a_correct_number": "يرجى إدخال رقم صحيح ",
+          "pleaser_enter_a_correct_number3":
+              "هذا الحساب غير موجود يرجى ادخال معلومات صحيحة .",
           "already_have_account": "لديك حساب بالفعل ؟ ",
           "user_already_exist": "هذا المستخذم موجود من قبل ",
           "please_enter_delivery_type": "الرجاء إدخال نوع التوصيل",

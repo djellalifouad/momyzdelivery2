@@ -9,6 +9,7 @@ import '../ui/views/auth/view_personal_info.dart';
 import '../ui/views/toast/toast.message.dart';
 import 'controller.register.dart';
 import 'controller.splash.dart';
+
 class PhoneConfirmationRegisterController extends GetxController {
   bool isRegistring = false;
   changeStateIsRegistring() {
@@ -23,7 +24,6 @@ class PhoneConfirmationRegisterController extends GetxController {
     registerController = Get.find<RegisterController>();
     super.onInit();
   }
-
   verifyPhoneAndRegister() async {
     try {
       changeStateIsRegistring();
@@ -35,7 +35,7 @@ class PhoneConfirmationRegisterController extends GetxController {
         if (value.user != null) {
           var splashController = Get.find<SplashController>();
           AuthService.register(
-            password: registerController.passwordController.text,
+              password: registerController.passwordController.text,
               name: registerController.nameController.text,
               express_delivery:
                   registerController.deliveryTypeController.text ==

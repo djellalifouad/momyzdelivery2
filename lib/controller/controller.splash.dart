@@ -9,10 +9,12 @@ import 'package:momyzdelivery/ui/views/auth/view_login1.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:momyzdelivery/ui/views/confirmOrder/view_confirmOrder2.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math' show cos, sqrt, asin;
 import '../ui/views/auth/view_car_information.dart';
 import '../ui/views/auth/view_personal_info.dart';
 import '../ui/views/bottom/view_bottom.dart';
+import 'controller.home.dart';
 
 class SplashController extends GetxController {
   late Position position;
@@ -46,23 +48,42 @@ class SplashController extends GetxController {
         Get.off(CarInformationRegister());
         return;
       }
-      if (getStorage.hasData("currentOrder")) {
-        String id = getStorage.read("currentOrder").toString();
-        Get.to(ConfirmOrder2(id));
+      var pref = await SharedPreferences.getInstance();
+      await pref.remove('currentOrder');
+      if (pref.getString('currentOrder') != null) {
+        final homeController = Get.put(HomeController());
+        String? id = pref.getString('currentOrder');
+        if (pref.getString('orderType') == "2") {
+          homeController.showBottomOrder(id.toString());
+        } else {
+          homeController.previewOrderNormal(id.toString());
+        }
+        Get.off(ProvidedStylesExample());
         return;
       } else {
-        updatePosition();
         Get.off(ProvidedStylesExample());
+        updatePosition();
       }
     } else {
       Get.off(Login1View());
     }
   }
 
-  updatePosition() {
-    print("bismilah calculate position");
+  bool isListening = false;
+  updatePosition() async {
+    LocationPermission permission;
+    await Geolocator.requestPermission();
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      return false;
+    }
+    isListening = true;
     String token = getStorage.read('token');
     Geolocator.getCurrentPosition().then((position) async {
+      if (v == null) {
+        return;
+      }
       double distance = Geolocator.distanceBetween(
           position.latitude, position.longitude, v!.lat, v!.lon);
       print("distance");
@@ -88,33 +109,53 @@ class SplashController extends GetxController {
 
 Future<Position> _determinePosition() async {
   LocationPermission permission;
+  await Geolocator.requestPermission();
   permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.checkPermission();
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
-      return Future.error('Location permissions are denied');
-    }
-  }
-  if (permission == LocationPermission.deniedForever) {
-    permission = await Geolocator.checkPermission();
+
+  if (permission == LocationPermission.deniedForever ||
+      permission == LocationPermission.denied) {
     // Permissions are denied forever, handle appropriately.
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
+    return Position(
+      longitude: 35.152166058,
+      latitude: 32.51833126,
+      altitude: 1,
+      speedAccuracy: 12,
+      accuracy: 1,
+      heading: 2,
+      speed: 23,
+      timestamp: DateTime.now(),
+    );
   }
-
-  // When we reach here, permissions are granted and we can
-  // continue accessing the position of the device.
-  var position2 = await Geolocator.getCurrentPosition();
-  print('position2');
-  print(position2);
-
-  return position2;
+  print(permission);
+  var position2;
+  try {
+    position2 = await Geolocator.getCurrentPosition();
+  } catch (e) {
+    return Position(
+      longitude: 35.152166058,
+      latitude: 32.51833126,
+      altitude: 1,
+      speedAccuracy: 12,
+      accuracy: 1,
+      heading: 2,
+      speed: 23,
+      timestamp: DateTime.now(),
+    );
+  }
+  if (position2 == null) {
+    return Position(
+      longitude: 35.152166058,
+      latitude: 32.51833126,
+      altitude: 1,
+      speedAccuracy: 12,
+      accuracy: 1,
+      heading: 2,
+      speed: 23,
+      timestamp: DateTime.now(),
+    );
+  } else {
+    return position2;
+  }
 }
 
 double calculateDistance(lat1, lon1, lat2, lon2) {

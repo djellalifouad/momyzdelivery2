@@ -139,10 +139,9 @@ class Login2View extends StatelessWidget {
                           ),
                         ),
                         controller: registerController.phoneController,
-                        initialCountryCode: 'DZ',
+                        initialCountryCode: '972',
                         onCountryChanged: (val) {
-                          registerController
-                              .updateCountryCode("+" + val.dialCode);
+                          registerController.updateCountryCode(val.dialCode);
                         },
                         onChanged: (phone) {},
                       ),

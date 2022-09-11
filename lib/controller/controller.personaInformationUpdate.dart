@@ -37,7 +37,7 @@ class PersonalInformationControllerUpdate extends GetxController {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
         type: FileType.custom,
-        allowedExtensions: ["PNG", "JPG", "JPEG"]);
+        allowedExtensions: ["png", "jpg", "jpeg"]);
     List<File> files = [];
     if (result != null) {
       files = result.paths.map((path) => File(path.toString())).toList();
@@ -70,14 +70,14 @@ class PersonalInformationControllerUpdate extends GetxController {
           personal_id_image: fileIdPic,
           driving_licence_image: fileDriverLiscencePic,
           personal_id: idNumberController.text);
-
+      print('testPIII');
+      print(result!.car.toString());
       changeStateIsSending();
       if (result != null) {
-        print("wow2");
-        showMessage("personal_success".tr);
-        splashController.updateDriver(result);
-
         Get.back();
+        print("personal_success".tr);
+        showMessage("تم تغيير المعلومات الشخصية بنجاح");
+        splashController.updateDriver(result);
       } else {
         showMessage("error".tr);
       }

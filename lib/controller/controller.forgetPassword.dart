@@ -11,25 +11,23 @@ class ForgetPasswordController extends GetxController {
   final formKey = GlobalKey<FormState>();
   String verficationIdCode = "";
   final TextEditingController phoneController = TextEditingController();
-  String countryCode = "+213";
+  String countryCode = "972";
   bool isCheckingPhone = false;
   updateCountryCode(String value) {
     countryCode = value;
     update();
   }
-
   changeIsCheckingPhone() {
     isCheckingPhone = !isCheckingPhone;
     update();
   }
-
   checkPhone() async {
     if (phoneController.text.length < 9) {
       showMessage('pleaser_enter_a_correct_number'.tr);
     } else {
       changeIsCheckingPhone();
       bool exist = await AuthService.phoneCheck(
-        country_code: countryCode,
+        country_code: "+" + countryCode,
         phone: phoneController.text,
         password: "",
       );
@@ -43,11 +41,11 @@ class ForgetPasswordController extends GetxController {
       }
     }
   }
-  
+
   sendSmsToPhone() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
-      phoneNumber: countryCode + phoneController.text,
+      phoneNumber: "+" + countryCode + phoneController.text,
       codeSent: (String verificationId, int? resendToken) async {
         print(verificationId);
         verficationIdCode = verificationId;
@@ -57,6 +55,8 @@ class ForgetPasswordController extends GetxController {
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
       verificationFailed: (FirebaseAuthException error) {
+        showMessage(error.message.toString());
+        print(error.message);
         showMessage("error".tr);
         changeIsCheckingPhone();
       },
@@ -67,7 +67,7 @@ class ForgetPasswordController extends GetxController {
   resendSmsToPhone() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
-      phoneNumber: countryCode + phoneController.text,
+      phoneNumber: "+" + countryCode + phoneController.text,
       codeSent: (String verificationId, int? resendToken) async {
         print(verificationId);
         verficationIdCode = verificationId;

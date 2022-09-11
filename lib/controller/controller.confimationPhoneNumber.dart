@@ -1,15 +1,17 @@
-import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/controller/controller.updatePhone.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import '../models/model.user.dart';
 import '../services/service.auth.dart';
 import '../services/service.profile.dart';
 import '../ui/views/auth/view_personal_info.dart';
+import '../ui/views/bottom/view_bottom.dart';
+import '../ui/views/profile/view_profile.dart';
 import '../ui/views/toast/toast.message.dart';
 import 'controller.register.dart';
 import 'controller.splash.dart';
@@ -32,6 +34,10 @@ class PhoneConfirmationUpdateController extends GetxController {
   }
 
   verifyPhoneAndRegister() async {
+    print(
+      registerController.verficationIdCode,
+    );
+    print(codePinController.text);
     String token = box.read('token').toString();
     try {
       changeStateIsRegistring();
@@ -53,13 +59,16 @@ class PhoneConfirmationUpdateController extends GetxController {
               registerController.countryCode,
               registerController.phoneController.text);
           SplashController splashController = Get.find<SplashController>();
+          changeStateIsRegistring();
           if (v != null) {
+            Get.offAll(ProvidedStylesExample());
+            print("personal_success".tr);
+            showMessage("تم تغيير رقم الهاتف بنجاح");
             splashController.updateDriver(v);
+          } else {
+            showMessage('error'.tr);
           }
 
-          changeStateIsRegistring();
-          Get.back();
-          Get.back();
           // if (v == null) {
           //   showMessage('error'.tr);
           //} else {

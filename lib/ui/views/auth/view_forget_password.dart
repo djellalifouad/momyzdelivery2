@@ -135,10 +135,10 @@ class _ForgetPasswordWidgetState extends State<ForgetPasswordWidget> {
                           ),
                         ),
                         controller: forgetPasswordController.phoneController,
-                        initialCountryCode: 'DZ',
+                        initialCountryCode: '972',
                         onCountryChanged: (val) {
                           forgetPasswordController
-                              .updateCountryCode("+" + val.dialCode);
+                              .updateCountryCode(val.dialCode);
                         },
                         onChanged: (phone) {},
                       ),

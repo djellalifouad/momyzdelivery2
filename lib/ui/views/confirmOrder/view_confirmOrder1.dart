@@ -195,11 +195,13 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                         String token = box.read('token').toString();
                         bool result =
                             await OrderService.arrive(widget.id, token, v);
-
                         if (result) {
                           final homeController = Get.find<HomeController>();
+                          homeController.clearPolyline();
+                          homeController.clearMarkers();
+                          homeController.hideBottom2();
                           homeController.clearOrder();
-                          Get.to(ConfirmOrder3());
+                          Get.offAll(ConfirmOrder3());
                         } else {
                           showMessage("wrongSms".tr);
                         }
@@ -222,7 +224,10 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
                 if (result) {
                   final homeController = Get.find<HomeController>();
                   homeController.clearOrder();
-                  Get.to(ConfirmOrder3());
+                  homeController.clearPolyline();
+                  homeController.clearMarkers();
+                  homeController.hideBottom2();
+                  Get.offAll(ConfirmOrder3());
                 } else {
                   showMessage("wrongSms".tr);
                 }

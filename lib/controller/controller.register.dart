@@ -16,10 +16,9 @@ class RegisterController extends GetxController {
   final TextEditingController deliveryTypeController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordController2 = TextEditingController();
-  String countryCode = "+213";
+  String countryCode = "972";
   String verficationIdCode = "";
   bool isCheckingPhone = false;
-
   updateCountryCode(String value) {
     countryCode = value;
     update();
@@ -38,11 +37,13 @@ class RegisterController extends GetxController {
         return;
       }
       changeIsCheckingPhone();
+      print("test test");
       print(countryCode);
       print(phoneController.text);
       bool exist = await AuthService.phoneCheck2(
-           password: passwordController.text,
-          country_code: countryCode, phone: phoneController.text);
+          password: passwordController.text,
+          country_code: "+" + countryCode,
+          phone: phoneController.text);
 
       if (!exist) {
         sendSmsToPhone();
@@ -57,7 +58,7 @@ class RegisterController extends GetxController {
   sendSmsToPhone() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
-      phoneNumber: countryCode + phoneController.text,
+      phoneNumber: "+" + countryCode + phoneController.text,
       codeSent: (String verificationId, int? resendToken) async {
         print(verificationId);
         verficationIdCode = verificationId;
@@ -67,6 +68,7 @@ class RegisterController extends GetxController {
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
       verificationFailed: (FirebaseAuthException error) {
+        showMessage(error.message.toString());
         showMessage("error".tr);
         changeIsCheckingPhone();
       },

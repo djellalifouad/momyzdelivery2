@@ -159,12 +159,16 @@ class ProfileService {
       'X-Requested-With': 'XMLHttpRequest',
       'Authorization': "Bearer ${token}",
     };
-
+    print({
+      'country_code': countryCode,
+      'phone': phone,
+    });
     http.Response response = await http
         .put(Uri.parse(baseUrl + "profile/phone"), headers: headers, body: {
       'country_code': countryCode,
       'phone': phone,
     });
+
     print("response profile/phone ");
     print(response.body);
     print(response.statusCode);
@@ -262,7 +266,6 @@ class ProfileService {
     print(response.statusCode);
     return response.statusCode == 202;
   }
-
   static Future<bool> logout(String token) async {
     Map<String, String> headers = {
       'Accept': 'application/json',

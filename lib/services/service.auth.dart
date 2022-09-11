@@ -159,13 +159,20 @@ class AuthService {
   }) async {
     Dio dio = Dio();
     phone = int.parse(phone).toString();
-    http.Response response =
-        await http.post(Uri.parse(baseUrl + "phone-check"), body: {
-      'phone': phone,
-      'country_code': country_code,
-      'password': password,
-    });
+    Map<String, String> headers = {
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+    };
+
+    http.Response response = await http.post(Uri.parse(baseUrl + "phone-check"),
+        body: {
+          'phone': phone,
+          'country_code': country_code,
+          'password': password,
+        },
+        headers: headers);
     print(response.statusCode);
+    print('yes');
     print(response.body);
 
     if (response!.statusCode == 404) {
@@ -372,7 +379,7 @@ class AuthService {
       result = await dio.post(baseUrl + "register",
           data: {
             'phone': phone,
-            'country_code': country_code,
+            'country_code': "+" + country_code,
             'fcm_token': token,
             'lon': lon,
             'lat': lat,
@@ -384,6 +391,8 @@ class AuthService {
             HttpHeaders.acceptHeader: "application/json",
           }));
       print("/register");
+      print(result.data);
+      print(result.statusCode);
       Map<String, dynamic> map = result.data;
       print(map['access_token']);
       final box = GetStorage();

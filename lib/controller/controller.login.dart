@@ -11,18 +11,16 @@ class LoginController extends GetxController {
   String verficationIdCode = "";
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String countryCode = "+213";
+  String countryCode = "972";
   bool isCheckingPhone = false;
   updateCountryCode(String value) {
     countryCode = value;
     update();
   }
-
   changeIsCheckingPhone() {
     isCheckingPhone = !isCheckingPhone;
     update();
   }
-
   checkPhone() async {
     if (phoneController.text.length < 9) {
       print("hh");
@@ -31,13 +29,13 @@ class LoginController extends GetxController {
       print(int.parse(phoneController.text).toString());
       changeIsCheckingPhone();
       bool exist = await AuthService.phoneCheck(
-        country_code: countryCode,
+        country_code: "+" + countryCode,
         phone: phoneController.text,
         password: passwordController.text,
       );
       if (!exist) {
         changeIsCheckingPhone();
-        showMessage("pleaser_enter_a_correct_number".tr);
+        showMessage("pleaser_enter_a_correct_number3".tr);
       } else {
         print('exist');
         sendSmsToPhone();
@@ -49,7 +47,7 @@ class LoginController extends GetxController {
   sendSmsToPhone() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
-      phoneNumber: countryCode + phoneController.text,
+      phoneNumber: "+" + countryCode + phoneController.text,
       codeSent: (String verificationId, int? resendToken) async {
         print(verificationId);
         verficationIdCode = verificationId;
@@ -69,7 +67,7 @@ class LoginController extends GetxController {
   resendSmsToPhone() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
-      phoneNumber: countryCode + phoneController.text,
+      phoneNumber: "+" + countryCode + phoneController.text,
       codeSent: (String verificationId, int? resendToken) async {
         print(verificationId);
         verficationIdCode = verificationId;

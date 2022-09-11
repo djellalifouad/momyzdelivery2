@@ -55,21 +55,19 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                       return Center(child: Text('privacy_policy_empty'.tr));
                     }
                   }
-                  return ListView.builder(
-                      itemCount: controller.privacyPolicy.length,
-                      itemBuilder: (context, index) {
-                        return Html(
-                            data: controller.privacyPolicy[index],
-                            onLinkTap: (url, re, map, e) async {
-                              if (await canLaunch(url!)) {
-                                await launch(
-                                  url,
-                                );
-                              } else {
-                                throw 'Could not launch $url';
-                              }
-                            });
-                      });
+                  return SingleChildScrollView(
+                    child: Html(
+                        data: controller.privacyPolicy,
+                        onLinkTap: (url, re, map, e) async {
+                          if (await canLaunch(url!)) {
+                            await launch(
+                              url,
+                            );
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        }),
+                  );
                 }));
     });
   }

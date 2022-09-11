@@ -26,6 +26,7 @@ class PersonalInformationController extends GetxController {
     // TODO: implement onInit
     super.onInit();
   }
+
   final TextEditingController idNumberController = TextEditingController();
   var fileIdPic = null;
   var fileDriverLiscencePic = null;
@@ -33,7 +34,7 @@ class PersonalInformationController extends GetxController {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
         type: FileType.custom,
-        allowedExtensions: ["PNG", "JPG", "JPEG"]);
+        allowedExtensions: ["png", "jpg", "jpeg"]);
     List<File> files = [];
     if (result != null) {
       files = result.paths.map((path) => File(path.toString())).toList();
@@ -65,7 +66,7 @@ class PersonalInformationController extends GetxController {
         return;
       }
       changeStateIsSending();
-    Driver? result = await AuthService.updatePersonalInformation(
+      Driver? result = await AuthService.updatePersonalInformation(
           token: token,
           personal_id_image: fileIdPic,
           driving_licence_image: fileDriverLiscencePic,

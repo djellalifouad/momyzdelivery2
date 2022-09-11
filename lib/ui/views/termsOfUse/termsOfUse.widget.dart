@@ -57,21 +57,19 @@ class _PrivacyPolicy2State extends State<PrivacyPolicy2> {
                   if (controller.terms == "") {
                     return Center(child: Text('terms_of_use_empty'.tr));
                   }
-                  return ListView.builder(
-                      itemCount: controller.terms.length,
-                      itemBuilder: (context, index) {
-                        return Html(
-                            data: controller.terms[index],
-                            onLinkTap: (url, re, map, e) async {
-                              if (await canLaunch(url!)) {
-                                await launch(
-                                  url,
-                                );
-                              } else {
-                                throw 'Could not launch $url';
-                              }
-                            });
-                      });
+                  return SingleChildScrollView(
+                    child: Html(
+                        data: controller.terms,
+                        onLinkTap: (url, re, map, e) async {
+                          if (await canLaunch(url!)) {
+                            await launch(
+                              url,
+                            );
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        }),
+                  );
                 }));
     });
   }

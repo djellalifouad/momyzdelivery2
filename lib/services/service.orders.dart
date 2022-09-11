@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:momyzdelivery/constant/server.const.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/model.order.dart';
 import '../ui/views/orders/view_orders.dart';
 import 'package:http/http.dart' as http;
@@ -106,6 +107,9 @@ class OrderService {
     print(response.statusCode);
     print(response.body);
     if (response.statusCode == 200) {
+      var pref = await SharedPreferences.getInstance();
+      pref.setString('currentOrder', id.toString());
+      pref.setString('orderType', "1");
       return true;
     } else {
       return false;
@@ -118,13 +122,19 @@ class OrderService {
       'X-Requested-With': 'XMLHttpRequest',
       'Authorization': "Bearer ${token}",
     };
+    print({
+      'Accept': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Authorization': "Bearer ${token}",
+    });
+    print("orders/${id}/preview");
+
     showMessage("orders/${id}/preview");
     http.Response response = await http.get(
       Uri.parse(baseUrl + "orders/${id}/preview"),
       headers: headers,
     );
     print('response priview Order');
-    showMessage(response.body);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
       return Order.fromMap(map['data']);
@@ -145,6 +155,9 @@ class OrderService {
     );
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
+      var pref = await SharedPreferences.getInstance();
+      pref.setString('currentOrder', id.toString());
+      pref.setString('orderType', "1");
       return Order.fromMap(map['data']);
     } else {
       return null;
@@ -188,9 +201,13 @@ class OrderService {
     );
     print("response arrive");
     print(response.body);
+    print(response.statusCode);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
-      GetStorage().remove("currentOrder");
+      var pref = await SharedPreferences.getInstance();
+      bool resultDelete1 = await pref.remove('currentOrder');
+      showMessage(resultDelete1.toString());
+      await pref.remove('orderType');
       showMessage("order_success".tr);
       return true;
     } else {

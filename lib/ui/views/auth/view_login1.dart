@@ -120,9 +120,9 @@ class Login1View extends StatelessWidget {
                           ),
                         ),
                         controller: loginController.phoneController,
-                        initialCountryCode: 'DZ',
+                        initialCountryCode: '972',
                         onCountryChanged: (val) {
-                          loginController.updateCountryCode("+" + val.dialCode);
+                          loginController.updateCountryCode(val.dialCode);
                         },
                         onChanged: (phone) {},
                       ),
@@ -169,7 +169,7 @@ class Login1View extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 170.h,
+                      height: 140.h,
                     ),
                     GetBuilder<LoginController>(
                       builder: (_) => !loginController.isCheckingPhone
@@ -179,7 +179,7 @@ class Login1View extends StatelessWidget {
                           : Center(child: CircularProgressIndicator()),
                     ),
                     SizedBox(
-                      height: 41.h,
+                      height: 21.h,
                     ),
                     InkWell(
                       onTap: () {
@@ -206,6 +206,9 @@ class Login1View extends StatelessWidget {
                           )
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: 21.h,
                     ),
                   ]),
             ),

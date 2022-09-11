@@ -28,12 +28,10 @@ import '../stats/view_stat_profile.dart';
 import '../termsOfUse/termsOfUse.widget.dart';
 import '../wait_view.dart';
 import 'components/component.profile.dart';
-
 class Profile extends StatefulWidget {
   @override
   State<Profile> createState() => _ProfileState();
 }
-
 class _ProfileState extends State<Profile> {
   List<Widget> images = [];
   @override
@@ -93,14 +91,17 @@ class _ProfileState extends State<Profile> {
                                 ? Center(
                                     child: Stack(
                                       children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(1100.r),
-                                          child: CachedNetworkImage(
-                                            height: 125.sp,
-                                            width: 125.sp,
-                                            imageUrl:
-                                                splashController.v!.image_url,
+                                        CircleAvatar(
+                                          radius: 60.sp,
+                                          backgroundColor: Colors.white,
+                                          child: ClipOval(
+                                            child: CachedNetworkImage(
+                                              height: 125.sp,
+                                              fit: BoxFit.cover,
+                                              width: 125.sp,
+                                              imageUrl:
+                                                  splashController.v!.image_url,
+                                            ),
                                           ),
                                         ),
                                         splashController.v!.online == 1

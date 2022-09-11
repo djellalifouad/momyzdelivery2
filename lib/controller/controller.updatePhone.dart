@@ -17,17 +17,25 @@ class UpdatePhoneController extends GetxController {
     isSending = !isSending;
     update();
   }
+
   final TextEditingController phoneController = TextEditingController();
-  String countryCode = "+213";
+  String countryCode = "213";
   final splashController = Get.find<SplashController>();
   String token = "";
   var box;
   onInit() {
     box = GetStorage();
     phoneController.text = splashController.v!.phone;
+    countryCode = splashController.v!.country_code;
     token = box.read('token').toString();
     super.onInit();
   }
+
+  updateCountryCode(String newCoutryCode) {
+    this.countryCode = newCoutryCode;
+    update();
+  }
+
   updatePhone() async {
     if (phoneController.text.length < 9) {
       print("hh");
@@ -54,7 +62,7 @@ class UpdatePhoneController extends GetxController {
   sendSmsToPhone() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.verifyPhoneNumber(
-      phoneNumber: countryCode + phoneController.text,
+      phoneNumber: "+" + countryCode + phoneController.text,
       codeSent: (String verificationId, int? resendToken) async {
         print(verificationId);
         verficationIdCode = verificationId;

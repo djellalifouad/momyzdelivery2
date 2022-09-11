@@ -15,7 +15,7 @@ class TermsOfUseService {
     if (response.statusCode == 200) {
       return map['driver_terms_of_use'].toString();
     } else {
-      return ""; 
+      return "";
     }
   }
 }

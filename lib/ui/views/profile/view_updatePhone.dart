@@ -10,8 +10,10 @@ import '../components/component_button.dart';
 
 class UpdatePhone extends StatelessWidget {
   final controller = Get.put(UpdatePhoneController());
+
   @override
   Widget build(BuildContext context) {
+    print(controller.countryCode);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -80,6 +82,7 @@ class UpdatePhone extends StatelessWidget {
                   return "please_enter_phone_number".tr;
                 }
               },
+              initialCountryCode: controller.countryCode,
               style: TextStyle(),
               decoration: InputDecoration(
                 hintStyle: TextStyle(),
@@ -103,10 +106,8 @@ class UpdatePhone extends StatelessWidget {
                 ),
               ),
               controller: controller.phoneController,
-              initialCountryCode: 'DZ',
-              countries: ['DZ'],
               onCountryChanged: (val) {
-                controller.updatePhone();
+                controller.updateCountryCode("+" + val.dialCode);
               },
               onChanged: (phone) {},
             ),

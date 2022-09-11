@@ -9,12 +9,14 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import '../services/service.auth.dart';
 import '../ui/views/bottom/view_bottom.dart';
 import '../ui/views/toast/toast.message.dart';
+
 class PhoneConfirmationLoginController extends GetxController {
   bool isRegistring = false;
   changeStateIsRegistring() {
     isRegistring = !isRegistring;
     update();
   }
+
   late LoginController loginController;
   final TextEditingController codePinController = TextEditingController();
   @override
@@ -33,9 +35,9 @@ class PhoneConfirmationLoginController extends GetxController {
           .then((value) async {
         if (value.user != null) {
           bool result = await AuthService.Login(
-              country_code: loginController.countryCode,
-              phone: loginController.phoneController.text,
-          password: loginController.passwordController.text,
+            country_code: "+" + loginController.countryCode,
+            phone: loginController.phoneController.text,
+            password: loginController.passwordController.text,
           );
 
           changeStateIsRegistring();

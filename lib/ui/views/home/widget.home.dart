@@ -11,6 +11,9 @@ import 'package:momyzdelivery/constant/pallete.const.dart';
 import 'package:get/get.dart';
 import 'package:momyzdelivery/controller/controller.home.dart';
 import 'package:momyzdelivery/controller/controller.splash.dart';
+import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
+import 'package:permission_handler/permission_handler.dart';
+import '../../../services/service.orders.dart';
 import '../components/component_button.dart';
 import '../confirmOrder/view_confirmOrder2.dart';
 
@@ -26,27 +29,9 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
     homeController.getCurrentLocation();
     super.initState();
   }
+  
 
   final homeController = Get.put(HomeController());
-  @override
-  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
-    super.didChangeAppLifecycleState(state);
-    switch (state) {
-      case AppLifecycleState.inactive:
-        print('appLifeCycleState inactive');
-        break;
-      case AppLifecycleState.resumed:
-        print("resuled");
-        setState(() {});
-        break;
-      case AppLifecycleState.paused:
-        print('appLifeCycleState paused');
-        break;
-      case AppLifecycleState.detached:
-        print('appLifeCycleState detached');
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +40,232 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
         return SafeArea(
           child: Scaffold(
             bottomNavigationBar: Builder(builder: (context) {
+              if (homeController.showboolBottomOrder3 &&
+                  homeController.order != null) {
+                return Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white, // or some other color
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16.0.r),
+                          topRight: Radius.circular(16.0.r))),
+                  child: Padding(
+                    padding: EdgeInsets.all(20.sp),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset('assets/icons/Ellipse 10 .svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              'taked_from'.tr,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12.sp,
+                                  color: Pallete.greyText),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Row(
+                          children: [
+                            SvgPicture.asset('assets/icons/Ellipse 12.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              homeController.order!.store!.address,
+                              style: TextStyle(
+                                  fontSize: 14.sp, fontWeight: FontWeight.w600),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        SvgPicture.asset('assets/icons/Ellipse 13.svg'),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        SvgPicture.asset('assets/icons/Ellipse 14.svg'),
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Row(
+                          children: [
+                            SvgPicture.asset('assets/icons/Ellipse 15.svg'),
+                            SizedBox(
+                              width: 10.w,
+                            ),
+                            Text(
+                              'to'.tr,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12.sp,
+                                  color: Pallete.greyText),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5.h),
+                        Padding(
+                          padding: EdgeInsets.only(right: 10.w),
+                          child: Text(
+                            homeController.order!.address,
+                            style: TextStyle(
+                                fontSize: 14.sp, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        SizedBox(height: 20.h),
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('store_name'.tr,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 12.sp,
+                                        color: Pallete.greyText)),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  homeController.order!.store!.name.toString(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 66.h,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'order_qty'.tr,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12.sp,
+                                      color: Pallete.greyText),
+                                ),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                Text(
+                                  homeController.order!.items.length.toString(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16.sp,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('special_information'.tr,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12.sp,
+                                    color: Pallete.greyText)),
+                            SizedBox(
+                              height: 4.h,
+                            ),
+                            Text(
+                              homeController.order!.delivery_type.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 17.h,
+                        ),
+                        Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                homeController.order!.shipping.toString() +
+                                    " ₪",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24.sp,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Text('delivery_price'.tr),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16.h,
+                        ),
+                        ButtonComponent("accept_order".tr, () async {
+                          bool val = await OrderService.acceptOrder(
+                              homeController.order!.id.toString(),
+                              homeController.token.toString());
+                          if (val) {
+                            GetStorage().write("currentOrder",
+                                homeController.order!.id.toString());
+                            Get.back();
+                            homeController.getDirections();
+                            homeController.showboolBottomOrder2 = true;
+                            homeController.showboolBottomOrder3 = false;
+                            homeController.update();
+                          }
+                        }),
+                        SizedBox(
+                          height: 22.h,
+                        ),
+                        InkWell(
+                          onTap: () async {
+                            bool val = await OrderService.declineOrder(
+                                homeController.order!.id.toString(),
+                                homeController.token);
+                            if (val) {
+                              homeController.showboolBottomOrder3 = false;
+                              homeController.update();
+                            } else {}
+                          },
+                          child: Center(
+                            child: Text(
+                              "decline_order".tr,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14.sp,
+                                color: Color.fromRGBO(235, 87, 87, 1),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 62.h,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
               if (!homeController.showboolBottomOrder2) {
                 print("hna2");
                 return Container(
@@ -62,7 +273,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                   width: 0,
                 );
               }
-              controller.saveTocurrentOrder();
+
               if (homeController.ignore) {
                 print("hna3");
                 return Container(
@@ -250,9 +461,6 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                         height: 32.h,
                       ),
                       ButtonComponent("order_delivered".tr, () {
-                        homeController.clearPolyline();
-                        homeController.clearMarkers();
-                        homeController.hideBottom2();
                         Get.to(
                             ConfirmOrder2(homeController.order!.id.toString()));
                       }),
@@ -269,7 +477,15 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
               children: [
                 homeController.currentLocation == null
                     ? Center(
-                        child: CircularProgressIndicator(),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ButtonComponent('autoLocation'.tr, () {
+                              controller.getCurrentLocation();
+                              //   splashController.updatePosition();
+                            }),
+                          ],
+                        ),
                       )
                     : GoogleMap(
                         rotateGesturesEnabled: true,
@@ -302,8 +518,23 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                                 value: splashController.v!.online == 1
                                     ? true
                                     : false,
-                                onChanged: (val) {
-                                  homeController.updateLocation();
+                                onChanged: (val) async {
+                                  if (splashController.v!.online == 2) {
+                                    if (await Permission
+                                            .location.isPermanentlyDenied ||
+                                        await Permission.location.isDenied ||
+                                        await Permission.location.isLimited ||
+                                        await Permission
+                                            .location.isRestricted) {
+                                      showMessage(
+                                          'من أجل الإنطلاق في عملية توصيل الطلبات يرجى تفعيل GPS');
+                                      return;
+                                    } else {
+                                      homeController.updateLocation();
+                                    }
+                                  } else {
+                                    homeController.updateLocation();
+                                  }
                                 }),
                             Text(
                               'ondelivery'.tr,

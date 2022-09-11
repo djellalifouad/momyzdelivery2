@@ -59,12 +59,13 @@ dependencies:
   get_storage:
   url_launcher: ^6.0.20
   timeago: ^3.2.2
-  assets_audio_player: ^3.0.4+1
+  assets_audio_player: ^3.0.5
   flutter_local_notifications: ^9.4.1
   google_map_polyline_new: ^0.3.0+2
   flutter_polyline_points: ^1.0.0
   sms_autofill: ^2.2.0
-
+  permission_handler: ^10.0.0
+  shared_preferences: ^2.0.15
 dev_dependencies:
   flutter_test:
     sdk: flutter

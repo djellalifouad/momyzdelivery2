@@ -17,24 +17,32 @@ class _ViewOrderLocationState extends State<ViewOrderLocation> {
   late final CameraPosition _kLake;
   late final Marker marker;
   Map<String, Marker> markers = <String, Marker>{};
-
 // CLASS MEMBER, MAP OF MARKS
-
   @override
   void initState() {
     _kLake = CameraPosition(
-        target: LatLng(widget.order.lat, widget.order.lon), zoom: 20);
+        target: LatLng(widget.order.lat, widget.order.lon), zoom: 10);
     marker = Marker(
       markerId: MarkerId('place_name'),
       position: LatLng(widget.order.lat, widget.order.lon),
       // icon: BitmapDescriptor.,
       infoWindow: InfoWindow(
-        title: 'title',
-        snippet: 'address',
+        title: 'Order',
+        snippet: 'Client',
+      ),
+    );
+    var marker2 = Marker(
+      markerId: MarkerId('place_name'),
+      position: LatLng(widget.order.store!.lat, widget.order.store!.lon),
+      // icon: BitmapDescriptor.,
+      infoWindow: InfoWindow(
+        title: 'Order',
+        snippet: 'Store',
       ),
     );
     if (mounted) {
-      markers["tst"] = marker;
+      markers["user"] = marker;
+      markers["order"] = marker2;
       setState(() {});
     }
     super.initState();
@@ -68,8 +76,8 @@ class _ViewOrderLocationState extends State<ViewOrderLocation> {
             ),
           ),
           body: GoogleMap(
-            zoomGesturesEnabled: false,
-            zoomControlsEnabled: false,
+            zoomGesturesEnabled: true,
+            zoomControlsEnabled: true,
             mapType: MapType.normal,
             markers: Set<Marker>.of(markers.values),
             initialCameraPosition: _kLake,

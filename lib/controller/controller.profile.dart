@@ -37,7 +37,7 @@ class ProfileController extends GetxController {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
         type: FileType.custom,
-        allowedExtensions: ["PNG", "JPG", "JPEG"]);
+        allowedExtensions: ["png", "jpg", "jpeg"]);
     List<File> files = [];
     if (result != null) {
       files = result.paths.map((path) => File(path.toString())).toList();
