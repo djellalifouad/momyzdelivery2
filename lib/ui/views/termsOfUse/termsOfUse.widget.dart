@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:momyzdelivery/controller/controller.privacyPolicy.dart';
 import 'package:get/get.dart';
@@ -58,17 +59,9 @@ class _PrivacyPolicy2State extends State<PrivacyPolicy2> {
                     return Center(child: Text('terms_of_use_empty'.tr));
                   }
                   return SingleChildScrollView(
-                    child: Html(
-                        data: controller.terms,
-                        onLinkTap: (url, re, map, e) async {
-                          if (await canLaunch(url!)) {
-                            await launch(
-                              url,
-                            );
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                        }),
+                    child: HtmlWidget(
+                        controller.terms,
+                       ),
                   );
                 }));
     });

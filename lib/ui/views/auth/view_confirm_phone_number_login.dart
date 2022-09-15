@@ -38,9 +38,15 @@ class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin>
       (Timer timer) {
         if (_start == 0) {
           timer.cancel();
+          if (!mounted) {
+            return;
+          }
           setState(() {});
         } else {
           _start--;
+          if (!mounted) {
+            return;
+          }
           setState(() {});
         }
       },
@@ -74,7 +80,7 @@ class _ConfirmPhoneNumberLoginState extends State<ConfirmPhoneNumberLogin>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-         appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
+        appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
           InkWell(
             onTap: () {
               Get.back();

@@ -17,12 +17,14 @@ import '../../../models/model.order.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
 import '../wait_view.dart';
+
 class ConfirmOrder2 extends StatefulWidget {
   String order;
   ConfirmOrder2(this.order);
   @override
   State<ConfirmOrder2> createState() => _ConfirmOrder2State();
 }
+
 class _ConfirmOrder2State extends State<ConfirmOrder2> {
   @override
   Widget build(BuildContext context) {
@@ -42,9 +44,14 @@ class _ConfirmOrder2State extends State<ConfirmOrder2> {
                 ),
               ),
               elevation: 0,
-              leading: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
+              leading: InkWell(
+                onTap: () {
+                  Get.back();
+                },
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
               ),
               backgroundColor: Colors.white,
             ),

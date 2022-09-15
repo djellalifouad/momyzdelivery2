@@ -17,10 +17,12 @@ class LoginController extends GetxController {
     countryCode = value;
     update();
   }
+
   changeIsCheckingPhone() {
     isCheckingPhone = !isCheckingPhone;
     update();
   }
+
   checkPhone() async {
     if (phoneController.text.length < 9) {
       print("hh");
@@ -58,9 +60,12 @@ class LoginController extends GetxController {
       codeAutoRetrievalTimeout: (String verificationId) {},
       verificationFailed: (FirebaseAuthException error) {
         showMessage("error".tr);
+        print(error);
         changeIsCheckingPhone();
       },
-      verificationCompleted: (phoneAuthCredential) async {},
+      verificationCompleted: (phoneAuthCredential) async {
+        
+      },
     );
   }
 

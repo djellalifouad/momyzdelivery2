@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:momyzdelivery/controller/controller.privacyPolicy.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../constant/pallete.const.dart';
@@ -56,17 +56,9 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                     }
                   }
                   return SingleChildScrollView(
-                    child: Html(
-                        data: controller.privacyPolicy,
-                        onLinkTap: (url, re, map, e) async {
-                          if (await canLaunch(url!)) {
-                            await launch(
-                              url,
-                            );
-                          } else {
-                            throw 'Could not launch $url';
-                          }
-                        }),
+                    child: HtmlWidget(
+                      controller.privacyPolicy,
+                    ),
                   );
                 }));
     });

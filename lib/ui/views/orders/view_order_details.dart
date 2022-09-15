@@ -252,6 +252,8 @@ class OrderDetails extends StatelessWidget {
                               child: ClipOval(
                                 child: CachedNetworkImage(
                                     fit: BoxFit.cover,
+                                    width: 60.sp,
+                                    height: 60.sp,
                                     errorWidget: (context, string, val) =>
                                         Image.asset('assets/images/test.png'),
                                     placeholder: (context, string) =>
@@ -364,11 +366,13 @@ class OrderDetails extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             CircleAvatar(
-                              radius: 30.sp,
                               backgroundColor: Colors.white,
+                              radius: 30.sp,
                               child: ClipOval(
                                 child: CachedNetworkImage(
-                                    fit: BoxFit.contain,
+                                    width: 60.sp,
+                                    height: 60.sp,
+                                    fit: BoxFit.cover,
                                     errorWidget: (context, string, val) =>
                                         Image.asset('assets/images/test.png'),
                                     placeholder: (context, string) =>

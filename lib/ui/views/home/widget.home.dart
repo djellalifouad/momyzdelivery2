@@ -25,14 +25,29 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with WidgetsBindingObserver {
   @override
   void initState() {
-    WidgetsBinding.instance!.addObserver(this);
+    homeController.check();
     homeController.getCurrentLocation();
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
-  
-
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        homeController.check();
+        break;
+      case AppLifecycleState.inactive:
+        print("app in inactive");
+        break;
+      case AppLifecycleState.paused:
+        print("app in paused");
+        break;
+      case AppLifecycleState.detached:
+        print("app in detached");
+        break;
+    }
+  }
   final homeController = Get.put(HomeController());
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(builder: (controller) {
@@ -525,7 +540,9 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                                         await Permission.location.isDenied ||
                                         await Permission.location.isLimited ||
                                         await Permission
-                                            .location.isRestricted) {
+                                            .location.isRestricted ||
+                                        !await Geolocator
+                                            .isLocationServiceEnabled()) {
                                       showMessage(
                                           'من أجل الإنطلاق في عملية توصيل الطلبات يرجى تفعيل GPS');
                                       return;

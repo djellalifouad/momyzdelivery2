@@ -4,14 +4,13 @@ import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:momyzdelivery/constant/pallete.const.dart';
-
 showMessage(String text) {
   Get.snackbar(
     text,
     "",
     snackPosition: SnackPosition.BOTTOM,
     snackStyle: SnackStyle.FLOATING,
-    duration: Duration(seconds: 10),
+    duration: Duration(seconds: 1),
     titleText: Center(
       child: Text(
         text,
@@ -21,6 +20,7 @@ showMessage(String text) {
         textAlign: TextAlign.center,
       ),
     ),
+    isDismissible: false,
     backgroundColor: Pallete.pinkColorPrinciple,
   );
   return;

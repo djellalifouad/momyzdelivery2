@@ -26,6 +26,15 @@ class SplashController extends GetxController {
     update();
   }
 
+  onRefresh() async {
+    String token = getStorage.read('token');
+
+    Driver? newDriverData = await ProfileService.getProfile(token);
+    if (newDriverData != null) {
+      updateDriver(newDriverData);
+    }
+  }
+
   onInit() async {}
   check() async {
     position = await _determinePosition();
@@ -80,30 +89,57 @@ class SplashController extends GetxController {
     }
     isListening = true;
     String token = getStorage.read('token');
-    Geolocator.getCurrentPosition().then((position) async {
-      if (v == null) {
-        return;
-      }
-      double distance = Geolocator.distanceBetween(
-          position.latitude, position.longitude, v!.lat, v!.lon);
-      print("distance");
-      print("distance" + distance.toString());
-      if (distance >= 500) {
-        Driver? driver = await ProfileService.updateDriverPostion(
-            token, position.latitude, position.longitude);
-        if (driver != null) {
-          updateDriver(driver);
-          update();
-          Future.delayed(const Duration(seconds: 15), () {
+    if (!await Geolocator.isLocationServiceEnabled() && v!.online == 1) {
+      print("hereherehere");
+      final homeController = Get.find<HomeController>();
+      homeController.updateLocation();
+      await Future.delayed(Duration(seconds: 4), () {
+        updatePosition();
+      });
+      return false;
+    }
+    ;
+    if (!await Geolocator.isLocationServiceEnabled()) {
+      await Future.delayed(Duration(seconds: 4), () {
+        updatePosition();
+      });
+    }
+    ;
+    if (v!.online == 2) {
+      await Future.delayed(Duration(seconds: 4), () {
+        updatePosition();
+      });
+      return false;
+    } else {
+      Geolocator.getCurrentPosition().then((position) async {
+        print('positionNOWOW' + position.latitude.toString());
+        if (v == null) {
+          return;
+        }
+        double distance = Geolocator.distanceBetween(
+            position.latitude, position.longitude, v!.lat, v!.lon);
+        print("CCCC");
+        print("distance" + distance.toString());
+        if (distance >= 500) {
+          Driver? driver = await ProfileService.updateDriverPostion(
+              token, position.latitude, position.longitude);
+          if (driver != null) {
+            updateDriver(driver);
+            update();
+            Future.delayed(const Duration(seconds: 4), () {
+              updatePosition();
+            });
+          }
+        } else {
+          Future.delayed(const Duration(seconds: 4), () {
             updatePosition();
           });
         }
-      } else {
-        Future.delayed(const Duration(seconds: 15), () {
-          updatePosition();
-        });
-      }
-    });
+      }).catchError((error) {
+        print("here called from error");
+        updatePosition();
+      });
+    }
   }
 }
 

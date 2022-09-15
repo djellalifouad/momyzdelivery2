@@ -44,7 +44,7 @@ class PhoneConfirmationLoginController extends GetxController {
           if (result) {
             Get.to(SplashScreen());
           } else {
-            showMessage("error2".tr);
+            showMessage("يرجى التحقق من معلومات الحساب");
           }
         } else {
           changeStateIsRegistring();

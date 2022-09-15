@@ -1,3 +1,4 @@
+import 'package:custom_marker/marker_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,11 +17,32 @@ import 'package:momyzdelivery/services/service.profile.dart';
 import 'package:momyzdelivery/ui/views/toast/toast.message.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../ui/views/components/component_button.dart';
 import '../ui/views/confirmOrder/view_confirmOrder1.dart';
 import '../ui/views/confirmOrder/view_confirmOrder2.dart';
 
 class HomeController extends GetxController {
+  check() async {
+    var ref = await SharedPreferences.getInstance();
+    await ref.reload();
+    if (ref.getString("currentOrderId") != null) {
+      if (ref.getString("orderType").toString() == "2") {
+        showBottomOrder(ref.getString("currentOrderId").toString());
+      } else {
+        previewOrderNormal(ref.getString("currentOrderId").toString());
+      }
+      ref.remove("currentOrderId");
+      ref.remove("orderType");
+    }
+  }
+
+  @override
+  void onReady() {
+    check();
+    super.onReady();
+  }
+
   final splashController = Get.find<SplashController>();
   bool isProcessing = false;
   String token = "";
@@ -395,41 +417,50 @@ class HomeController extends GetxController {
       return;
     }
     if (currentLocation == null) {
-      return; 
+      return;
     }
     markers.add(Marker(
       //add start location marker
-      markerId: MarkerId(currentLocation.toString()),
+      markerId: MarkerId("start"),
       position: LatLng(currentLocation!.latitude,
           currentLocation!.longitude), //position of marker
       infoWindow: InfoWindow(
         //popup info
         title: 'start_location'.tr,
       ),
-      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+      icon: await MarkerIcon.pictureAsset(
+          assetPath: 'assets/icons/driver.png',
+          width: 100.sp,
+          height: 100.sp), //Icon for Marker
     ));
 
     markers.add(Marker(
+      icon: await MarkerIcon.pictureAsset(
+          assetPath: 'assets/icons/online-shop.png',
+          width: 100.sp,
+          height: 100.sp),
+
       //add distination location marker
-      markerId:
-          MarkerId(order!.store!.lat.toString() + order!.store!.lon.toString()),
+      markerId: MarkerId("store"),
       position:
           LatLng(order!.store!.lat, order!.store!.lon), //position of marker
       infoWindow: InfoWindow(
         //popup info
         title: 'store_location'.tr,
       ),
-      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
     ));
     markers.add(Marker(
       //add distination location marker
-      markerId: MarkerId(order!.lat.toString() + order!.lon.toString()),
+      markerId: MarkerId("user"),
       position: LatLng(order!.lat, order!.lon),
       infoWindow: InfoWindow(
         //popup info
         title: 'user_location'.tr,
       ),
-      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+      icon: await MarkerIcon.pictureAsset(
+          assetPath: 'assets/icons/user.png',
+          width: 100.sp,
+          height: 100.sp), //Icon for Marker
     ));
     List<LatLng> polylineCoordinates = [];
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(

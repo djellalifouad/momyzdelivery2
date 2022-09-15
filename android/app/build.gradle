@@ -27,6 +27,10 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 android {
+      lintOptions {
+        disable 'InvalidPackage'
+        checkReleaseBuilds false //<- add this line
+    }
     compileSdkVersion 33
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -129,7 +129,6 @@ class OrderService {
     });
     print("orders/${id}/preview");
 
-    showMessage("orders/${id}/preview");
     http.Response response = await http.get(
       Uri.parse(baseUrl + "orders/${id}/preview"),
       headers: headers,
@@ -176,9 +175,10 @@ class OrderService {
     );
     print("enter");
     print("response sendCode");
-    showMessage(response.body);
+
     print(response.body);
     Map<String, dynamic> map = json.decode(response.body);
+    showMessage("testingCode: " + map['data']['code']);
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -204,10 +204,6 @@ class OrderService {
     print(response.statusCode);
     Map<String, dynamic> map = json.decode(response.body);
     if (response.statusCode == 200) {
-      var pref = await SharedPreferences.getInstance();
-      bool resultDelete1 = await pref.remove('currentOrder');
-      showMessage(resultDelete1.toString());
-      await pref.remove('orderType');
       showMessage("order_success".tr);
       return true;
     } else {
