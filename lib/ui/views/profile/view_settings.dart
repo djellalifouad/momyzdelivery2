@@ -22,23 +22,21 @@ class Settings extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leadingWidth: 40.w,
-        actions: [
-          InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                ),
-                child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ))),
-          )
-        ],
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ))),
+        ),
         centerTitle: true,
         elevation: 0,
         title: Text(
@@ -84,7 +82,7 @@ class Settings extends StatelessWidget {
             title: 'delivery3'.tr,
           ),
         ),
-            InkWell(
+        InkWell(
           onTap: () {
             Get.to(CheckPasswordWidget());
           },

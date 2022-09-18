@@ -66,23 +66,24 @@ class _ConfirmPhoneNumberUpdateState extends State<ConfirmPhoneNumberUpdate> {
         Get.put(PhoneConfirmationUpdateController());
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
-          InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                ),
-                child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ))),
-          )
-        ]),
+        appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                  ),
+                  child: Container(
+                      padding: EdgeInsets.all(5.sp),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
+                      ))),
+            )),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.only(bottom: 25.h),
           child: Builder(

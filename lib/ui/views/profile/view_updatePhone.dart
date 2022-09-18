@@ -17,20 +17,19 @@ class UpdatePhone extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "update_phone".tr,
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
+          centerTitle: true,
+          title: Text(
+            "update_phone".tr,
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
           ),
-        ),
-        elevation: 0,
-        leadingWidth: 42.sp,
-        backgroundColor: Colors.white,
-        actions: [
-          InkWell(
+          elevation: 0,
+          leadingWidth: 42.sp,
+          backgroundColor: Colors.white,
+          leading: InkWell(
             onTap: () {
               Get.back();
             },
@@ -41,12 +40,10 @@ class UpdatePhone extends StatelessWidget {
                 child: Container(
                     padding: EdgeInsets.all(5.sp),
                     child: Icon(
-                      Icons.arrow_forward,
+                      Icons.arrow_back,
                       color: Colors.black,
                     ))),
-          )
-        ],
-      ),
+          )),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 24.w,
@@ -67,7 +64,9 @@ class UpdatePhone extends StatelessWidget {
             height: 10.h,
           ),
           Directionality(
-            textDirection: TextDirection.rtl,
+            textDirection: Get.locale!.countryCode == "AR"
+                ? TextDirection.rtl
+                : TextDirection.ltr,
             child: IntlPhoneField(
               keyboardType: TextInputType.phone,
               autovalidateMode: AutovalidateMode.onUserInteraction,

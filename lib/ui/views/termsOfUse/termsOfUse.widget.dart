@@ -59,9 +59,12 @@ class _PrivacyPolicy2State extends State<PrivacyPolicy2> {
                     return Center(child: Text('terms_of_use_empty'.tr));
                   }
                   return SingleChildScrollView(
-                    child: HtmlWidget(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      child: HtmlWidget(
                         controller.terms,
-                       ),
+                      ),
+                    ),
                   );
                 }));
     });

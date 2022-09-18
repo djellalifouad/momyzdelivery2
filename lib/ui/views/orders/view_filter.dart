@@ -72,7 +72,6 @@ class FilterView extends StatelessWidget {
                       controller.updateDeliveryType('express_delivery'.tr);
                     },
                     child: Container(
-                      width: 88.w,
                       height: 36.h,
                       decoration: BoxDecoration(
                           color:
@@ -84,17 +83,20 @@ class FilterView extends StatelessWidget {
                                   ? Border.all(width: 1.sp, color: Colors.black)
                                   : null,
                           borderRadius: BorderRadius.circular(20.r)),
-                      child: Center(
-                          child: Text(
-                        'express_delivery'.tr,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12.sp,
-                            color: controller.delivery_type ==
-                                    'express_delivery'.tr
-                                ? Colors.white
-                                : Colors.black),
-                      )),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        child: Center(
+                            child: Text(
+                          'express_delivery'.tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12.sp,
+                              color: controller.delivery_type ==
+                                      'express_delivery'.tr
+                                  ? Colors.white
+                                  : Colors.black),
+                        )),
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -105,7 +107,6 @@ class FilterView extends StatelessWidget {
                       controller.updateDeliveryType('normal_delivery'.tr);
                     },
                     child: Container(
-                      width: 88.w,
                       height: 36.h,
                       decoration: BoxDecoration(
                           color:
@@ -118,15 +119,18 @@ class FilterView extends StatelessWidget {
                                   : null,
                           borderRadius: BorderRadius.circular(20.r)),
                       child: Center(
-                          child: Text(
-                        'normal_delivery'.tr,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12.sp,
-                            color:
-                                controller.delivery_type == 'normal_delivery'.tr
-                                    ? Colors.white
-                                    : Colors.black),
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        child: Text(
+                          'normal_delivery'.tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12.sp,
+                              color: controller.delivery_type ==
+                                      'normal_delivery'.tr
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       )),
                     ),
                   ),
@@ -138,7 +142,6 @@ class FilterView extends StatelessWidget {
                       controller.updateDeliveryType('program_delivery'.tr);
                     },
                     child: Container(
-                      width: 88.w,
                       height: 36.h,
                       decoration: BoxDecoration(
                           color:
@@ -151,15 +154,18 @@ class FilterView extends StatelessWidget {
                                   : null,
                           borderRadius: BorderRadius.circular(20.r)),
                       child: Center(
-                          child: Text(
-                        'program_delivery'.tr,
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12.sp,
-                            color: controller.delivery_type ==
-                                    'program_delivery'.tr
-                                ? Colors.white
-                                : Colors.black),
+                          child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                        child: Text(
+                          'program_delivery'.tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12.sp,
+                              color: controller.delivery_type ==
+                                      'program_delivery'.tr
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
                       )),
                     ),
                   ),

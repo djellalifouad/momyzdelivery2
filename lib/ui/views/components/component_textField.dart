@@ -46,9 +46,37 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
     setState(() {});
   }
 
+  final fieldKey = GlobalKey<FormFieldState>();
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      key: fieldKey,
+      onTap: () {
+        final RenderBox renderBox =
+            fieldKey.currentContext?.findRenderObject() as RenderBox;
+        final Size size = renderBox.size;
+        final Offset offset = renderBox.localToGlobal(Offset.zero);
+
+        if (widget.icon2.isNotEmpty) {
+          showMenu<String>(
+            context: context,
+            position: RelativeRect.fromLTRB(offset.dx, offset.dy + size.height,
+                offset.dx + size.width, offset.dy + size.height),
+            //position where you want to show the menu on screen
+            items: ["normaDelivery".tr, "fastDelivery".tr]
+                .map<PopupMenuItem<String>>((String value) {
+              return new PopupMenuItem(child: new Text(value), value: value);
+            }).toList(),
+
+            elevation: 8.0,
+          ).then<void>((String? itemSelected) {
+            if (itemSelected == null) {
+              return;
+            }
+            widget.textEditingController.text = itemSelected.toString();
+          });
+        }
+      },
       obscureText: obscureText,
       controller: widget.textEditingController,
       validator: widget.validator,
@@ -57,7 +85,8 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
           : TextInputType.text,
       readOnly: widget.icon2.isNotEmpty,
       textDirection: obscureText ? TextDirection.ltr : TextDirection.rtl,
-      textAlign: TextAlign.right,
+      textAlign:
+          Get.locale!.countryCode == "AR" ? TextAlign.right : TextAlign.left,
       style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w400),
       decoration: InputDecoration(
         prefixIconConstraints: BoxConstraints(
@@ -72,7 +101,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
             ? Padding(
                 padding: EdgeInsets.only(
                   right: 15.w,
-                  left: 5.w,
+                  left: 15.w,
                 ),
                 child: SvgPicture.asset(
                   widget.icon,
@@ -89,7 +118,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
                 updateObscure();
               },
               child: Padding(
-                  padding: EdgeInsets.only(left: 15.w),
+                  padding: EdgeInsets.only(left: 15.w, right: 15.w),
                   child: Icon(
                     obscureText ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
                     color: Colors.grey,
@@ -100,24 +129,11 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
           return widget.icon2.isNotEmpty
               ? Padding(
                   padding: EdgeInsets.only(
-                    left: 10.w,
+                    left: 15.w,
                     right: 15.w,
                   ),
-                  child: PopupMenuButton<String>(
-                    icon: SvgPicture.asset(
-                      widget.icon2,
-                    ),
-                    onSelected: (String value) {
-                      widget.textEditingController.text = value;
-                    },
-                    position: PopupMenuPosition.over,
-                    itemBuilder: (BuildContext context) {
-                      return ["normaDelivery".tr, "fastDelivery".tr]
-                          .map<PopupMenuItem<String>>((String value) {
-                        return new PopupMenuItem(
-                            child: new Text(value), value: value);
-                      }).toList();
-                    },
+                  child: SvgPicture.asset(
+                    widget.icon2,
                   ),
                 )
               : Container();

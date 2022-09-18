@@ -30,6 +30,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
@@ -47,6 +48,7 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
         break;
     }
   }
+
   final homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
@@ -282,13 +284,11 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                 );
               }
               if (!homeController.showboolBottomOrder2) {
-                print("hna2");
                 return Container(
                   height: 0,
                   width: 0,
                 );
               }
-
               if (homeController.ignore) {
                 print("hna3");
                 return Container(
@@ -599,15 +599,18 @@ class HomeState extends State<Home> with WidgetsBindingObserver {
                     ? Positioned(
                         bottom: 80.h,
                         child: Container(
-                          height: 50.h,
                           width: 0.8.sw,
                           decoration: BoxDecoration(
                               color: Pallete.pinkColorPrinciple,
                               borderRadius: BorderRadius.circular(10.r)),
-                          child: Center(
-                            child: Text(
-                              "account_verified".tr,
-                              style: TextStyle(color: Colors.white),
+                          child: Padding(
+                            padding: EdgeInsets.all(10.sp),
+                            child: Center(
+                              child: Text(
+                                "account_verified".tr,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

@@ -29,33 +29,33 @@ class _WithdrawalState extends State<Withdrawal> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "".tr,
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w700,
-              color: Colors.black,
-            ),
+        centerTitle: true,
+        title: Text(
+          "".tr,
+          style: TextStyle(
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
           ),
-          elevation: 0,
-          backgroundColor: Colors.white,
-          leading: Container(),
-          actions: [
-            Padding(
+        ),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 15.w,
+                horizontal: 10.w,
               ),
-              child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
                   child: Icon(
-                    Icons.arrow_forward,
+                    Icons.arrow_back,
                     color: Colors.black,
-                  )),
-            ),
-          ]),
+                  ))),
+        ),
+      ),
       backgroundColor: Pallete.backGroundColor,
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -67,7 +67,6 @@ class _WithdrawalState extends State<Withdrawal> {
             child: Form(
               key: controller.formKey,
               child: Column(
-                
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(child: SvgPicture.asset('assets/icons/coins.svg')),

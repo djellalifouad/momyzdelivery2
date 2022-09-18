@@ -56,8 +56,11 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
                     }
                   }
                   return SingleChildScrollView(
-                    child: HtmlWidget(
-                      controller.privacyPolicy,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      child: HtmlWidget(
+                        controller.privacyPolicy,
+                      ),
                     ),
                   );
                 }));

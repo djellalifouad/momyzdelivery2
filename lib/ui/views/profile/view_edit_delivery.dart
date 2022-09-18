@@ -22,40 +22,36 @@ class EditDelivery extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           leadingWidth: 40.w,
-          leading: InkWell(
-            onTap: () {
-              Get.to(CarInformationRegisterUpdate());
-            },
-            child: Padding(
-              padding: Get.locale!.countryCode == "US"
-                  ? EdgeInsets.only(left: 20.w)
-                  : EdgeInsets.only(right: 20.w),
-              child: Container(
-                height: 10.sp,
-                width: 10.sp,
-                child: SvgPicture.asset(
-                  'assets/icons/Edit2.svg',
-                ),
-              ),
-            ),
-          ),
           actions: [
             InkWell(
               onTap: () {
-                Get.back();
+                Get.to(CarInformationRegisterUpdate());
               },
               child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 10.w,
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Container(
+                  height: 20.sp,
+                  width: 20.sp,
+                  child: SvgPicture.asset(
+                    'assets/icons/Edit2.svg',
                   ),
-                  child: Container(
-                      padding: EdgeInsets.all(5.sp),
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: Colors.black,
-                      ))),
+                ),
+              ),
             )
           ],
+          leading: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Padding(
+                padding: EdgeInsets.symmetric(),
+                child: Container(
+                    padding: EdgeInsets.all(5.sp),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ))),
+          ),
           centerTitle: true,
           elevation: 0,
           title: Text(

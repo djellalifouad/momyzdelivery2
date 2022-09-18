@@ -40,37 +40,31 @@ class _StateUserState extends State<StateUser> {
         return Scaffold(
           backgroundColor: Color.fromRGBO(245, 246, 250, 1),
           appBar: AppBar(
-              backgroundColor: Color.fromRGBO(245, 246, 250, 1),
-              centerTitle: true,
-              title: Text(
-                "my_benifit".tr,
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
+            backgroundColor: Color.fromRGBO(245, 246, 250, 1),
+            centerTitle: true,
+            title: Text(
+              "my_benifit".tr,
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.black,
               ),
-              elevation: 0,
-              leading: Container(),
-              actions: [
-                Padding(
-                  padding: Get.locale!.countryCode == "US"
-                      ? EdgeInsets.only(
-                          right: 15.w,
-                        )
-                      : EdgeInsets.only(
-                          left: 15.w,
-                        ),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
+            ),
+            elevation: 0,
+            leading: InkWell(
+              onTap: () {
+                Get.back();
+              },
+              child: Padding(
+                  padding: EdgeInsets.symmetric(),
+                  child: Container(
+                      padding: EdgeInsets.all(5.sp),
                       child: Icon(
-                        Icons.arrow_forward,
+                        Icons.arrow_back,
                         color: Colors.black,
-                      )),
-                ),
-              ]),
+                      ))),
+            ),
+          ),
           body: Builder(builder: (context) {
             if (transactionController.isGettingTransactions) {
               return Center(

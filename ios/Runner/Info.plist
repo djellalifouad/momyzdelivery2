@@ -43,10 +43,17 @@
 	<string>Uploading the profile image is optional, we only need it to complete your profile and it is not necessary to shop from the app</string>
 	<key>NSFileProviderDomainUsageDescription</key>
 	<string></string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your location is required for accurate notifactions  benefits for you , also you cane disable it with no problem </string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is required for accurate notifaction benefits for you  lso you cane disable it with no problem </string>
+	<string>Need location when in use</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Always and when in use!</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Older devices need location.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Can I have location always?</string>
+	<!-- Permission options for the `appTrackingTransparency` -->
+	<key>NSUserTrackingUsageDescription</key>
+	<string>appTrackingTransparency</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Uploading the profile image is optional, we only need it to complete your profile and it is not necessary to shop from the app</string>
 	<key>UIBackgroundModes</key>
