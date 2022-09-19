@@ -93,11 +93,13 @@ void main() async {
   await GetStorage.init();
   runApp(const MyApp());
 }
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
 class _MyAppState extends State<MyApp> {
   Future<void> foregroundMessageHandler() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -116,6 +118,7 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
+
   @override
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -169,7 +172,7 @@ class _MyAppState extends State<MyApp> {
               title: "Momys Delivery",
               translations: LocalString(),
               locale: GetStorage().read("lang").toString() == "en"
-                  ? Locale('en', "US")
+                  ? Locale('ar', "AR")
                   : Locale('ar', 'AR'),
               theme: ThemeData(
                 primaryColor: Pallete.pinkColorPrinciple,

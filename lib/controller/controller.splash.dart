@@ -88,7 +88,10 @@ class SplashController extends GetxController {
       return false;
     }
     isListening = true;
-    String token = getStorage.read('token');
+    String token = getStorage.read('token').toString();
+    if (token == "null") {
+      return;
+    }
     if (!await Geolocator.isLocationServiceEnabled() && v!.online == 1) {
       print("hereherehere");
       final homeController = Get.find<HomeController>();
