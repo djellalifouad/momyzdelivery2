@@ -8,11 +8,13 @@ import '../../../constant/pallete.const.dart';
 import '../../../controller/controller.updatePhone.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
+
 class CheckPasswordWidget extends StatefulWidget {
   CheckPasswordWidget({Key? key}) : super(key: key);
   @override
   State<CheckPasswordWidget> createState() => _CheckPasswordWidgetState();
 }
+
 class _CheckPasswordWidgetState extends State<CheckPasswordWidget> {
   final controller = Get.put(CheckPasswordController());
   @override
@@ -20,20 +22,19 @@ class _CheckPasswordWidgetState extends State<CheckPasswordWidget> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "update_password".tr,
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
+          centerTitle: true,
+          title: Text(
+            "update_password".tr,
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
           ),
-        ),
-        elevation: 0,
-        leadingWidth: 42.sp,
-        backgroundColor: Colors.white,
-        actions: [
-          InkWell(
+          elevation: 0,
+          leadingWidth: 42.sp,
+          backgroundColor: Colors.white,
+          leading: InkWell(
             onTap: () {
               Get.back();
             },
@@ -44,12 +45,10 @@ class _CheckPasswordWidgetState extends State<CheckPasswordWidget> {
                 child: Container(
                     padding: EdgeInsets.all(5.sp),
                     child: Icon(
-                      Icons.arrow_forward,
+                      Icons.arrow_back,
                       color: Colors.black,
                     ))),
-          )
-        ],
-      ),
+          )),
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 24.w,

@@ -24,37 +24,36 @@ class ConfirmOrder3 extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: 24.w,
         ),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 111.h,
-                  ),
-                  Center(child: SvgPicture.asset('assets/icons/rafiki.svg')),
-                  SizedBox(
-                    height: 52.h,
-                  ),
-                  Center(
-                      child: Text(
-                    'order_received'.tr,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 25.sp,
-                    ),
-                  )),
-                  SizedBox(
-                    height: 40.h,
-                  ),
-                  ButtonComponent('open_map'.tr, () {
-                    Get.to(ProvidedStylesExample());
-                  }),
-                  SizedBox(
-                    height: 48.h,
-                  ),
-                ]),
+        child: SingleChildScrollView(
+          child: Align(
+            alignment: Alignment.topRight,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              SizedBox(
+                height: 111.h,
+              ),
+              Center(child: SvgPicture.asset('assets/icons/rafiki.svg')),
+              SizedBox(
+                height: 52.h,
+              ),
+              Center(
+                  child: Text(
+                'order_received'.tr,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 25.sp,
+                ),
+              )),
+              SizedBox(
+                height: 40.h,
+              ),
+              ButtonComponent('open_map'.tr, () {
+                Get.to(ProvidedStylesExample());
+              }),
+              SizedBox(
+                height: 48.h,
+              ),
+            ]),
           ),
         ),
       ),

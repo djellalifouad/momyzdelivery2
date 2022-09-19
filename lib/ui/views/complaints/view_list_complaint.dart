@@ -16,23 +16,21 @@ class _ListComplaintState extends State<ListComplaint> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Pallete.backGroundColor2,
-        actions: [
-          InkWell(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                ),
-                child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ))),
-          )
-        ],
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                  ))),
+        ),
         centerTitle: true,
         elevation: 0,
         title: Text(

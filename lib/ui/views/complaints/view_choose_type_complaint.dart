@@ -12,7 +12,8 @@ class ChooseComplaintType extends StatelessWidget {
       backgroundColor: Pallete.backGroundColor2,
       appBar: AppBar(
         backgroundColor: Pallete.backGroundColor2,
-        actions: [
+        
+        leading: 
           InkWell(
             onTap: () {
               Navigator.pop(context);
@@ -24,11 +25,11 @@ class ChooseComplaintType extends StatelessWidget {
                 child: Container(
                     padding: EdgeInsets.all(5.sp),
                     child: Icon(
-                      Icons.arrow_forward,
+                      Icons.arrow_back,
                       color: Colors.black,
                     ))),
           )
-        ],
+        ,
         centerTitle: true,
         elevation: 0,
         title: Text(
@@ -40,9 +41,9 @@ class ChooseComplaintType extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Align(
             alignment: Alignment.topRight,
             child:

@@ -60,7 +60,7 @@ class _PrivacyPolicy2State extends State<PrivacyPolicy2> {
                   }
                   return SingleChildScrollView(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15.w),
+                      padding: EdgeInsets.symmetric(horizontal: 30.w),
                       child: HtmlWidget(
                         controller.terms,
                       ),

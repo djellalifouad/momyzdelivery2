@@ -105,6 +105,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
                 ),
                 child: SvgPicture.asset(
                   widget.icon,
+                  color: Colors.grey,
                 ),
               )
             : Container(),

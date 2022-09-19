@@ -116,13 +116,13 @@ class _ConfirmOrderState extends State<ConfirmOrder> {
         ),
       ),
       backgroundColor: Pallete.backGroundColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-        ),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               SizedBox(

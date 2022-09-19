@@ -93,13 +93,11 @@ void main() async {
   await GetStorage.init();
   runApp(const MyApp());
 }
-
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends State<MyApp> {
   Future<void> foregroundMessageHandler() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -118,7 +116,6 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-
   @override
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {

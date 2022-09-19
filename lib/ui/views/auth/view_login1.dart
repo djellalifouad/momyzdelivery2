@@ -26,13 +26,13 @@ class Login1View extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Pallete.backGroundColor,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-          ),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 24.w,
+            ),
+            child: Align(
+              alignment: Alignment.topRight,
               child: Form(
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,7 +144,7 @@ class Login1View extends StatelessWidget {
                       ),
                       TextFormFieldComponent(
                         title: 'password'.tr,
-                        icon: 'assets/icons/profile.svg',
+                        icon: 'assets/icons/password.svg',
                         icon2: '',
                         validator: (val) {
                           if (val!.length < 8) {

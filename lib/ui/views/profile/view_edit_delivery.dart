@@ -63,10 +63,10 @@ class EditDelivery extends StatelessWidget {
             ),
           ),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: SingleChildScrollView(
-              child: Column(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
@@ -385,7 +385,8 @@ class EditDelivery extends StatelessWidget {
                 height: 16.h,
               ),
             ],
-          )),
+          ),
+          ),
         ),
       );
     });

@@ -16,24 +16,21 @@ class MakeComplaint extends StatelessWidget {
     return Scaffold(
       backgroundColor: Pallete.backGroundColor2,
       appBar: AppBar(
-        leading: Container(),
-        actions: [
-          InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                ),
-                child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ))),
-          )
-        ],
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ))),
+        ),
         backgroundColor: Pallete.backGroundColor2,
         centerTitle: true,
         elevation: 0,
@@ -46,13 +43,13 @@ class MakeComplaint extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-        ),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
             child: Form(
               key: controller.formKey,
               child: Column(

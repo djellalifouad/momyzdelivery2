@@ -200,11 +200,11 @@ class _ConversationState extends State<Conversation> {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-        ),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
           child: Column(
             children: [
               GetBuilder<CommentController>(builder: (context) {

@@ -14,23 +14,21 @@ class makeComplaint2 extends StatelessWidget {
       backgroundColor: Pallete.backGroundColor2,
       appBar: AppBar(
         backgroundColor: Pallete.backGroundColor2,
-        actions: [
-          InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                ),
-                child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ))),
-          )
-        ],
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ))),
+        ),
         centerTitle: true,
         elevation: 0,
         title: Text(
@@ -42,10 +40,10 @@ class makeComplaint2 extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: SingleChildScrollView(
-              child: Align(
+          child: Align(
             alignment: Alignment.centerRight,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -106,7 +104,9 @@ class makeComplaint2 extends StatelessWidget {
               ),
               ButtonComponent('complaint'.tr, () {}),
             ]),
-          ))),
+          ),
+        ),
+      ),
     );
   }
 }

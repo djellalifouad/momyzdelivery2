@@ -35,24 +35,22 @@ class _ListComplaint2State extends State<ListComplaint2> {
           })),
       appBar: AppBar(
         backgroundColor: Pallete.backGroundColor2,
-        leading: Container(),
-        actions: [
-          InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                ),
-                child: Container(
-                    padding: EdgeInsets.all(5.sp),
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,
-                    ))),
-          )
-        ],
+      
+        leading: InkWell(
+          onTap: () {
+            Get.back();
+          },
+          child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 10.w,
+              ),
+              child: Container(
+                  padding: EdgeInsets.all(5.sp),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: Colors.black,
+                  ))),
+        ),
         centerTitle: true,
         elevation: 0,
         title: Text(

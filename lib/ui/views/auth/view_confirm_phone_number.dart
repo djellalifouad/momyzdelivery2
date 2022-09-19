@@ -76,7 +76,7 @@ class _ConfirmPhoneNumberRegisterState extends State<ConfirmPhoneNumberRegister>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-             appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
+        appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
           InkWell(
             onTap: () {
               Get.back();
@@ -139,13 +139,13 @@ class _ConfirmPhoneNumberRegisterState extends State<ConfirmPhoneNumberRegister>
           ),
         ),
         backgroundColor: Pallete.backGroundColor,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-          ),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 24.w,
+            ),
+            child: Align(
+              alignment: Alignment.topRight,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -42,12 +42,12 @@ class OrderDetails extends StatelessWidget {
               color: Pallete.greyColorPrinciple),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-        ),
-        child: SingleChildScrollView(
-            child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
@@ -500,7 +500,8 @@ class OrderDetails extends StatelessWidget {
               height: 12.h,
             ),
           ],
-        )),
+        ),
+        ),
       ),
     );
   }

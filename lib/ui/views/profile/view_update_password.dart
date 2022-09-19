@@ -21,20 +21,19 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "update_password".tr,
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.black,
+          centerTitle: true,
+          title: Text(
+            "update_password".tr,
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
+              color: Colors.black,
+            ),
           ),
-        ),
-        elevation: 0,
-        leadingWidth: 42.sp,
-        backgroundColor: Colors.white,
-        actions: [
-          InkWell(
+          elevation: 0,
+          leadingWidth: 42.sp,
+          backgroundColor: Colors.white,
+          leading: InkWell(
             onTap: () {
               Get.back();
             },
@@ -45,20 +44,18 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
                 child: Container(
                     padding: EdgeInsets.all(5.sp),
                     child: Icon(
-                      Icons.arrow_forward,
+                      Icons.arrow_back,
                       color: Colors.black,
                     ))),
-          )
-        ],
-      ),
+          )),
       backgroundColor: Pallete.backGroundColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-        ),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
             child: Form(
               key: updatePasswordController.formKey,
               child: Column(
@@ -80,7 +77,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
                     ),
                     TextFormFieldComponent(
                       title: 'enter_new_password'.tr,
-                      icon: 'assets/icons/profile.svg',
+                      icon: 'assets/icons/password.svg',
                       icon2: '',
                       validator: (val) {
                         if (val!.length < 8) {
@@ -106,7 +103,7 @@ class _UpdatePasswordWidgetState extends State<UpdatePasswordWidget> {
                     ),
                     TextFormFieldComponent(
                       title: 'enter_new_password2'.tr,
-                      icon: 'assets/icons/profile.svg',
+                      icon: 'assets/icons/password.svg',
                       icon2: '',
                       validator: (val) {
                         if (val!.length < 8) {

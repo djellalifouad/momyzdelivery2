@@ -20,15 +20,18 @@ class Login2View extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Pallete.backGroundColor,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-          ),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 24.w,
+            ),
+            child: Align(
+              alignment: Alignment.topRight,
               child: Form(
                 key: registerController.formKey,
+                onChanged: () {
+                  registerController.formKey.currentState!.validate();
+                },
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -164,7 +167,7 @@ class Login2View extends StatelessWidget {
                       ),
                       TextFormFieldComponent(
                         title: 'password'.tr,
-                        icon: 'assets/icons/profile.svg',
+                        icon: 'assets/icons/password.svg',
                         icon2: '',
                         validator: (val) {
                           if (val!.length < 8) {
@@ -190,7 +193,7 @@ class Login2View extends StatelessWidget {
                       ),
                       TextFormFieldComponent(
                         title: 'confirm_password'.tr,
-                        icon: 'assets/icons/profile.svg',
+                        icon: 'assets/icons/password.svg',
                         icon2: '',
                         validator: (val) {
                           if (val! !=

@@ -25,13 +25,13 @@ class CarInformationRegister extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Pallete.backGroundColor,
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 24.w,
-          ),
+        body: SingleChildScrollView(
           child: Align(
             alignment: Alignment.topRight,
-            child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 24.w,
+              ),
               child: Form(
                 key: controller.formKey,
                 child: Column(

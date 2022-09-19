@@ -9,43 +9,49 @@ import '../../../constant/pallete.const.dart';
 import '../../../controller/controller.login.dart';
 import '../components/component_button.dart';
 import '../components/component_textField.dart';
+
 class ChangePasswordWidget1 extends StatefulWidget {
   ChangePasswordWidget1({Key? key}) : super(key: key);
   @override
   State<ChangePasswordWidget1> createState() => _ChangePasswordWidget1State();
 }
+
 class _ChangePasswordWidget1State extends State<ChangePasswordWidget1> {
   final changePasswordController = Get.put(ChangePasswordController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.white, elevation: 0, actions: [
-        InkWell(
-          onTap: () {
-            Get.back();
-          },
-          child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10.w,
-              ),
-              child: Container(
-                  padding: EdgeInsets.all(5.sp),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.black,
-                  ))),
-        )
-      ]),
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.w,
+                ),
+                child: Container(
+                    padding: EdgeInsets.all(5.sp),
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ))),
+          )),
       backgroundColor: Pallete.backGroundColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-        ),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
             child: Form(
               key: changePasswordController.formKey,
+              onChanged: () {
+                changePasswordController.formKey.currentState!.validate();
+              },
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -89,7 +95,7 @@ class _ChangePasswordWidget1State extends State<ChangePasswordWidget1> {
                     ),
                     TextFormFieldComponent(
                       title: 'enter_new_password'.tr,
-                      icon: 'assets/icons/profile.svg',
+                      icon: 'assets/icons/password.svg',
                       icon2: '',
                       validator: (val) {
                         if (val!.length < 8) {
@@ -115,7 +121,7 @@ class _ChangePasswordWidget1State extends State<ChangePasswordWidget1> {
                     ),
                     TextFormFieldComponent(
                       title: 'enter_new_password2'.tr,
-                      icon: 'assets/icons/profile.svg',
+                      icon: 'assets/icons/password.svg',
                       icon2: '',
                       validator: (val) {
                         if (val!.length < 8) {

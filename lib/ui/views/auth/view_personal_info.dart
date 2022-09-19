@@ -23,15 +23,18 @@ class PersonalInfoView extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Pallete.backGroundColor,
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 24.w,
-        ),
-        child: Align(
-          alignment: Alignment.topRight,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 24.w,
+          ),
+          child: Align(
+            alignment: Alignment.topRight,
             child: Form(
               key: controller.formKey,
+              onChanged: () {
+                controller.formKey.currentState!.validate();
+              },
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
