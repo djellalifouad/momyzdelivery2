@@ -29,9 +29,7 @@ class Login2View extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Form(
                 key: registerController.formKey,
-                onChanged: () {
-                  registerController.formKey.currentState!.validate();
-                },
+                onChanged: () {},
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

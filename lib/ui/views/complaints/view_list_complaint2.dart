@@ -35,7 +35,6 @@ class _ListComplaint2State extends State<ListComplaint2> {
           })),
       appBar: AppBar(
         backgroundColor: Pallete.backGroundColor2,
-      
         leading: InkWell(
           onTap: () {
             Get.back();
@@ -47,7 +46,7 @@ class _ListComplaint2State extends State<ListComplaint2> {
               child: Container(
                   padding: EdgeInsets.all(5.sp),
                   child: Icon(
-                    Icons.arrow_forward,
+                    Icons.arrow_back,
                     color: Colors.black,
                   ))),
         ),

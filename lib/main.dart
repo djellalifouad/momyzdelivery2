@@ -72,7 +72,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     }
   }
 }
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -99,7 +98,6 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends State<MyApp> {
   Future<void> foregroundMessageHandler() async {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -118,7 +116,6 @@ class _MyAppState extends State<MyApp> {
       }
     });
   }
-
   @override
   void initState() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -160,7 +157,6 @@ class _MyAppState extends State<MyApp> {
     });
     super.initState();
   }
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -172,7 +168,7 @@ class _MyAppState extends State<MyApp> {
               title: "Momys Delivery",
               translations: LocalString(),
               locale: GetStorage().read("lang").toString() == "en"
-                  ? Locale('ar', "AR")
+                  ? Locale('en', "US")
                   : Locale('ar', 'AR'),
               theme: ThemeData(
                 primaryColor: Pallete.pinkColorPrinciple,
@@ -188,7 +184,6 @@ class _MyAppState extends State<MyApp> {
             ));
   }
 }
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;

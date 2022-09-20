@@ -100,9 +100,10 @@ class MakeComplaint extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 14.sp, fontWeight: FontWeight.w400),
                       maxLines: 5,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: Color.fromRGBO(252, 250, 250, 1),
+                        fillColor: Pallete.backGroundColor2,
                         hintText: 'complaint_body_desc2'.tr,
                         focusedBorder: OutlineInputBorder(
                           borderSide:

@@ -27,7 +27,7 @@ class _ListComplaintState extends State<ListComplaint> {
               child: Container(
                   padding: EdgeInsets.all(5.sp),
                   child: Icon(
-                    Icons.arrow_forward,
+                    Icons.arrow_back,
                     color: Colors.black,
                   ))),
         ),

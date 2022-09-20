@@ -50,6 +50,7 @@ class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       key: fieldKey,
       onTap: () {
         final RenderBox renderBox =
