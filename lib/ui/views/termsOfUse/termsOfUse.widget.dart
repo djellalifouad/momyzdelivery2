@@ -50,23 +50,26 @@ class _PrivacyPolicy2State extends State<PrivacyPolicy2> {
               ),
             ),
           ),
-          body: controller.isGettingTerms
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Builder(builder: (context) {
-                  if (controller.terms == "") {
-                    return Center(child: Text('terms_of_use_empty'.tr));
-                  }
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30.w),
-                      child: HtmlWidget(
-                        controller.terms,
+          body: Directionality(
+            textDirection: TextDirection.ltr,
+            child: controller.isGettingTerms
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Builder(builder: (context) {
+                    if (controller.terms == "") {
+                      return Center(child: Text('terms_of_use_empty'.tr));
+                    }
+                    return SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        child: HtmlWidget(
+                          controller.terms,
+                        ),
                       ),
-                    ),
-                  );
-                }));
+                    );
+                  }),
+          ));
     });
   }
 }

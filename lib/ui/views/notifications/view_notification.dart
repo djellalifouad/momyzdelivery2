@@ -181,6 +181,69 @@ class _NotificationsState extends State<Notifications> {
                                         ),
                                       );
                                     }
+                                    if (controller.notifications[index].route ==
+                                        "home") {
+                                      return Padding(
+                                        padding: EdgeInsets.only(bottom: 10.h),
+                                        child: Row(
+                                          children: [
+                                            Image.asset(
+                                                'assets/images/test.png'),
+                                            SizedBox(width: 10.w),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  width: 0.7.sw,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        controller
+                                                            .notifications[
+                                                                index]
+                                                            .title,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 14.sp,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        difference,
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          fontSize: 11.sp,
+                                                          color: Pallete
+                                                              .pinkColorPrinciple,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 4.h,
+                                                ),
+                                                Text(
+                                                  controller
+                                                      .notifications[index]
+                                                      .body,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 11.sp,
+                                                    color: Pallete.greyText,
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }
                                     return InkWell(
                                       onTap: () {
                                         controller.navigateNotication(

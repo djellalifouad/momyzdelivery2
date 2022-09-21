@@ -45,25 +45,28 @@ class _PrivacyPolicyState extends State<PrivacyPolicy> {
               ),
             ),
           ),
-          body: controller.isGettingPrivacy
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Builder(builder: (context) {
-                  if (controller.privacyPolicy == "") {
+          body: Directionality(
+            textDirection: TextDirection.ltr,
+            child: controller.isGettingPrivacy
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Builder(builder: (context) {
                     if (controller.privacyPolicy == "") {
-                      return Center(child: Text('privacy_policy_empty'.tr));
+                      if (controller.privacyPolicy == "") {
+                        return Center(child: Text('privacy_policy_empty'.tr));
+                      }
                     }
-                  }
-                  return SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30.w),
-                      child: HtmlWidget(
-                        controller.privacyPolicy,
+                    return SingleChildScrollView(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        child: HtmlWidget(
+                          controller.privacyPolicy,
+                        ),
                       ),
-                    ),
-                  );
-                }));
+                    );
+                  }),
+          ));
     });
   }
 }
